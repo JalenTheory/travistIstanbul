@@ -16,6 +16,7 @@ public class HelperClass extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(UserTableClass.createUserTable());
+		db.execSQL(PlaceTableClass.createPlaceTable());
 	}
 
 	@Override
@@ -24,5 +25,10 @@ public class HelperClass extends SQLiteOpenHelper {
 		
 	}
 	 
-
+public static Context provideDBContext (){
+	
+	
+	
+	return null;
+}
 }
