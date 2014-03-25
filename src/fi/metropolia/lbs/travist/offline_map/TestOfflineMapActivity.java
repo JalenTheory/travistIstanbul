@@ -8,27 +8,47 @@ import java.io.OutputStream;
 
 import org.mapsforge.android.maps.MapActivity;
 import org.mapsforge.android.maps.MapView;
+import org.mapsforge.android.maps.overlay.ArrayItemizedOverlay;
+import org.mapsforge.android.maps.overlay.OverlayItem;
+import org.mapsforge.core.GeoPoint;
 import org.mapsforge.map.reader.header.FileOpenResult;
 
-import fi.metropolia.lbs.travist.TravistIstanbulActivity;
+import travist.pack.R;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+import fi.metropolia.lbs.travist.TravistIstanbulActivity;
 
 
 
 public class TestOfflineMapActivity extends MapActivity {
 	private final String TAG = "travist debug";
+	
+	private MapView mapView;
+	
+	// used for POIs
+	ArrayItemizedOverlay itemizedOverlay; 
+	Drawable defaultMarker;
+	
 
 	protected void onCreate( Bundle savedInstanceState) {
 		Log.d(TAG, getClass().getSimpleName() + ": onCreate()");
 		super.onCreate(savedInstanceState);
 		
-		MapView mapView = new MapView(this);
+		defaultMarker = getResources()
+				.getDrawable(R.drawable.ic_launcher);
+		
+		// Shows the offline map
+		mapView = new MapView(this);
 		mapView.setClickable(true);
 		mapView.setBuiltInZoomControls(true);
+		
+		// Shows POIs
+		itemizedOverlay = new ArrayItemizedOverlay(defaultMarker);
+		mapView.getOverlays().add(itemizedOverlay);
 		
 		// Using map from assets with a Toast informing the user
 		// if it's not found.
@@ -45,8 +65,25 @@ public class TestOfflineMapActivity extends MapActivity {
 		
 		Log.d(TAG, getClass().getSimpleName() + ": setting map file to map view");
 		setContentView(mapView);
+		
+		testPOI();
 	}
 	
+	public void testPOI() {
+		// Check coordinates on openStreetMap.org. 
+		// lat and lng need to be in the map area (istanbul)
+		double lat = 41.0096334;
+		double lng = 28.9651646;
+		String title = "testing site";
+		String description = "Something to do here. Not sure what";
+		 createPOI(lat, lng, title, description);
+	}
+	public void createPOI(double lat, double lng, String title, String description) {
+		GeoPoint gp = new GeoPoint(lat, lng);
+		OverlayItem item = new OverlayItem(gp, title, description);
+		itemizedOverlay.addItem(item);
+		mapView.refreshDrawableState();
+	}
 	private void goBack() {
 		Log.d(TAG, getClass().getSimpleName() + ": goBack()");
 		// Supposed to take the user back to the main screen
