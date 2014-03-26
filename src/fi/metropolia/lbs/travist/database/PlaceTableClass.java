@@ -16,25 +16,26 @@ public class PlaceTableClass {
 
 
 public static String createPlaceTable(){
-	String createTableQuery = "CREATE TABLE IF NOT EXISTS"
-			+TABLE_NAME+"("
-			+ID
+	String createTableQuery = "CREATE TABLE IF NOT EXISTS "
+			+TABLE_NAME 
+			+"("
+			+ ID
 			+" INTEGER PRIMARY KEY AUTOINCREMENT, "
 			+ PLACE_ID
-			+ " TEXT ,"
-			+PLACE_NAME
-			+" TEXT ,"
-			+LONGITUDE
-			+" TEXT ,"
-			+LATITUDE
-			+" TEXT ,"
-			+ADDRESS
-			+" TEXT, "
-			+CATEGORY_ID
-			+" TEXT ,"
-			+CATEGORY_NAME
-			+" TEXT ,"+");";
+			+ " TEXT UNIQUE NOT NULL,"
+			+ PLACE_NAME
+			+ " TEXT,"
+			+ LONGITUDE
+			+ " TEXT,"
+			+ LATITUDE
+			+ " TEXT,"
+			+ ADDRESS
+			+ " TEXT, "
+			+ CATEGORY_ID
+			+ " TEXT,"
+			+ CATEGORY_NAME
+			+ " TEXT"
+			+ ");";
 	return createTableQuery;
 }
-
 }

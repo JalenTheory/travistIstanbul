@@ -8,23 +8,22 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".FoursquareActivity" >
 
-    
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="button1"
+        android:text="venues near Istanbul" />
 
-		<Button
-		    android:id="@+id/button1"
-		    android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:onClick="button1"
-	        android:text="venues near Istanbul"/>
-		<Button
-		    android:id="@+id/button2"
-		    android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:onClick="button2"
-	        android:text="search cafe"/>"
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="button2"
+        android:text="search cafe" />
+"
 
-		
-		<TextView
+    <TextView
         android:id="@+id/tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

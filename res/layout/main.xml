@@ -3,8 +3,8 @@
     android:id="@+id/main_view_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" 
-    android:background="#2792c9">
+    android:background="#2792c9"
+    android:orientation="vertical" >
 
     <ImageView
         android:id="@+id/imageView1"
@@ -12,5 +12,45 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top|center_horizontal"
         android:src="@drawable/travist_banner" />
+
+    <!-- insert -->
+    <Button
+        android:id="@+id/insert"
+        android:text="insert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:onClick="insertIntoDb" >
+    </Button>
+    
+    <!-- query -->
+    <Button
+        android:id="@+id/query"
+        android:text="query"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:onClick="queryFromDb" >
+    </Button>
+
+    <!-- delete -->
+    <Button
+        android:id="@+id/delete"
+        android:text="delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:onClick="deleteFromDb" >
+    </Button>
+
+    <!-- update -->
+    <Button
+        android:id="@+id/update"
+        android:text="update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:onClick="updateDb" >
+    </Button>
 
 </LinearLayout>
