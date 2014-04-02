@@ -1,0 +1,77 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:layout_weight="1"
+    tools:context=".MainActivity"
+    android:background="@drawable/travist_half" >
+
+    
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+	    <ImageView
+	        android:id="@+id/todo_button"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:src="@drawable/todo_button" />
+	</LinearLayout>
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_weight="1"
+	    android:orientation="horizontal" >
+		<LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:orientation="horizontal" >
+	    	<TextView
+		        android:id="@+id/text_place"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Place"
+		        android:layout_marginLeft="5dp"
+		        android:layout_marginTop="3dp"
+		        android:textAppearance="?android:attr/textAppearanceSmall" />
+	    	</LinearLayout>
+	   	    <LinearLayout 
+	   	        android:layout_width="match_parent"
+	   	        android:layout_height="wrap_content"
+	   	        android:layout_weight="1"
+	   	        android:orientation="horizontal" >
+		    	<TextView
+			        android:id="@+id/text_address"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:text="Address"
+			        android:layout_marginLeft="5dp"
+			        android:layout_marginTop="3dp"
+			        android:textAppearance="?android:attr/textAppearanceSmall" />
+	   	</LinearLayout>
+   	</LinearLayout>
+	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="20"
+        android:orientation="vertical" >
+	
+	    <ListView
+	        android:id="@+id/todo_list"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        
+	        android:layout_marginTop="20dp" >
+	    </ListView>
+    </LinearLayout>
+
+</LinearLayout>

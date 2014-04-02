@@ -22,8 +22,6 @@ import android.util.Log;
 import android.widget.Toast;
 import fi.metropolia.lbs.travist.TravistIstanbulActivity;
 
-
-
 public class TestOfflineMapActivity extends MapActivity {
 	private final String TAG = "travist debug";
 	
@@ -33,7 +31,6 @@ public class TestOfflineMapActivity extends MapActivity {
 	ArrayItemizedOverlay itemizedOverlay; 
 	Drawable defaultMarker;
 	
-
 	protected void onCreate( Bundle savedInstanceState) {
 		Log.d(TAG, getClass().getSimpleName() + ": onCreate()");
 		super.onCreate(savedInstanceState);
@@ -76,14 +73,16 @@ public class TestOfflineMapActivity extends MapActivity {
 		double lng = 28.9651646;
 		String title = "testing site";
 		String description = "Something to do here. Not sure what";
-		 createPOI(lat, lng, title, description);
+		createPOI(lat, lng, title, description);
 	}
+	
 	public void createPOI(double lat, double lng, String title, String description) {
 		GeoPoint gp = new GeoPoint(lat, lng);
 		OverlayItem item = new OverlayItem(gp, title, description);
 		itemizedOverlay.addItem(item);
 		mapView.refreshDrawableState();
 	}
+	
 	private void goBack() {
 		Log.d(TAG, getClass().getSimpleName() + ": goBack()");
 		// Supposed to take the user back to the main screen
@@ -137,9 +136,7 @@ public class TestOfflineMapActivity extends MapActivity {
 			}
 			
 			outputStream.close();
-			inputStream.close();
-			
-			
+			inputStream.close();	
 		} catch (IOException e) {
 			// TODO file not found Toast-msg
 			Log.d(TAG, getClass().getSimpleName() + ": File creation failed");
@@ -148,6 +145,5 @@ public class TestOfflineMapActivity extends MapActivity {
 		
 		Log.d(TAG, getClass().getSimpleName() + ": File creation succeeded");
 		return outputFile;
-	}
-	
+	}	
 }
