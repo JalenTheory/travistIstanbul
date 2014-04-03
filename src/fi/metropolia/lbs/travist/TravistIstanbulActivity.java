@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity;
 
 public class TravistIstanbulActivity extends Activity {
+	public static final String TAG = "travist debug";
+	
 	private Button createButton(final Class<?> testCaseClass) {
 		Button button = new Button(this);
 		button.setText(testCaseClass.getSimpleName());
