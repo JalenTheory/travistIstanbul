@@ -13,35 +13,117 @@ public final class R {
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
          */
-        public static int activity_horizontal_margin=0x7f040000;
-        public static int activity_vertical_margin=0x7f040001;
+        public static final int activity_horizontal_margin=0x7f040000;
+        public static final int activity_vertical_margin=0x7f040001;
     }
     public static final class drawable {
-        public static int flag_green=0x7f020000;
-        public static int flag_red=0x7f020001;
-        public static int ic_launcher=0x7f020002;
-        public static int travist_banner=0x7f020003;
-        public static int travist_icon=0x7f020004;
+        public static final int achievements_button=0x7f020000;
+        public static final int browse_button=0x7f020001;
+        public static final int cancel=0x7f020002;
+        public static final int checkins_button=0x7f020003;
+        public static final int currency_sign=0x7f020004;
+        public static final int dollar_sign=0x7f020005;
+        public static final int emergency_button=0x7f020006;
+        public static final int exchange_button=0x7f020007;
+        public static final int exchange_rate_background=0x7f020008;
+        public static final int exchange_rates_button=0x7f020009;
+        public static final int header=0x7f02000a;
+        public static final int ic_launcher=0x7f02000b;
+        public static final int locked=0x7f02000c;
+        public static final int login=0x7f02000d;
+        public static final int login_password_background=0x7f02000e;
+        public static final int logoff=0x7f02000f;
+        public static final int matchmaking_button=0x7f020010;
+        public static final int matchmaking_icon=0x7f020011;
+        public static final int nationality=0x7f020012;
+        public static final int row_item=0x7f020013;
+        public static final int saved_button=0x7f020014;
+        public static final int saved_item_address=0x7f020015;
+        public static final int saved_item_button=0x7f020016;
+        public static final int saved_item_place=0x7f020017;
+        public static final int send=0x7f020018;
+        public static final int todo_button=0x7f020019;
+        public static final int todo_item_address=0x7f02001a;
+        public static final int todo_item_button=0x7f02001b;
+        public static final int todo_item_place=0x7f02001c;
+        public static final int travist_banner=0x7f02001d;
+        public static final int travist_half=0x7f02001e;
+        public static final int travist_icon=0x7f02001f;
+        public static final int unlocked=0x7f020020;
+        public static final int username=0x7f020021;
+        public static final int welcome_button=0x7f020022;
     }
     public static final class id {
-        public static int action_settings=0x7f080005;
-        public static int button1=0x7f080000;
-        public static int button2=0x7f080001;
-        public static int imageView1=0x7f080004;
-        public static int main_view_layout=0x7f080003;
-        public static int tv=0x7f080002;
+        public static final int action_settings=0x7f08002d;
+        public static final int button1=0x7f080000;
+        public static final int button2=0x7f080001;
+        public static final int categories_list=0x7f080005;
+        public static final int currency_sign=0x7f080015;
+        public static final int delete=0x7f08001c;
+        public static final int dialog_cancel_background=0x7f08000c;
+        public static final int dialog_cancel_text=0x7f080010;
+        public static final int dialog_name=0x7f08000d;
+        public static final int dialog_name_background=0x7f080009;
+        public static final int dialog_nationality=0x7f08000e;
+        public static final int dialog_nationality_background=0x7f08000a;
+        public static final int dialog_send_background=0x7f08000b;
+        public static final int dialog_send_text=0x7f08000f;
+        public static final int exchange_rates_currency=0x7f080016;
+        public static final int exchange_rates_list=0x7f080014;
+        public static final int exchange_rates_rate=0x7f080017;
+        public static final int header=0x7f080004;
+        public static final int imageView1=0x7f080019;
+        public static final int insert=0x7f08001a;
+        public static final int login=0x7f08001e;
+        public static final int logoff=0x7f080020;
+        public static final int main_view_layout=0x7f080018;
+        public static final int mapview=0x7f080003;
+        public static final int matchmaking_icon=0x7f08002c;
+        public static final int query=0x7f08001b;
+        public static final int row_item_background=0x7f080006;
+        public static final int row_item_category=0x7f080008;
+        public static final int row_item_category_icon=0x7f080007;
+        public static final int saved_button=0x7f080011;
+        public static final int saved_item_address=0x7f080025;
+        public static final int saved_list=0x7f080023;
+        public static final int saved_listaddress=0x7f080026;
+        public static final int saved_listname=0x7f080024;
+        public static final int text_address=0x7f080022;
+        public static final int text_currency=0x7f080012;
+        public static final int text_in_euros=0x7f080013;
+        public static final int text_place=0x7f080021;
+        public static final int todo_button=0x7f080027;
+        public static final int todo_item_address=0x7f08002a;
+        public static final int todo_list=0x7f080028;
+        public static final int todo_listaddress=0x7f08002b;
+        public static final int todo_listname=0x7f080029;
+        public static final int tv=0x7f080002;
+        public static final int update=0x7f08001d;
+        public static final int welcome_username=0x7f08001f;
     }
     public static final class layout {
-        public static int activity_main=0x7f030000;
-        public static int main=0x7f030001;
+        public static final int activity_main=0x7f030000;
+        public static final int browse=0x7f030001;
+        public static final int browse_sidebar=0x7f030002;
+        public static final int browse_sidebar_row=0x7f030003;
+        public static final int dialog=0x7f030004;
+        public static final int exchange_rates=0x7f030005;
+        public static final int exchange_rates_row=0x7f030006;
+        public static final int main=0x7f030007;
+        public static final int main_menu_locked=0x7f030008;
+        public static final int main_menu_unlocked=0x7f030009;
+        public static final int saved=0x7f03000a;
+        public static final int saved_row=0x7f03000b;
+        public static final int todo=0x7f03000c;
+        public static final int todo_matchmaking=0x7f03000d;
+        public static final int todo_row=0x7f03000e;
     }
     public static final class menu {
-        public static int main=0x7f070000;
+        public static final int main=0x7f070000;
     }
     public static final class string {
-        public static int action_settings=0x7f050001;
-        public static int app_name=0x7f050000;
-        public static int debug_tag=0x7f050002;
+        public static final int action_settings=0x7f050001;
+        public static final int app_name=0x7f050000;
     }
     public static final class style {
         /** 
@@ -54,10 +136,10 @@ public final class R {
             backward-compatibility can go here.
         
          */
-        public static int AppBaseTheme=0x7f060000;
+        public static final int AppBaseTheme=0x7f060000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static int AppTheme=0x7f060001;
+        public static final int AppTheme=0x7f060001;
     }
 }

@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import android.util.Log;
 
 public class Dlparse{
+	//downloads and parses json
 	public String url;
 	private String t = "dlparse";
 	public Dlparse(String u){

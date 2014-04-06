@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/dialog_name_background"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/username" />
+
+    <ImageView
+        android:id="@+id/dialog_nationality_background"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/dialog_name_background"
+        android:src="@drawable/nationality" />
+
+    <ImageView
+        android:id="@+id/dialog_send_background"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/dialog_nationality_background"
+        android:src="@drawable/send"
+        android:onClick="sendNotification" />
+
+    <ImageView
+        android:id="@+id/dialog_cancel_background"
+        android:layout_width="105dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/dialog_nationality_background"
+        android:src="@drawable/cancel"
+        android:onClick="dismissDialog" />
+
+    <TextView
+        android:id="@+id/dialog_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/dialog_name_background"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="17dp"
+        android:text="Name"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/dialog_nationality"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/dialog_nationality_background"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="18dp"
+        android:text="Nationality"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/dialog_send_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/dialog_send_background"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="17dp"
+        android:layout_marginLeft="25dp"
+        android:text="Send Notification"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:onClick="sendNotification" />
+
+    <TextView
+        android:id="@+id/dialog_cancel_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/dialog_send_text"
+        android:layout_alignBottom="@+id/dialog_send_text"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="25dp"
+        android:text="Cancel"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:onClick="dismissDialog" />
+
+</RelativeLayout>

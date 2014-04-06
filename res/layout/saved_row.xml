@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00000000"
+    android:orientation="horizontal"
+    android:layout_weight="1" >
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_weight="2"
+        android:orientation="horizontal"
+        android:background="@drawable/saved_item_place"
+        android:onClick="testi"
+        android:clickable="true" >
+        
+        <TextView
+	        android:id="@+id/saved_listname"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="Place name"
+	        android:layout_marginLeft="5dp"
+	        android:layout_marginTop="3dp"
+	        android:textAppearance="?android:attr/textAppearanceSmall" />
+	</LinearLayout>
+	<LinearLayout
+	    android:id="@+id/saved_item_address"
+	    android:layout_width="wrap_content"
+	    android:layout_height="30dp"
+	    android:layout_weight="2"
+	    android:orientation="horizontal"
+	    android:background="@drawable/saved_item_address"
+	    android:onClick="testi">
+	    
+        <TextView
+            android:id="@+id/saved_listaddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="3dp"
+            android:text="Address"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:onClick="testi" />
+
+	</LinearLayout>
+
+	<LinearLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_weight="2"
+	    android:orientation="horizontal"
+	    android:background="@drawable/saved_item_button"
+	    android:onClick="testi" >
+        
+
+	    
+	</LinearLayout>
+</LinearLayout>
