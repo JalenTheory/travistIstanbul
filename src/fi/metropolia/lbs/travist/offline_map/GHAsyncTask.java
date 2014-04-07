@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 
 public abstract class GHAsyncTask<A, B, C> extends AsyncTask<A, B, C> {
 	private Throwable error;
-<<<<<<< HEAD
 	
 	protected abstract C saveDoInBackground( A... params) throws Exception;
 	

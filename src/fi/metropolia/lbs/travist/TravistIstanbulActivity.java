@@ -46,9 +46,7 @@ public class TravistIstanbulActivity extends Activity {
 		// Make buttons according to Activities of test cases
 		LinearLayout linearLayout = (LinearLayout) findViewById(R.id.main_view_layout);
 		linearLayout.addView(createButton(fi.metropolia.lbs.travist.foursquare_api.FoursquareActivity.class));
-		linearLayout.addView(createButton(fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity.class));
-		
-		
+		//linearLayout.addView(createButton(fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity1.class));
 		linearLayout.addView(createButton(fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity.class));
 	}
 	
