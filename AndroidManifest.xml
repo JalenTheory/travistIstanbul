@@ -23,13 +23,7 @@
         </activity>
         <activity android:name="fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity" />
         <activity android:name="fi.metropolia.lbs.travist.foursquare_api.FoursquareActivity" />
-        
-        <!-- Content provider permission -->
-        <!-- Name is the directory of the class, authority is the AUTHORITY defined in CP -->
-        <provider 
-           	android:name="fi.metropolia.lbs.travist.database.LBSContentProvider"
-           	android:authorities="fi.metropolia.lbs.travist.contentProvider">
-        </provider>
+        <activity android:name="fi.metropolia.lbs.travist.todo.TodoActivity" />
     </application>
 
 </manifest>
