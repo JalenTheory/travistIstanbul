@@ -27,31 +27,33 @@ public final class R {
         public static final int exchange_button=0x7f020007;
         public static final int exchange_rate_background=0x7f020008;
         public static final int exchange_rates_button=0x7f020009;
-        public static final int header=0x7f02000a;
-        public static final int ic_launcher=0x7f02000b;
-        public static final int locked=0x7f02000c;
-        public static final int login=0x7f02000d;
-        public static final int login_password_background=0x7f02000e;
-        public static final int logoff=0x7f02000f;
-        public static final int matchmaking_button=0x7f020010;
-        public static final int matchmaking_icon=0x7f020011;
-        public static final int nationality=0x7f020012;
-        public static final int row_item=0x7f020013;
-        public static final int saved_button=0x7f020014;
-        public static final int saved_item_address=0x7f020015;
-        public static final int saved_item_button=0x7f020016;
-        public static final int saved_item_place=0x7f020017;
-        public static final int send=0x7f020018;
-        public static final int todo_button=0x7f020019;
-        public static final int todo_item_address=0x7f02001a;
-        public static final int todo_item_button=0x7f02001b;
-        public static final int todo_item_place=0x7f02001c;
-        public static final int travist_banner=0x7f02001d;
-        public static final int travist_half=0x7f02001e;
-        public static final int travist_icon=0x7f02001f;
-        public static final int unlocked=0x7f020020;
-        public static final int username=0x7f020021;
-        public static final int welcome_button=0x7f020022;
+        public static final int flag_green=0x7f02000a;
+        public static final int flag_red=0x7f02000b;
+        public static final int header=0x7f02000c;
+        public static final int ic_launcher=0x7f02000d;
+        public static final int locked=0x7f02000e;
+        public static final int login=0x7f02000f;
+        public static final int login_password_background=0x7f020010;
+        public static final int logoff=0x7f020011;
+        public static final int matchmaking_button=0x7f020012;
+        public static final int matchmaking_icon=0x7f020013;
+        public static final int nationality=0x7f020014;
+        public static final int row_item=0x7f020015;
+        public static final int saved_button=0x7f020016;
+        public static final int saved_item_address=0x7f020017;
+        public static final int saved_item_button=0x7f020018;
+        public static final int saved_item_place=0x7f020019;
+        public static final int send=0x7f02001a;
+        public static final int todo_button=0x7f02001b;
+        public static final int todo_item_address=0x7f02001c;
+        public static final int todo_item_button=0x7f02001d;
+        public static final int todo_item_place=0x7f02001e;
+        public static final int travist_banner=0x7f02001f;
+        public static final int travist_half=0x7f020020;
+        public static final int travist_icon=0x7f020021;
+        public static final int unlocked=0x7f020022;
+        public static final int username=0x7f020023;
+        public static final int welcome_button=0x7f020024;
     }
     public static final class id {
         public static final int action_settings=0x7f08002d;
@@ -124,6 +126,7 @@ public final class R {
     public static final class string {
         public static final int action_settings=0x7f050001;
         public static final int app_name=0x7f050000;
+        public static final int debug_tag=0x7f050002;
     }
     public static final class style {
         /** 

@@ -10,12 +10,12 @@ public abstract class GHAsyncTask<A, B, C> extends AsyncTask<A, B, C> {
 	protected C doInBackground( A... params) {
 		try {
 			return saveDoInBackground(params);
-		} catch ( Throwable t) {
+		} catch (Throwable t) {
 			error = t;
 			return null;
 		}
 	}
-	
+
 	public boolean hasError() {
 		return error != null;
 	}
@@ -25,6 +25,9 @@ public abstract class GHAsyncTask<A, B, C> extends AsyncTask<A, B, C> {
 	}
 	
 	public String getErrorMessage() {
-		return hasError() ? error.getMessage() : "No Error";
+		if (hasError()) {
+			return error.getMessage();
+		}
+		return "No Error";
 	}
 }
