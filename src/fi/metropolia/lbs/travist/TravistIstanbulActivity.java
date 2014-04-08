@@ -44,8 +44,9 @@ public class TravistIstanbulActivity extends Activity {
         linearLayout.addView(createButton(
         		fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity.class));
         
-        
-        
+        linearLayout.addView(createButton(
+        		fi.metropolia.lbs.travist.todo.TodoActivity.class));
+   
     }
     
 

@@ -23,6 +23,7 @@
         </activity>
         <activity android:name="fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity" />
         <activity android:name="fi.metropolia.lbs.travist.foursquare_api.FoursquareActivity" />
+        <activity android:name="fi.metropolia.lbs.travist.todo.TodoActivity" />
     </application>
 
 </manifest>
