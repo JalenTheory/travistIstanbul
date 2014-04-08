@@ -1,7 +1,6 @@
 package fi.metropolia.lbs.travist.database;
 
 public class PlaceTableClass {
-
 	
 	//user table
 	public static String ID ="_id";
@@ -13,7 +12,8 @@ public class PlaceTableClass {
 	public static String ADDRESS="ADDRESS";
 	public static String CATEGORY_ID="CATEGORY_ID";
 	public static String CATEGORY_NAME="CATEGORY_NAME";
-
+	public static String IS_IN_TODO="IS_IN_TODO";
+	public static String IS_IN_SAVED="IS_IN_SAVED";
 
 public static String createPlaceTable(){
 	String createTableQuery = "CREATE TABLE IF NOT EXISTS "
@@ -34,8 +34,12 @@ public static String createPlaceTable(){
 			+ CATEGORY_ID
 			+ " TEXT,"
 			+ CATEGORY_NAME
-			+ " TEXT"
+			+ " TEXT,"
+			+ IS_IN_TODO
+			+ " INTEGER,"
+			+ IS_IN_SAVED
+			+ " INTEGER"
 			+ ");";
 	return createTableQuery;
-}
+	}
 }
