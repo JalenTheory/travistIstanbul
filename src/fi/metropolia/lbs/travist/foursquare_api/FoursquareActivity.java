@@ -69,6 +69,7 @@ public class FoursquareActivity extends Activity {
 				"&client_id=" +id+
 				"&v=" +version+
 				"&limit=" +limit;
+			Log.d("asd", "url: " + url);
 		}
 		if(s=="b2"){
 			url="https://api.foursquare.com/v2/venues/search" +

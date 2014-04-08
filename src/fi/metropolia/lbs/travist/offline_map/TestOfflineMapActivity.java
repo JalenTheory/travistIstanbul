@@ -1,4 +1,5 @@
 package fi.metropolia.lbs.travist.offline_map;
+/*package fi.metropolia.lbs.travist.offline_map;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -6,11 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import org.mapsforge.android.maps.MapActivity;
-import org.mapsforge.android.maps.MapView;
-import org.mapsforge.android.maps.overlay.ArrayItemizedOverlay;
-import org.mapsforge.android.maps.overlay.OverlayItem;
-import org.mapsforge.core.GeoPoint;
+import org.mapsforge.core.model.LatLong;
+import org.mapsforge.map.android.view.MapView;
 import org.mapsforge.map.reader.header.FileOpenResult;
 
 import travist.pack.R;
@@ -20,9 +18,12 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.graphhopper.android.MainActivity;
+
 import fi.metropolia.lbs.travist.TravistIstanbulActivity;
 
-public class TestOfflineMapActivity extends MapActivity {
+public class TestOfflineMapActivity2 extends MainActivity {
 	private final String TAG = "travist debug";
 	
 	private MapView mapView;
@@ -30,13 +31,12 @@ public class TestOfflineMapActivity extends MapActivity {
 	// used for POIs
 	ArrayItemizedOverlay itemizedOverlay; 
 	Drawable defaultMarker;
-	
+
 	protected void onCreate( Bundle savedInstanceState) {
 		Log.d(TAG, getClass().getSimpleName() + ": onCreate()");
 		super.onCreate(savedInstanceState);
 		
-		defaultMarker = getResources()
-				.getDrawable(R.drawable.ic_launcher);
+		defaultMarker = getResources().getDrawable(R.drawable.ic_launcher);
 		
 		// Shows the offline map
 		mapView = new MapView(this);
@@ -77,7 +77,7 @@ public class TestOfflineMapActivity extends MapActivity {
 	}
 	
 	public void createPOI(double lat, double lng, String title, String description) {
-		GeoPoint gp = new GeoPoint(lat, lng);
+		LatLong gp = new LatLong(lat, lng);
 		OverlayItem item = new OverlayItem(gp, title, description);
 		itemizedOverlay.addItem(item);
 		mapView.refreshDrawableState();
@@ -90,7 +90,7 @@ public class TestOfflineMapActivity extends MapActivity {
 		startActivity(new Intent(this, TravistIstanbulActivity.class));
 	}
 	
-	/**
+	*//**
 	 * TODO... apache commons has IOUtils to use for file conversion
 	 * 
 	 * Handles a problem found with using AssetManager and 
@@ -98,14 +98,14 @@ public class TestOfflineMapActivity extends MapActivity {
 	 * a File and AssetManager only provides a FileInputerStream,
 	 * this will copy that file to the sd card for to use it
 	 * as a File.
-	 */
+	 *//*
 	private File convertAssetToFile(String fileName) {
 		Log.d(TAG, getClass().getSimpleName() + ": convertAsset()");
-		/*
+		
 		 import sun.misc.IOUtils;
 		 new FileOutputStream("path/to/file").write(
 		 IOUtils.readFully(inputStream, -1, false));		 
-		 */
+		 
 		AssetManager assetManager = this.getAssets();
 		InputStream inputStream;
 		File mapFile = null;
@@ -134,7 +134,6 @@ public class TestOfflineMapActivity extends MapActivity {
 			while ( (length = inputStream.read(buffer)) != -1) {
 				outputStream.write(buffer, 0, length);
 			}
-			
 			outputStream.close();
 			inputStream.close();	
 		} catch (IOException e) {
@@ -146,4 +145,4 @@ public class TestOfflineMapActivity extends MapActivity {
 		Log.d(TAG, getClass().getSimpleName() + ": File creation succeeded");
 		return outputFile;
 	}	
-}
+}*/

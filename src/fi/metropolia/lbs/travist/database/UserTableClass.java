@@ -14,7 +14,6 @@ public class UserTableClass {
 
 	// place table
 	public static String createUserTable() {
-
 		String createTableQuery = "CREATE TABLE IF NOT EXISTS "
 				+ TABLE_NAME 
 				+ "(" + ID

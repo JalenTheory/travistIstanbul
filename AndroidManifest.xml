@@ -21,7 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity" />
+        <activity android:name="fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity1" />
         <activity android:name="fi.metropolia.lbs.travist.foursquare_api.FoursquareActivity" />
         
         <!-- Content provider permission -->
