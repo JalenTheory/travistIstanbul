@@ -5,14 +5,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.json.JSONObject;
-
 import travist.pack.R;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Typeface;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,34 +18,52 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import fi.metropolia.lbs.travist.database.LBSContentProvider;
+import fi.metropolia.lbs.travist.database.PlaceTableClass;
  
-public class ExpandableAdapter extends BaseExpandableListAdapter implements Parcelable{
+public class ExpandableAdapter extends BaseExpandableListAdapter{
  
     private Context context;
     private HashMap<String, List<String>> contentMap;
-    private String tag="expandableAdapter";
-    
+    private String tag="expandableAdapter";  
     private List<String> todoList;
-    private JSONObject[] places;
     private String uid;
+    private Cursor cursor;
+    private ViewHolder holder;
     
-    public ExpandableAdapter(Context context, JSONObject[] places, int uid){
-    	this.places=places;
+    public ExpandableAdapter(
+    		Context context, 
+    		//List<String> todoList, 
+    		//HashMap<String, List<String>> contentMap
+    		Cursor cursor
+    		){
         this.context = context;
         this.uid=String.valueOf(uid);
+       //this.contentMap = contentMap;
+       //this.todoList = todoList;
+        this.cursor=cursor;
+        holder = new ViewHolder();
         prepareLists();
-        //this.contentMap = listChildData;
     }
- 
+    
+    public static class ViewHolder{
+    	public String placeName;
+    	public TextView group;
+    	public Button mapButton;
+    	public Button saveButton;
+    }
+    
     private void prepareLists(){		
 		todoList = new ArrayList<String>();
 		contentMap = new HashMap<String, List<String>>();
 		
-		for(int i=0; i<places.length;i++){
-			todoList.add(places[i].optString("PLACE_NAME")+", "+places[i].optString("CATEGORY_NAME"));
+		for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+			holder.placeName = cursor.getString(cursor.getColumnIndex(PlaceTableClass.PLACE_NAME));
+			String category = cursor.getString(cursor.getColumnIndex(PlaceTableClass.CATEGORY_NAME));
+			todoList.add(holder.placeName+", "+category);
 			List<String> list = new ArrayList<String>();
 			list.add("");
-			contentMap.put(todoList.get(i), list);
+			contentMap.put(todoList.get(cursor.getPosition()), list);
 		}
 	}
     
@@ -110,24 +126,30 @@ public class ExpandableAdapter extends BaseExpandableListAdapter implements Parc
     @Override
     public View getGroupView(final int groupPosition, boolean isExpanded,
             View convertView, ViewGroup parent) {
-        String headerTitle = (String) getGroup(groupPosition);
+    	
+        //String headerTitle = (String) getGroup(groupPosition);
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.todolist_group, null);
         }
  
+        holder.group = (TextView) convertView.findViewById(R.id.listHeader);
+        holder.group.setTypeface(null, Typeface.BOLD);
+        holder.group.setText((String) getGroup(groupPosition));
+        
+        /*
         TextView lblListHeader = (TextView) convertView
                 .findViewById(R.id.listHeader);
         lblListHeader.setTypeface(null, Typeface.BOLD);
-        lblListHeader.setText(headerTitle);
+        lblListHeader.setText(headerTitle);*/
         
-        Button mapButton = (Button) convertView.findViewById(R.id.mapButton);
-        mapButton.setFocusable(false);
-        Button saveButton = (Button) convertView.findViewById(R.id.saveButton);
-        saveButton.setFocusable(false);
+        holder.mapButton = (Button) convertView.findViewById(R.id.mapButton);
+        holder.mapButton.setFocusable(false);
+        holder.saveButton = (Button) convertView.findViewById(R.id.saveButton);
+        holder.saveButton.setFocusable(false);
         
-        mapButton.setOnClickListener(new View.OnClickListener(){
+        holder.mapButton.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent();
@@ -137,22 +159,20 @@ public class ExpandableAdapter extends BaseExpandableListAdapter implements Parc
 			}			
 		});
         
-        saveButton.setOnClickListener(new View.OnClickListener(){
+        holder.saveButton.setOnClickListener(new View.OnClickListener(){
 			@Override
-			public void onClick(View arg0) {
-				String pid = places[groupPosition].optString("PID");
-				String url = "http://users.metropolia.fi/~eetupa/Turkki/setSaved.php?pid="+pid+"&uid="+uid;
-				Log.d(tag,"adapter url: "+url);
-				UpSaved up = new UpSaved(url);
-				up.upload();
+			public void onClick(View v) {
+
+				ContentValues cv = new ContentValues();
+				cv.put(PlaceTableClass.IS_IN_SAVED, 1);
+				//Log.d(tag,"adapter onclick: "+holder.placeName);
+				context.getContentResolver().update(LBSContentProvider.PLACES_URI, cv, PlaceTableClass.PLACE_NAME+" = '"+holder.placeName +"'", null);
 			}			
 		});
         
         return convertView;
     }
  
-    
-    //PARCELABLE
     @Override
     public boolean hasStableIds() {
         return false;
@@ -162,16 +182,4 @@ public class ExpandableAdapter extends BaseExpandableListAdapter implements Parc
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
-
-	@Override
-	public int describeContents() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void writeToParcel(Parcel arg0, int arg1) {
-		// TODO Auto-generated method stub
-		
-	}
 }

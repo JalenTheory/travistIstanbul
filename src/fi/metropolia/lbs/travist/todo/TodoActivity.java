@@ -8,18 +8,19 @@ import org.json.JSONObject;
 
 import travist.pack.R;
 import android.app.Activity;
+import android.content.ContentValues;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import fi.metropolia.lbs.travist.database.LBSContentProvider;
+import fi.metropolia.lbs.travist.database.PlaceTableClass;
 
 public class TodoActivity extends Activity {
 
@@ -42,7 +43,7 @@ public class TodoActivity extends Activity {
     private int groupPosition;
     private LinearLayout listll;
     private TextView listllChild;
-    
+    private Cursor cursor;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,31 @@ public class TodoActivity extends Activity {
 		url = "http://users.metropolia.fi/~eetupa/Turkki/getTodosByUid.php?uid="
 				+ userId;
 		download = "places";
-		new Dl(download).execute();
+		
+		ContentValues cv = new ContentValues();
+		cv.put(PlaceTableClass.PLACE_ID, "111");
+		cv.put(PlaceTableClass.PLACE_NAME, "Manly Spa");
+		cv.put(PlaceTableClass.LATITUDE, "10");
+		cv.put(PlaceTableClass.LONGITUDE, "10");
+		cv.put(PlaceTableClass.ADDRESS, "Sparoad");
+		cv.put(PlaceTableClass.CATEGORY_ID, "111");
+		cv.put(PlaceTableClass.CATEGORY_NAME, "Spa");
+		cv.put(PlaceTableClass.IS_IN_TODO, "1");
+		cv.put(PlaceTableClass.IS_IN_SAVED, "0");
+		this.getContentResolver().insert(LBSContentProvider.PLACES_URI, cv);
+
+		String[] projection = new String[]{
+				PlaceTableClass.ID,
+				PlaceTableClass.PLACE_ID,
+				PlaceTableClass.PLACE_NAME,
+				PlaceTableClass.LATITUDE,
+				PlaceTableClass.LONGITUDE,
+				PlaceTableClass.ADDRESS,
+				PlaceTableClass.CATEGORY_ID,
+				PlaceTableClass.CATEGORY_NAME};
+		cursor = this.getContentResolver().query(LBSContentProvider.PLACES_URI, projection, "IS_IN_TODO = '1'", null, null);
+		
+		createList();
 	}
 	
 	class Dl extends AsyncTask<String, Void, String> {
@@ -96,11 +121,10 @@ public class TodoActivity extends Activity {
 	private void createList() {
 		//creates the expandablelistview and listeners for groups in the exp.listview
 		//prepareLists();
+		
 		expLv = (ExpandableListView) findViewById(R.id.expandableListView);
-		adapter = new ExpandableAdapter(this,
-				places,
-				userId);
-				//todoList, contentMap);
+		//adapter = new ExpandableAdapter(this, todoList, contentMap);
+		adapter = new ExpandableAdapter(this, cursor);
 		expLv.setAdapter(adapter);
 		
 		expLv.setOnGroupExpandListener(new OnGroupExpandListener(){
@@ -125,32 +149,28 @@ public class TodoActivity extends Activity {
 				}
 			}
 		});
-		/*Button showOnMap = (Button) expLv.findViewById(R.id.showOnMap);
-		if(showOnMap==null){
-			Log.d(tag,"button=null");
-		}
-		showOnMap.setOnClickListener(new View.OnClickListener(){
-
-			@Override
-			public void onClick(View arg0) {
-				
-				Log.d(tag,"buttonpressed");
-			}
-			
-		});*/
 	}
-/*
+
 	private void prepareLists(){		
 		todoList = new ArrayList<String>();
 		contentMap = new HashMap<String, List<String>>();
-		
+		/* getting todos from the server
 		for(int i=0; i<places.length;i++){
 			todoList.add(places[i].optString("PLACE_NAME")+", "+places[i].optString("CATEGORY_NAME"));
 			List<String> list = new ArrayList<String>();
 			list.add("");
 			contentMap.put(todoList.get(i), list);
+		}*/
+		
+		for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+			String place = cursor.getString(cursor.getColumnIndex(PlaceTableClass.PLACE_NAME));
+			String category = cursor.getString(cursor.getColumnIndex(PlaceTableClass.CATEGORY_NAME));
+			todoList.add(place+", "+category);
+			List<String> list = new ArrayList<String>();
+			list.add("");
+			contentMap.put(todoList.get(cursor.getPosition()), list);
 		}
-	}*/
+	}
 	
 	private void showMatches(){
 		checkList.removeAll(checkList);
