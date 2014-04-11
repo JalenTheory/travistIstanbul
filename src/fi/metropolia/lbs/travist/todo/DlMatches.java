@@ -46,7 +46,6 @@ public class DlMatches {
 			in.close();
 
 			data = sb.toString();
-			Log.d(tag, "data: " + data);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -60,7 +59,6 @@ public class DlMatches {
 		try {
 			matches = (new JSONArray(data));
 			returnArray = new JSONObject[matches.length()];
-			Log.d(tag, "length: " + matches.length());
 			for (int i = 0; i < matches.length(); i++) {
 				match = matches.optJSONObject(i);
 				returnArray[i] = match;

@@ -54,7 +54,7 @@ public final class R {
         public static final int welcome_button=0x7f020022;
     }
     public static final class id {
-        public static final int action_settings=0x7f080031;
+        public static final int action_settings=0x7f080033;
         public static final int button1=0x7f080000;
         public static final int button2=0x7f080001;
         public static final int categories_list=0x7f080005;
@@ -76,16 +76,18 @@ public final class R {
         public static final int imageView1=0x7f080019;
         public static final int insert=0x7f08001a;
         public static final int listHeader=0x7f08002f;
-        public static final int listItem=0x7f080030;
+        public static final int listItem=0x7f080032;
         public static final int login=0x7f08001e;
         public static final int logoff=0x7f080020;
         public static final int main_view_layout=0x7f080018;
+        public static final int mapButton=0x7f080031;
         public static final int mapview=0x7f080003;
         public static final int matchmaking_icon=0x7f08002e;
         public static final int query=0x7f08001b;
         public static final int row_item_background=0x7f080006;
         public static final int row_item_category=0x7f080008;
         public static final int row_item_category_icon=0x7f080007;
+        public static final int saveButton=0x7f080030;
         public static final int saved_button=0x7f080011;
         public static final int saved_item_address=0x7f080025;
         public static final int saved_list=0x7f080023;

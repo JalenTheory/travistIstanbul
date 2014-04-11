@@ -12,11 +12,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -37,6 +37,7 @@ public class TodoActivity extends Activity {
     private ExpandableListAdapter adapter;
     private ExpandableListView expLv;
     private List<String> todoList;
+    private List<String> checkList;
     private HashMap<String, List<String>> contentMap;
     private int groupPosition;
     private LinearLayout listll;
@@ -93,34 +94,52 @@ public class TodoActivity extends Activity {
 	}
 
 	private void createList() {
-		prepareLists();
+		//creates the expandablelistview and listeners for groups in the exp.listview
+		//prepareLists();
 		expLv = (ExpandableListView) findViewById(R.id.expandableListView);
-		adapter = new ExpandableAdapter(this, todoList, contentMap);
+		adapter = new ExpandableAdapter(this,
+				places,
+				userId);
+				//todoList, contentMap);
 		expLv.setAdapter(adapter);
 		
 		expLv.setOnGroupExpandListener(new OnGroupExpandListener(){
 			@Override
 			public void onGroupExpand(int gpos) {
-
-				groupPosition = gpos;
-				download="matches";				
-				int pid=0;
-				/*	TODO:
-				 * 	The pid should come from the app DB:
-				 * 	get the group title by group position from adapter and
-				 *  then the pid by group title from DB.
-				 */
-				if(groupPosition == 0){
-					pid = pid1;
-				}else if(groupPosition == 1){
-					pid = pid3;
+				checkList = (List<String>) ((ExpandableAdapter) adapter).getChildList(gpos);
+				if(checkList.get(0).equals("")){
+					groupPosition = gpos;
+					download="matches";				
+					int pid=0;
+					/*	TODO:
+					 * 	The pid should come from the app DB:
+					 * 	get the group id by group position from places[].
+					 */
+					if(groupPosition == 0){
+						pid = pid1;
+					}else if(groupPosition == 1){
+						pid = pid3;
+					}
+					url = "http://users.metropolia.fi/~eetupa/Turkki/getUsersByPid.php?pid="+pid;
+					new Dl(download).execute();
 				}
-				url = "http://users.metropolia.fi/~eetupa/Turkki/getUsersByPid.php?pid="+pid;
-				new Dl(download).execute();			
 			}
 		});
-	}
+		/*Button showOnMap = (Button) expLv.findViewById(R.id.showOnMap);
+		if(showOnMap==null){
+			Log.d(tag,"button=null");
+		}
+		showOnMap.setOnClickListener(new View.OnClickListener(){
 
+			@Override
+			public void onClick(View arg0) {
+				
+				Log.d(tag,"buttonpressed");
+			}
+			
+		});*/
+	}
+/*
 	private void prepareLists(){		
 		todoList = new ArrayList<String>();
 		contentMap = new HashMap<String, List<String>>();
@@ -131,15 +150,13 @@ public class TodoActivity extends Activity {
 			list.add("");
 			contentMap.put(todoList.get(i), list);
 		}
-	}
+	}*/
 	
 	private void showMatches(){
-		List<String> list = (List<String>) ((ExpandableAdapter) adapter).getChildList(groupPosition);
-		list.removeAll(list);
+		checkList.removeAll(checkList);
 		for(int i=0;i<matches.length;i++){
-			if(!matches[i].optString("UID").equals(String.valueOf(userId))){
-
-				list.add(matches[i].optString("NAME")+", "+matches[i].optString("COUNTRY"));			
+			if(!matches[i].optString("UID").equals(String.valueOf(userId))){	
+				checkList.add(matches[i].optString("NAME")+", "+matches[i].optString("COUNTRY"));			
 				((BaseExpandableListAdapter) adapter).notifyDataSetChanged();
 				((BaseExpandableListAdapter) adapter).notifyDataSetInvalidated();
 			}
