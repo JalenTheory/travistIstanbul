@@ -43,10 +43,10 @@ import com.graphhopper.util.StopWatch;
 
 public class TestOfflineMapActivity extends Activity {
 
-	private MapView mapView;
-	private TileCache tileCache;
-	private GraphHopperAPI hopper;
-	private MapViewPosition mapViewPosition;
+	protected MapView mapView;
+	protected TileCache tileCache;
+	protected GraphHopperAPI hopper;
+	protected MapViewPosition mapViewPosition;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -229,10 +229,10 @@ public class TestOfflineMapActivity extends Activity {
 		calcPath(41.01384, 28.949659999999994, 41.0426483, 28.950041908777372);
 	}
 
-	private void logD(String logText) {
+	protected void logD(String logText) {
 		Log.d("Testing", logText);
 	}
-	private void logD(String logText, Object o) {
+	protected void logD(String logText, Object o) {
 		Log.d("Testing", o.getClass().getSimpleName() + ": " + logText);
 	}
 }

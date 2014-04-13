@@ -1,58 +1,12 @@
 package fi.metropolia.lbs.travist.foursquare_api;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Log;
 
-public class Dlparse{
-	//downloads and parses json
-	public String url;
-	private String t = "dlparse";
-	public Dlparse(String u){
-		url=u;
-	}
-	public String download(){
-		String finaldata="test";
-		String data="";
-		BufferedReader in = null;
-		Log.d("moi","url: "+url);
-		HttpClient client = new DefaultHttpClient();
-		HttpGet request = new HttpGet(url);
-		
-		try {
-			HttpResponse response = client.execute(request);
-			in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-			
-			StringBuffer sb = new StringBuffer("");
-			String l = "";
-			String nl = System.getProperty("line.separator");
-			while((l=in.readLine())!=null){
-				sb.append(l+nl);
-			}
-			in.close();
-				
-			data = sb.toString();
-			Log.d(t,"parsekutsu");
-			Log.d(t,"parsekutsu2");
-			finaldata=parse(data);
-			
-		}catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return finaldata;
-	}
+public class JsonParser {
 	public String parse(String data){
 		
 		JSONObject response;
