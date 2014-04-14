@@ -3,8 +3,7 @@
     package="travist.pack"
     android:versionCode="1"
     android:versionName="1.0" >
-
-    <uses-sdk
+	<uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="17" />
 
@@ -35,10 +34,14 @@
 
         <!-- Content provider permission -->
         <!-- Name is the directory of the class, authority is the AUTHORITY defined in CP -->
+        <activity android:name="fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity" />
+        <activity android:name="fi.metropolia.lbs.travist.foursquare_api.FoursquareActivity" />
+        <activity android:name="fi.metropolia.lbs.travist.todo.TodoActivity" />
+        <activity android:name="fi.metropolia.lbs.travist.savedlist.SavedlistActivity" />
+        
         <provider
-            android:name="fi.metropolia.lbs.travist.database.LBSContentProvider"
-            android:authorities="fi.metropolia.lbs.travist.contentProvider" >
-        </provider>
+	    android:name="fi.metropolia.lbs.travist.database.LBSContentProvider"
+	    android:authorities="fi.metropolia.lbs.travist.contentProvider" />
     </application>
 
 </manifest>
