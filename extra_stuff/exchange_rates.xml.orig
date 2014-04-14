@@ -1,0 +1,163 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+<<<<<<< HEAD
+    android:layout_weight="1"
+    android:background="@drawable/travist_half"
+    android:orientation="vertical"
+=======
+    
+>>>>>>> POIs
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+<<<<<<< HEAD
+    tools:context=".MainActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/saved_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/exchange_rates_button" />
+    </LinearLayout>
+=======
+    android:orientation="vertical"
+    android:layout_weight="1"
+    tools:context=".MainActivity"
+    android:background="@drawable/travist_half" >
+
+    
+>>>>>>> POIs
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+<<<<<<< HEAD
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/text_currency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="3dp"
+                android:text="Currency"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/text_in_euros"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="3dp"
+                android:text="In Euros"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+=======
+        android:orientation="vertical" >
+	    <ImageView
+	        android:id="@+id/saved_button"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:src="@drawable/exchange_rates_button" />
+	</LinearLayout>
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_weight="1"
+	    android:orientation="horizontal" >
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:orientation="horizontal" >
+	        
+	    </LinearLayout>
+		<LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:orientation="horizontal" >
+	    	<TextView
+		        android:id="@+id/text_currency"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Currency"
+		        android:layout_marginLeft="5dp"
+		        android:layout_marginTop="3dp"
+		        android:textAppearance="?android:attr/textAppearanceSmall" />
+	    	</LinearLayout>
+	   	    <LinearLayout 
+	   	        android:layout_width="match_parent"
+	   	        android:layout_height="wrap_content"
+	   	        android:layout_weight="1"
+	   	        android:orientation="horizontal" >
+		    	<TextView
+			        android:id="@+id/text_in_euros"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:text="In Euros"
+			        android:layout_marginLeft="5dp"
+			        android:layout_marginTop="3dp"
+			        android:textAppearance="?android:attr/textAppearanceSmall" />
+	   	</LinearLayout>
+   	</LinearLayout>
+	<LinearLayout
+>>>>>>> POIs
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="20"
+        android:orientation="vertical" >
+<<<<<<< HEAD
+
+        <ListView
+            android:id="@+id/exchange_rates_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp" >
+        </ListView>
+=======
+	
+	    <ListView
+	        android:id="@+id/exchange_rates_list"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        
+	        android:layout_marginTop="20dp" >
+	    </ListView>
+>>>>>>> POIs
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,4 +1,4 @@
-package fi.metropolia.filbs.travist.offline_gps;
+package fi.metropolia.lbs.travist.offline_gps;
 
 import java.io.File;
 

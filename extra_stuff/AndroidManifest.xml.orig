@@ -3,7 +3,8 @@
     package="travist.pack"
     android:versionCode="1"
     android:versionName="1.0" >
-	<uses-sdk
+
+    <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="17" />
 
@@ -25,23 +26,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
+        <activity android:name="fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity1" />
+        <activity android:name="fi.metropolia.lbs.travist.foursquare_api.FoursquareActivity" />
+        
+=======
 
         <!-- OfflineMap -->
         <activity android:name="fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity"/>
 
         <!-- Leppävaara -->
-        <activity android:name="fi.metropolia.lbs.travist.offline_gps.TravistLeppavaaraActivity" />
+        <activity android:name="fi.metropolia.filbs.travist.offline_gps.TravistLeppavaaraActivity" />
 
+>>>>>>> offline_map_d
         <!-- Content provider permission -->
         <!-- Name is the directory of the class, authority is the AUTHORITY defined in CP -->
-        <activity android:name="fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity" />
-        <activity android:name="fi.metropolia.lbs.travist.foursquare_api.FoursquareActivity" />
-        <activity android:name="fi.metropolia.lbs.travist.todo.TodoActivity" />
-        <activity android:name="fi.metropolia.lbs.travist.savedlist.SavedlistActivity" />
-        
         <provider
-	    android:name="fi.metropolia.lbs.travist.database.LBSContentProvider"
-	    android:authorities="fi.metropolia.lbs.travist.contentProvider" />
+            android:name="fi.metropolia.lbs.travist.database.LBSContentProvider"
+            android:authorities="fi.metropolia.lbs.travist.contentProvider" >
+        </provider>
     </application>
 
 </manifest>

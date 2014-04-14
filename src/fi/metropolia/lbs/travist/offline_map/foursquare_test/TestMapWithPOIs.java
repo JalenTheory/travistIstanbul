@@ -20,7 +20,7 @@ public class TestMapWithPOIs extends TestOfflineMapActivity{
 	
 	
 	private Marker addMarker(LatLong marker, String drawable) {
-		logD("Adding marker");
+		//logD("Adding marker");
 		Drawable markerIcon = getResources().
 				getDrawable(getResources().getIdentifier(drawable, null, null));
 		Bitmap bm = AndroidGraphicFactory.convertToBitmap(markerIcon);

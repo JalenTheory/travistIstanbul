@@ -19,6 +19,7 @@ public class JsonDownloader {
 	String id = "LTVFBAO5CGUDU5GFKTRGTNWII1HQBLLYRXX2J5E2ONUMJA20";
 	String version = "20140314";
 	String categoryid;
+	String t = "debuggaa";
 
 	public String download() {
 		String finaldata = "test";
@@ -53,6 +54,11 @@ public class JsonDownloader {
 		return finaldata;
 	}
 	
+	private String parse(String data) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	class Dl extends AsyncTask<String, Void, String> {
 		String returned;
 
@@ -69,7 +75,7 @@ public class JsonDownloader {
 		@Override
 		protected void onPostExecute(String result) {
 			Log.d("moi", "returned: " + returned);
-			tv.setText(returned);
+			//tv.setText(returned);
 		}
 	}
 }
