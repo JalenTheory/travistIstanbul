@@ -26,6 +26,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
+        <activity android:name="fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity1" />
+        <activity android:name="fi.metropolia.lbs.travist.foursquare_api.FoursquareActivity" />
+        
+=======
 
         <!-- OfflineMap -->
         <activity android:name="fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity"/>
@@ -33,6 +38,7 @@
         <!-- Leppävaara -->
         <activity android:name="fi.metropolia.filbs.travist.offline_gps.TravistLeppavaaraActivity" />
 
+>>>>>>> offline_map_d
         <!-- Content provider permission -->
         <!-- Name is the directory of the class, authority is the AUTHORITY defined in CP -->
         <provider

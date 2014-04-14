@@ -13,10 +13,11 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import fi.metropolia.lbs.travist.database.LBSContentProvider;
 import fi.metropolia.lbs.travist.database.PlaceTableClass;
+<<<<<<< HEAD
+import fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity1;
+=======
 import fi.metropolia.lbs.travist.offline_map.TestOfflineMapFragment;
-
-public class TravistIstanbulActivity extends Activity {
-	public static final String TAG = "travist debug";
+>>>>>>> offline_map_d
 
 public class TravistIstanbulActivity extends Activity {
 	private Button createButton(final Class<?> testCaseClass) {
@@ -34,7 +35,11 @@ public class TravistIstanbulActivity extends Activity {
 	}
 
 	public void openMap(View view) {
+<<<<<<< HEAD
+		Intent intent = new Intent(this, TestOfflineMapActivity1.class);
+=======
 		Intent intent = new Intent(this, TestOfflineMapFragment.class);
+>>>>>>> offline_map_d
 		startActivity(intent);
 	}
 
@@ -46,8 +51,16 @@ public class TravistIstanbulActivity extends Activity {
 		
 		// Make buttons according to Activities of test cases
 		LinearLayout linearLayout = (LinearLayout) findViewById(R.id.main_view_layout);
+<<<<<<< HEAD
+		linearLayout.addView(createButton(fi.metropolia.lbs.travist.foursquare_api.FoursquareActivity.class));
+		linearLayout.addView(createButton(fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity1.class));
+		
+		
+		linearLayout.addView(createButton(fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity1.class));
+=======
 		linearLayout.addView(createButton(fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity.class));
 		linearLayout.addView(createButton(fi.metropolia.filbs.travist.offline_gps.TravistLeppavaaraActivity.class));
+>>>>>>> offline_map_d
 	}
 	
 	//Simple examples how to use CRUD methods (Content provider)
