@@ -1,5 +1,4 @@
-package fi.metropolia.lbs.travist.offline_map;
-/*package fi.metropolia.lbs.travist.offline_map;
+ /*package fi.metropolia.lbs.travist.offline_map;
 
 import java.io.File;
 import java.io.FileOutputStream;

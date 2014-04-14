@@ -2,6 +2,7 @@ package fi.metropolia.lbs.travist.foursquare_api;
 
 import travist.pack.R;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +32,7 @@ public class FoursquareActivity extends Activity {
 		tv = (TextView) findViewById(R.id.tv);
 		b1 = (Button) findViewById(R.id.button1);
 		b2 = (Button) findViewById(R.id.button2);
+		b3 = (Button) findViewById(R.id.button3);
 		
 		//makeUrl();
 		Log.d("asd",""+url);
@@ -56,8 +58,10 @@ public class FoursquareActivity extends Activity {
 	}
 	
 	public void button3(View v){
-		Log.d("moi","b3: "+v.getId());
-		getStuff("b3");
+		Intent intent = new Intent(this, foursquare_map.class);
+		startActivity(intent);
+//		Log.d("moi","b3: "+v.getId());
+//		getStuff("b3");
 	}
 	
 	public void getStuff(String s){

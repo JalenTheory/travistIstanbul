@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import fi.metropolia.lbs.travist.database.LBSContentProvider;
 import fi.metropolia.lbs.travist.database.PlaceTableClass;
-import fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity1;
+//import fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity1;
 
 public class TravistIstanbulActivity extends Activity {
 	private Button createButton(final Class<?> testCaseClass) {
@@ -31,8 +31,8 @@ public class TravistIstanbulActivity extends Activity {
 	}
 
 	public void openMap(View view) {
-		Intent intent = new Intent(this, TestOfflineMapActivity1.class);
-		startActivity(intent);
+		//Intent intent = new Intent(this, TestOfflineMapActivity1.class);
+		//startActivity(intent);
 	}
 
 	/** Called when the activity is first created. */
@@ -44,10 +44,10 @@ public class TravistIstanbulActivity extends Activity {
 		// Make buttons according to Activities of test cases
 		LinearLayout linearLayout = (LinearLayout) findViewById(R.id.main_view_layout);
 		linearLayout.addView(createButton(fi.metropolia.lbs.travist.foursquare_api.FoursquareActivity.class));
-		linearLayout.addView(createButton(fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity1.class));
+		//linearLayout.addView(createButton(fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity1.class));
 		
 		
-		linearLayout.addView(createButton(fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity1.class));
+		//linearLayout.addView(createButton(fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity1.class));
 	}
 	
 	//Simple examples how to use CRUD methods (Content provider)
@@ -80,5 +80,9 @@ public class TravistIstanbulActivity extends Activity {
 		cv.put(PlaceTableClass.PLACE_NAME, "MOSCOW");
 		this.getContentResolver().update(LBSContentProvider.PLACES_URI, cv, PlaceTableClass.PLACE_ID + " = 'asd'", null);
 		Toast.makeText(getApplicationContext(), "Click query to check if placename changed", Toast.LENGTH_SHORT).show();
+	}
+	
+	public void browse(View v) {
+	
 	}
 }

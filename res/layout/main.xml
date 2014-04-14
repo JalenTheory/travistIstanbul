@@ -53,4 +53,11 @@
         android:onClick="updateDb" >
     </Button>
 
+    <Button
+        android:id="@+id/browse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:text="browse" 
+        android:onClick="browse"/>
+
 </LinearLayout>
