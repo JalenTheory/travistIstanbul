@@ -1,0 +1,57 @@
+package fi.metropolia.lbs.travist.offline_map;
+
+import android.os.AsyncTask;
+
+public abstract class GHAsyncTask<A, B, C> extends AsyncTask<A, B, C> {
+	private Throwable error;
+<<<<<<< HEAD
+	
+	protected abstract C saveDoInBackground( A... params) throws Exception;
+	
+	protected C doInBackground( A... params) {
+		try {
+			return saveDoInBackground(params);
+		} catch ( Throwable t) {
+=======
+
+	protected abstract C saveDoInBackground(A... params) throws Exception;
+
+	protected C doInBackground(A... params) {
+		try {
+			return saveDoInBackground(params);
+		} catch (Throwable t) {
+>>>>>>> offline_map_d
+			error = t;
+			return null;
+		}
+	}
+<<<<<<< HEAD
+	
+	public boolean hasError() {
+		return error != null;
+	}
+	
+	public Throwable getError() {
+		return error;
+	}
+	
+	public String getErrorMessage() {
+		return hasError() ? error.getMessage() : "No Error";
+=======
+
+	public boolean hasError() {
+		return error != null;
+	}
+
+	public Throwable getError() {
+		return error;
+	}
+
+	public String getErrorMessage() {
+		if (hasError()) {
+			return error.getMessage();
+		}
+		return "No Error";
+>>>>>>> offline_map_d
+	}
+}

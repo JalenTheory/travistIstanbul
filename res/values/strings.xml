@@ -4,6 +4,6 @@
   
     <string name="app_name">TravistIstanbul</string>
     <string name="action_settings">Settings</string>
-
+	<string name="debug_tag">Travist debug</string>
 
 </resources>

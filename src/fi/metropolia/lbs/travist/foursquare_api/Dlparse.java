@@ -56,11 +56,12 @@ public class Dlparse{
 	public String parse(String data){
 		
 		JSONObject response;
-		JSONArray venues;
 		JSONObject venue;
 		JSONObject location;
-		JSONArray categories;
 		JSONObject categoryinfo;
+		
+		JSONArray venues;
+		JSONArray categories;
 		
 		String name;
 		String address;
