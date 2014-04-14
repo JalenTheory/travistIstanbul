@@ -131,6 +131,9 @@ public class FourSquarePlaces extends ListActivity{
 	
 	public String getPlaces(double[] gps) {
 		String Json = "";
+		//If you want to sort by category, add &categories=restaurant
+		//Limit range by &range=100 (meters)
+		//Limit search results by &limit=10
 		UriPlaces = "https://api.foursquare.com/v2/venues/search?ll=" + gps[0] + "," + gps[1] + "&client_secret=" + client_secret + "&client_id=" + client_id + "&v=" + version;
 		HttpGet get = new HttpGet(UriPlaces);
         HttpClient client = new DefaultHttpClient();
