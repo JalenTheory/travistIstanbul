@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import fi.metropolia.lbs.travist.database.LBSContentProvider;
 import fi.metropolia.lbs.travist.database.PlaceTableClass;
-import fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity;
+import fi.metropolia.lbs.travist.offline_map.TestOfflineMapFragment;
 
 public class TravistIstanbulActivity extends Activity {
 	public static final String TAG = "travist debug";
@@ -33,7 +33,7 @@ public class TravistIstanbulActivity extends Activity {
 	}
 
 	public void openMap(View view) {
-		Intent intent = new Intent(this, TestOfflineMapActivity.class);
+		Intent intent = new Intent(this, TestOfflineMapFragment.class);
 		startActivity(intent);
 	}
 
@@ -45,9 +45,8 @@ public class TravistIstanbulActivity extends Activity {
 		
 		// Make buttons according to Activities of test cases
 		LinearLayout linearLayout = (LinearLayout) findViewById(R.id.main_view_layout);
-		linearLayout.addView(createButton(fi.metropolia.lbs.travist.foursquare_api.FoursquareActivity.class));
-		//linearLayout.addView(createButton(fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity1.class));
 		linearLayout.addView(createButton(fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity.class));
+		linearLayout.addView(createButton(fi.metropolia.filbs.travist.offline_gps.TravistLeppavaaraActivity.class));
 	}
 	
 	//Simple examples how to use CRUD methods (Content provider)
