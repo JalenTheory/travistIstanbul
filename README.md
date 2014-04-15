@@ -26,4 +26,9 @@ This is where the app finds the actual map (.map) to display on the screen.
 Leppavaara map is
 https://drive.google.com/?authuser=0#folders/0BwgPULW0li42ZEFuc2JiY3RQQnM
 
+and location should be 
+/sdcard/graphhopper/maps/leppavaara-gh/map.map
+
 Similar process.
+
+the file locations are hardcoded for the time being..
