@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:layout_weight="1"
+    tools:context=".MainActivity"
+    android:background="@drawable/travist_half" >
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1" >
+    </LinearLayout>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:background="@drawable/info_background" >
+        <EditText
+            android:id="@+id/register_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Username"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_gravity="center"
+            android:singleLine="true" />
+    </LinearLayout>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:background="@drawable/info_background" >
+        <EditText
+            android:id="@+id/register_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Name"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_gravity="center"
+            android:singleLine="true" />
+    </LinearLayout>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:background="@drawable/info_background" >
+        <EditText
+            android:id="@+id/register_country"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Country"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_gravity="center"
+            android:singleLine="true" />
+    </LinearLayout>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:background="@drawable/info_background" >
+        <EditText
+            android:id="@+id/register_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Email"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_gravity="center"
+            android:singleLine="true" />
+    </LinearLayout>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:background="@drawable/info_background" >
+        <EditText
+            android:id="@+id/register_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Password"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_gravity="center"
+            android:singleLine="true" />
+    </LinearLayout>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:background="@drawable/info_background" >
+        <EditText
+            android:id="@+id/register_GSM"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Phone Number"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_gravity="center"
+            android:singleLine="true" />
+    </LinearLayout>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:background="@drawable/info_background" >
+        <Switch
+            android:id="@+id/register_matchmakingSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Matchmaking" /> 
+    </LinearLayout>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="1" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:background="@drawable/profile_cancel" >
+
+            <TextView
+                android:id="@+id/register_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Register"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_gravity="center"
+                android:paddingLeft="20px" />
+            
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:background="@drawable/profile_ok" >
+            <TextView
+                android:id="@+id/register_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancel"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_gravity="center"
+                android:paddingLeft="20px" />
+            
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1" >
+    </LinearLayout>
+
+</LinearLayout>
