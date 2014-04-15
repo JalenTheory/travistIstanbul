@@ -16,7 +16,7 @@
         android:clickable="true" >
         
         <TextView
-	        android:id="@+id/saved_listname"
+	        android:id="@+id/savedlistItem"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text="Place name"

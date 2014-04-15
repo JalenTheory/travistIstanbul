@@ -99,7 +99,7 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.todolist_item, null);
+            convertView = inflater.inflate(R.layout.todo_row, null);
         }
  
         TextView txtListChild = (TextView) convertView

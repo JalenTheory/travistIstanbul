@@ -2,20 +2,16 @@ package fi.metropolia.lbs.travist.todo;
 
 import java.util.HashMap;
 import java.util.List;
+
 import org.json.JSONObject;
+
 import travist.pack.R;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.ContentValues;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
@@ -48,7 +44,9 @@ public class TodoActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.todo_activity);
+		Log.d("mihi kaaatuu", "-1");
+		setContentView(R.layout.todo);
+		Log.d("mihi kaaatuu", "1");
 		url = "http://users.metropolia.fi/~eetupa/Turkki/getTodosByUid.php?uid="
 				+ userId;
 		download = "places";
@@ -64,7 +62,7 @@ public class TodoActivity extends Activity {
 		cv.put(PlaceTableClass.IS_IN_TODO, "1");
 		cv.put(PlaceTableClass.IS_IN_SAVED, "0");
 		this.getContentResolver().insert(LBSContentProvider.PLACES_URI, cv);
-		
+		Log.d("mihi kaaatuu", "2");
 		ContentValues cv1 = new ContentValues();
 		cv1.put(PlaceTableClass.PLACE_ID, "456");
 		cv1.put(PlaceTableClass.PLACE_NAME, "Creamed");
@@ -76,7 +74,7 @@ public class TodoActivity extends Activity {
 		cv1.put(PlaceTableClass.IS_IN_TODO, "1");
 		cv1.put(PlaceTableClass.IS_IN_SAVED, "0");
 		this.getContentResolver().insert(LBSContentProvider.PLACES_URI, cv1);
-
+		Log.d("mihi kaaatuu", "3");
 		String[] projection = new String[]{
 				PlaceTableClass.ID,
 				PlaceTableClass.PLACE_ID,
@@ -90,7 +88,7 @@ public class TodoActivity extends Activity {
 		
 		createList();
 	}
-	
+
 	class Dl extends AsyncTask<String, Void, String> {
 
 		protected String doInBackground(String... urls) {
@@ -112,10 +110,11 @@ public class TodoActivity extends Activity {
 
 	private void createList() {
 		//creates the expandablelistview and onexpandlisteners for groups in the exp.listview
-
+		Log.d("mihi kaaatuu", "4");
 		expLv = (ExpandableListView) findViewById(R.id.expandableListView);
 		adapter = new ExpandableAdapter(this, cursor);
 		expLv.setAdapter(adapter);
+		Log.d("mihi kaaatuu", "44");
 		/*
 		expLv.setOnItemLongClickListener(new OnItemLongClickListener() {
 			@Override
@@ -169,10 +168,12 @@ public class TodoActivity extends Activity {
 				}
 			}
 		});
+		Log.d("mihi kaaatuu", "5");
 	}
 
 
 	private void showMatches(){
+		Log.d("mihi kaaatuu", "6");
 		childList.removeAll(childList);
 		for(int i=0;i<matches.length;i++){
 			if(!matches[i].optString("UID").equals(String.valueOf(userId))){	

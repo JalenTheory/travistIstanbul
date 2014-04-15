@@ -21,7 +21,7 @@ public class SavedlistActivity extends Activity{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.savedlist_activity);
+		setContentView(R.layout.saved);
 		
 		String[] projection = new String[]{
 				PlaceTableClass.ID,

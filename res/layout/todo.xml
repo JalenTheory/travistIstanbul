@@ -65,13 +65,12 @@
         android:layout_weight="20"
         android:orientation="vertical" >
 	
-	    <ListView
-	        android:id="@+id/todo_list"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        
-	        android:layout_marginTop="20dp" >
-	    </ListView>
+ <ExpandableListView
+        android:id="@+id/expandableListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:groupIndicator="@null"     
+	    android:layout_marginTop="20dp" />
     </LinearLayout>
 
 </LinearLayout>
