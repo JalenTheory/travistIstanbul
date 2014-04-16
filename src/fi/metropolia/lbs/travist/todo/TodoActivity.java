@@ -48,7 +48,7 @@ public class TodoActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.todo_activity);
+		setContentView(R.layout.todo);
 		url = "http://users.metropolia.fi/~eetupa/Turkki/getTodosByUid.php?uid="
 				+ userId;
 		download = "places";
@@ -113,7 +113,7 @@ public class TodoActivity extends Activity {
 	private void createList() {
 		//creates the expandablelistview and onexpandlisteners for groups in the exp.listview
 
-		expLv = (ExpandableListView) findViewById(R.id.expandableListView);
+		expLv = (ExpandableListView) findViewById(R.id.todo_list);
 		adapter = new ExpandableAdapter(this, cursor);
 		expLv.setAdapter(adapter);
 		/*
@@ -152,6 +152,7 @@ public class TodoActivity extends Activity {
 				return false;
 			}
 		});*/
+		
 		expLv.setOnGroupExpandListener(new OnGroupExpandListener(){
 			@Override
 			public void onGroupExpand(int gpos) {
@@ -174,12 +175,17 @@ public class TodoActivity extends Activity {
 
 	private void showMatches(){
 		childList.removeAll(childList);
-		for(int i=0;i<matches.length;i++){
+		//Kaataa koko homman?!
+		/*for(int i=0;i<matches.length;i++){
 			if(!matches[i].optString("UID").equals(String.valueOf(userId))){	
 				childList.add(matches[i].optString("NAME")+", "+matches[i].optString("COUNTRY"));			
 				((BaseExpandableListAdapter) adapter).notifyDataSetChanged();
 				((BaseExpandableListAdapter) adapter).notifyDataSetInvalidated();
 			}
-		}
+		}*/
+		childList.add("Masa");
+		childList.add("Pera");
+		((BaseExpandableListAdapter) adapter).notifyDataSetChanged();
+		((BaseExpandableListAdapter) adapter).notifyDataSetInvalidated();
 	}
 }

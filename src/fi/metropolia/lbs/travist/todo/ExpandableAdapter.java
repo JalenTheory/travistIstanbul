@@ -8,6 +8,7 @@ import java.util.List;
 import travist.pack.R;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,11 +16,15 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import fi.metropolia.lbs.travist.database.LBSContentProvider;
 import fi.metropolia.lbs.travist.database.PlaceTableClass;
@@ -56,6 +61,7 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
     public static class ViewHolder{
     	public String placeName;
     	public TextView group;
+    	public TextView address;
     	public Button mapButton;
     	public Button saveButton;
     }
@@ -66,12 +72,21 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
 		
 		for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
 			holder.placeName = cursor.getString(cursor.getColumnIndex(PlaceTableClass.PLACE_NAME));
+			String address = cursor.getString(cursor.getColumnIndex(PlaceTableClass.ADDRESS));
+			todoList.add(holder.placeName+", " + address);
+			List<String> list = new ArrayList<String>();
+			list.add("");
+			contentMap.put(todoList.get(cursor.getPosition()), list);
+		}
+		
+		/*for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+			holder.placeName = cursor.getString(cursor.getColumnIndex(PlaceTableClass.PLACE_NAME));
 			String category = cursor.getString(cursor.getColumnIndex(PlaceTableClass.CATEGORY_NAME));
 			todoList.add(holder.placeName+", "+category);
 			List<String> list = new ArrayList<String>();
 			list.add("");
 			contentMap.put(todoList.get(cursor.getPosition()), list);
-		}
+		}*/
 	}
     
     public List<String> getChildList(int pos){
@@ -99,21 +114,71 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.todolist_item, null);
+            convertView = inflater.inflate(R.layout.todo_matchmaking, null);
         }
  
-        TextView txtListChild = (TextView) convertView
-                .findViewById(R.id.listItem); 
+        TextView txtListChild = (TextView) convertView.findViewById(R.id.todo_match_name); 
         txtListChild.setText(childText);   
         txtListChild.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				Log.d(tag,"child touched");
-				AlertDialog.Builder builder = new AlertDialog.Builder(context);
-				builder.setMessage("HÃ–HÃ–Ã–").setTitle("asd");
-				AlertDialog dialog = builder.create();
-				dialog.show();
+				final Dialog matchDialog = new Dialog(context);
+				matchDialog.setContentView(R.layout.dialog_matchmaking);
+				matchDialog.setTitle("Matchmaking");
+				TextView matchName = (TextView) matchDialog.findViewById(R.id.dialog_matchmake_name);
+				matchName.setText("Make");
+				TextView matchNationality = (TextView) matchDialog.findViewById(R.id.dialog_matchmake_nationality);
+				matchNationality.setText("Hikiä");
+				
+				LinearLayout dialogSend = (LinearLayout) matchDialog.findViewById(R.id.dialog_matchmake_send);
+				dialogSend.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						Log.d("Eetu", "haluu seuraa tätä kautta");
+						/* Send notification via email
+						String email_address = "match_email";
+						Intent email = new Intent(Intent.ACTION_SEND);
+						email.setType("message/rfc822");
+						email.putExtra(Intent.EXTRA_EMAIL, email_address);
+						email.putExtra(Intent.EXTRA_SUBJECT, "Would you like to travel with me?");
+						email.putExtra(Intent.EXTRA_TEXT, "Hi, Would you like to travel with me? Rape incoming");
+						try {
+							startActivity(Intent.createChooser(email,  "Send email"));
+						}
+						catch (android.content.ActivityNotFoundException e) {
+							Toast.makeText(MainActivity.this,  "No email application found", Toast.LENGTH_SHORT);
+						}*/
+						
+						/* Send notification via sms
+						Intent sendSMS = new Intent(Intent.ACTION_VIEW);
+						sendSMS.putExtra("sms_body", "Hello, wanna travel with me?");
+						sendSMS.putExtra("address", "match_phone_number");
+						sendSMS.setType("vnd.android-dir/mms-sms");
+						startActivity(sendSMS);
+						 */
+						matchDialog.dismiss();
+					}
+					
+				});
+				
+				LinearLayout dialogCancel = (LinearLayout) matchDialog.findViewById(R.id.dialog_matchmake_cancel);
+				dialogCancel.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						matchDialog.dismiss();
+						
+					}
+					
+				});
+				
+				matchDialog.show();
+				//Without setting custom width & height, the dialog looks retarded
+				Display display = ((WindowManager)context.getSystemService(context.WINDOW_SERVICE)).getDefaultDisplay();
+				int height = display.getHeight();
+				int width = display.getWidth();
+				matchDialog.getWindow().setLayout(width, (int) ((int)height * 0.5));
 			}
 		});
         return convertView;
@@ -147,12 +212,19 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.todolist_group, null);
+            convertView = inflater.inflate(R.layout.todo_row, null);
         }
- 
-        holder.group = (TextView) convertView.findViewById(R.id.listHeader);
+        holder.group = (TextView) convertView.findViewById(R.id.todo_listname);
         holder.group.setTypeface(null, Typeface.BOLD);
-        holder.group.setText((String) getGroup(groupPosition));
+        String nameAddress = (String) getGroup(groupPosition);
+        String name = nameAddress.substring(0, nameAddress.indexOf(","));
+        holder.group.setText(name);
+        
+        holder.address = (TextView) convertView.findViewById(R.id.todo_list_address);
+        holder.address.setTypeface(null, Typeface.BOLD);
+        String address = nameAddress.substring(nameAddress.lastIndexOf(",") + 1);
+        holder.address.setText(address);
+        
         /*
         holder.group.setOnLongClickListener(new View.OnLongClickListener() {			
 			@Override
@@ -187,12 +259,25 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
 			}
 		});*/
         
-        holder.mapButton = (Button) convertView.findViewById(R.id.mapButton);
-        holder.mapButton.setFocusable(false);
+        //holder.mapButton = (Button) convertView.findViewById(R.id.mapButton);
+        //holder.mapButton.setFocusable(false);
         holder.saveButton = (Button) convertView.findViewById(R.id.saveButton);
         holder.saveButton.setFocusable(false);
         
-        holder.mapButton.setOnClickListener(new View.OnClickListener(){
+        LinearLayout todoShowOnMap = (LinearLayout) convertView.findViewById(R.id.todo_matchmake);
+        todoShowOnMap.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				//Open map and show todo-item on map
+				Intent intent = new Intent();
+				intent.setClass(context, TodoActivity.class);
+				//TODO: put the json object into the intent
+				context.startActivity(intent);
+			}
+		});
+        
+        /*holder.mapButton.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
 				Intent intent = new Intent();
@@ -200,7 +285,7 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
 				//TODO: put the json object into the intent
 				context.startActivity(intent);
 			}			
-		});
+		});*/
         
         holder.saveButton.setOnClickListener(new View.OnClickListener(){
 			@Override

@@ -21,7 +21,7 @@ public class SavedlistActivity extends Activity{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.savedlist_activity);
+		setContentView(R.layout.saved);
 		
 		String[] projection = new String[]{
 				PlaceTableClass.ID,
@@ -35,14 +35,14 @@ public class SavedlistActivity extends Activity{
 		
 		cursor = this.getContentResolver().query(LBSContentProvider.PLACES_URI, projection, "IS_IN_SAVED = '1'", null, null);
 	
-		ListView lv = (ListView) findViewById(R.id.savedlistview);
+		ListView lv = (ListView) findViewById(R.id.saved_list);
 		ListAdapter adapter = new ListAdapter(this, cursor, 0);
 		lv.setAdapter(adapter);
 		
 		lv.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+				//Open saved-item on map
 				Intent newintent = new Intent(SavedlistActivity.this, SavedlistActivity.class);
 				SavedlistActivity.this.startActivity(newintent);
 			}

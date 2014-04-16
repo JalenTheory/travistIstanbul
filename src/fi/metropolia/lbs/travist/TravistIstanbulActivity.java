@@ -14,6 +14,8 @@ import android.widget.Toast;
 import fi.metropolia.lbs.travist.database.LBSContentProvider;
 import fi.metropolia.lbs.travist.database.PlaceTableClass;
 import fi.metropolia.lbs.travist.offline_map.TestOfflineMapFragment;
+import fi.metropolia.lbs.travist.savedlist.SavedlistActivity;
+import fi.metropolia.lbs.travist.todo.TodoActivity;
 
 public class TravistIstanbulActivity extends Activity {
 	public static final String TAG = "travist debug";
@@ -42,6 +44,9 @@ public class TravistIstanbulActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		
+		//Intent todoIntent = new Intent(this, SavedlistActivity.class);
+		//startActivity(todoIntent);
 		
 		// Make buttons according to Activities of test cases
 		LinearLayout linearLayout = (LinearLayout) findViewById(R.id.main_view_layout);
