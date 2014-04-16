@@ -1,0 +1,44 @@
+package fi.metropolia.lbs.travist.routes;
+
+import travist.pack.R;
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.app.Fragment;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+// TODO support api for fragments..
+@SuppressLint("NewApi")
+public class RouteNavFragment extends Fragment {
+	private View mNavView;
+	
+	@SuppressLint("NewApi")
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		return inflater.inflate(R.layout.routes_nav_fragment, container);
+	}
+	
+	public void calculateRoute() {
+		logD("calculating route", this);
+	}
+	
+	private void logD(String logText) {
+		Log.d("Testing", logText);
+	}
+
+	private void logD(String logText, Object o) {
+		Log.d("Testing", o.getClass().getSimpleName() + ": " + logText);
+	}
+	
+}
