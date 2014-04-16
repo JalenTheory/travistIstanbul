@@ -31,6 +31,9 @@
 
         <!-- Leppävaara -->
         <activity android:name="fi.metropolia.lbs.travist.offline_gps.TravistLeppavaaraActivity" />
+        
+        <!-- Routes testing Tapiola -->
+        <activity android:name="fi.metropolia.lbs.travist.routes.TestRoutesActivity" />
 
         <!-- Content provider permission -->
         <!-- Name is the directory of the class, authority is the AUTHORITY defined in CP -->
