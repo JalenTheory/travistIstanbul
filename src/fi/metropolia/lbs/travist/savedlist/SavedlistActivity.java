@@ -31,11 +31,16 @@ public class SavedlistActivity extends Activity{
 				PlaceTableClass.LONGITUDE,
 				PlaceTableClass.ADDRESS,
 				PlaceTableClass.CATEGORY_ID,
-				PlaceTableClass.CATEGORY_NAME};
+				PlaceTableClass.CATEGORY_NAME,
+				PlaceTableClass.IS_IN_SAVED};
 		
 		cursor = this.getContentResolver().query(LBSContentProvider.PLACES_URI, projection, "IS_IN_SAVED = '1'", null, null);
-	
+		Cursor cursor2 = this.getContentResolver().query(LBSContentProvider.PLACES_URI, null, PlaceTableClass.PLACE_NAME+" = 'Manly Spa'", null, null);
+		cursor2.moveToFirst();
+		int index = cursor2.getColumnIndex(PlaceTableClass.IS_IN_SAVED);
+		String is = cursor2.getString(index);
 		ListView lv = (ListView) findViewById(R.id.savedlistview);
+		Log.d("moi","savedlist count: "+cursor.getCount()+", manlyspa is in saved: "+is);
 		ListAdapter adapter = new ListAdapter(this, cursor, 0);
 		lv.setAdapter(adapter);
 		

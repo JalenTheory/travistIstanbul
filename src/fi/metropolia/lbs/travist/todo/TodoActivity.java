@@ -96,6 +96,7 @@ public class TodoActivity extends Activity {
 			DlMatches dlmatches = new DlMatches(url);
 			try {
 				matches = dlmatches.downloadMatches();
+				if(matches==null)Log.d("moi","async: ");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

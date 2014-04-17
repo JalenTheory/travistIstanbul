@@ -66,6 +66,7 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
 		
 		for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
 			holder.placeName = cursor.getString(cursor.getColumnIndex(PlaceTableClass.PLACE_NAME));
+			Log.d("moi","adapter: "+cursor.getCount());
 			String category = cursor.getString(cursor.getColumnIndex(PlaceTableClass.CATEGORY_NAME));
 			todoList.add(holder.placeName+", "+category);
 			List<String> list = new ArrayList<String>();
@@ -102,8 +103,7 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
             convertView = inflater.inflate(R.layout.todo_row, null);
         }
  
-        TextView txtListChild = (TextView) convertView
-                .findViewById(R.id.listItem); 
+        TextView txtListChild = (TextView) convertView.findViewById(R.id.todo_listname); 
         txtListChild.setText(childText);   
         txtListChild.setOnClickListener(new View.OnClickListener() {
 			
@@ -209,6 +209,11 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
 				cursor.moveToPosition(groupPosition);
 				int index = cursor.getColumnIndex(PlaceTableClass.PLACE_ID);
 				String pid = cursor.getString(index);
+				
+				int index2 = cursor.getColumnIndex(PlaceTableClass.PLACE_NAME);
+				String pname = cursor.getString(index2);
+				
+				Log.d("moi","savebutton: "+pid);
 				String url = "http://users.metropolia.fi/~eetupa/Turkki/setSaved.php?pid="+pid+"&uid="+uid;
 				Log.d(tag,"adapter url: "+url);
 				UpSaved up = new UpSaved(url);
@@ -216,7 +221,7 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
 				
 				ContentValues cv = new ContentValues();
 				cv.put(PlaceTableClass.IS_IN_SAVED, 1);
-				context.getContentResolver().update(LBSContentProvider.PLACES_URI, cv, PlaceTableClass.PLACE_NAME+" = '"+holder.placeName +"'", null);
+				context.getContentResolver().update(LBSContentProvider.PLACES_URI, cv, PlaceTableClass.PLACE_NAME+" = '"+pname +"'", null);
 			}			
 		});
         
