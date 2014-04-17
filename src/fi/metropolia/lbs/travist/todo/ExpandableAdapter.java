@@ -108,17 +108,7 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
  
         TextView txtListChild = (TextView) convertView.findViewById(R.id.listItem); 
         txtListChild.setText(childText);   
-        /*txtListChild.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Log.d(tag,"child touched");
-				AlertDialog.Builder builder = new AlertDialog.Builder(context);
-				builder.setMessage("HÖHÖÖ").setTitle("asd");
-				AlertDialog dialog = builder.create();
-				dialog.show();
-			}
-		});*/
+        
         return convertView;
     }
  
@@ -156,6 +146,15 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
         holder.group = (TextView) convertView.findViewById(R.id.todo_listname);
         holder.group.setTypeface(null, Typeface.BOLD);
         holder.group.setText((String) getGroup(groupPosition));
+        
+        holder.group.setOnClickListener(new View.OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				Log.d("moi","moimoi");
+			}
+        	
+        });
         /*
         holder.group.setOnLongClickListener(new View.OnLongClickListener() {			
 			@Override

@@ -162,10 +162,13 @@ public class TodoActivity extends Activity {
 			@Override
 			public boolean onGroupClick(ExpandableListView parent, View v,
 					int groupPosition, long id) {
-				// TODO Auto-generated method stub
+				/*
+				 * START THE MAP ACTIVITY, RETURN TRUE
+				 */
 				return false;
 			}
 		});
+		
 		expLv.setOnChildClickListener(new OnChildClickListener(){
 
 			@Override
