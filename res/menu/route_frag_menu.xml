@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item 
+        android:id="@+id/route_menu_item_1"
+        android:showAsAction="ifRoom|withText"
+        android:title="menu item 1">
+        
+    </item>
+    <item 
+        android:id="@+id/route_menu_item_2"
+        android:showAsAction="ifRoom|withText"
+        android:title="menu item 2">
+        
+    </item>
+
+</menu>
