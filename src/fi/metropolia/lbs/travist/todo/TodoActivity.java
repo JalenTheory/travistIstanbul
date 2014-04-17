@@ -8,16 +8,21 @@ import org.json.JSONObject;
 import travist.pack.R;
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import fi.metropolia.lbs.travist.database.LBSContentProvider;
 import fi.metropolia.lbs.travist.database.PlaceTableClass;
 
@@ -152,6 +157,37 @@ public class TodoActivity extends Activity {
 				return false;
 			}
 		});*/
+		expLv.setOnGroupClickListener(new OnGroupClickListener(){
+
+			@Override
+			public boolean onGroupClick(ExpandableListView parent, View v,
+					int groupPosition, long id) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+		});
+		expLv.setOnChildClickListener(new OnChildClickListener(){
+
+			@Override
+			public boolean onChildClick(ExpandableListView exlv, View v,
+					int gpos, int cpos, long id) {
+				String[] email_address = new String[]{matches[cpos].optString("EMAIL")};
+				Intent email = new Intent(Intent.ACTION_SEND); 
+				email.setType("message/rfc822");
+				email.putExtra(Intent.EXTRA_EMAIL, email_address);
+				email.putExtra(Intent.EXTRA_SUBJECT, "Would you like to travel with me?");
+				email.putExtra(Intent.EXTRA_TEXT, "");
+				try {
+					startActivity(Intent.createChooser(email,  "Send email"));
+				}
+				catch (android.content.ActivityNotFoundException e) {
+					Toast t = Toast.makeText(TodoActivity.this,  "No email", Toast.LENGTH_SHORT);
+					t.show();
+				}
+				return false;
+			}
+			
+		});
 		expLv.setOnGroupExpandListener(new OnGroupExpandListener(){
 			@Override
 			public void onGroupExpand(int gpos) {

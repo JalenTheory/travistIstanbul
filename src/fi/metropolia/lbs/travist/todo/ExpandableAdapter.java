@@ -6,11 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import travist.pack.R;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Typeface;
@@ -91,6 +89,11 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
         return childPosition;
     }
  
+    public static class ChildViewHolder{
+    	String email;
+    	TextView name;
+    }
+    
     @Override
     public View getChildView(int groupPosition, final int childPosition,
             boolean isLastChild, View convertView, ViewGroup parent) {
@@ -105,7 +108,7 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
  
         TextView txtListChild = (TextView) convertView.findViewById(R.id.todo_listname); 
         txtListChild.setText(childText);   
-        txtListChild.setOnClickListener(new View.OnClickListener() {
+        /*txtListChild.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -115,7 +118,7 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
 				AlertDialog dialog = builder.create();
 				dialog.show();
 			}
-		});
+		});*/
         return convertView;
     }
  
@@ -195,10 +198,11 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
         holder.mapButton.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
+				//Start the map activity
 				Intent intent = new Intent();
 				intent.setClass(context, TodoActivity.class);
 				//TODO: put the json object into the intent
-				context.startActivity(intent);
+				//context.startActivity(intent);
 			}			
 		});
         
@@ -221,6 +225,7 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
 				
 				ContentValues cv = new ContentValues();
 				cv.put(PlaceTableClass.IS_IN_SAVED, 1);
+				cv.put(PlaceTableClass.IS_IN_TODO, 0);
 				context.getContentResolver().update(LBSContentProvider.PLACES_URI, cv, PlaceTableClass.PLACE_NAME+" = '"+pname +"'", null);
 			}			
 		});
