@@ -84,12 +84,12 @@ public final class R {
         public static final int header=0x7f080004;
         public static final int imageView1=0x7f08001e;
         public static final int insert=0x7f08001f;
-        public static final int listHeader=0x7f08003d;
-        public static final int listItem=0x7f080040;
+        public static final int listHeader=0x7f08003f;
+        public static final int listItem=0x7f08003e;
         public static final int login=0x7f080023;
         public static final int logoff=0x7f080025;
         public static final int main_view_layout=0x7f08001d;
-        public static final int mapButton=0x7f08003f;
+        public static final int mapButton=0x7f080040;
         public static final int mapview=0x7f080003;
         public static final int matchmaking_icon=0x7f08003c;
         public static final int query=0x7f080020;
@@ -105,7 +105,7 @@ public final class R {
         public static final int row_item_background=0x7f080006;
         public static final int row_item_category=0x7f080008;
         public static final int row_item_category_icon=0x7f080007;
-        public static final int saveButton=0x7f08003e;
+        public static final int saveButton=0x7f08003d;
         public static final int savedTitle=0x7f080035;
         public static final int saved_button=0x7f080016;
         public static final int saved_item_address=0x7f080033;
@@ -147,8 +147,8 @@ public final class R {
         public static final int todo_activity=0x7f030012;
         public static final int todo_matchmaking=0x7f030013;
         public static final int todo_row=0x7f030014;
-        public static final int todolist_group=0x7f030015;
-        public static final int todolist_item=0x7f030016;
+        public static final int todolist_child=0x7f030015;
+        public static final int todolist_group=0x7f030016;
     }
     public static final class menu {
         public static final int main=0x7f070000;

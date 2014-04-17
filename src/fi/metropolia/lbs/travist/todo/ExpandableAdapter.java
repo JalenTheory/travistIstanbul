@@ -66,7 +66,7 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
 			holder.placeName = cursor.getString(cursor.getColumnIndex(PlaceTableClass.PLACE_NAME));
 			Log.d("moi","adapter: "+cursor.getCount());
 			String category = cursor.getString(cursor.getColumnIndex(PlaceTableClass.CATEGORY_NAME));
-			todoList.add(holder.placeName+", "+category);
+			todoList.add(holder.placeName);
 			List<String> list = new ArrayList<String>();
 			list.add("");
 			contentMap.put(todoList.get(cursor.getPosition()), list);
@@ -103,10 +103,10 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.todo_row, null);
+            convertView = inflater.inflate(R.layout.todolist_child, null);
         }
  
-        TextView txtListChild = (TextView) convertView.findViewById(R.id.todo_listname); 
+        TextView txtListChild = (TextView) convertView.findViewById(R.id.listItem); 
         txtListChild.setText(childText);   
         /*txtListChild.setOnClickListener(new View.OnClickListener() {
 			
@@ -150,10 +150,10 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.todolist_group, null);
+            convertView = inflater.inflate(R.layout.todo_row, null);
         }
  
-        holder.group = (TextView) convertView.findViewById(R.id.listHeader);
+        holder.group = (TextView) convertView.findViewById(R.id.todo_listname);
         holder.group.setTypeface(null, Typeface.BOLD);
         holder.group.setText((String) getGroup(groupPosition));
         /*
@@ -190,12 +190,12 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
 			}
 		});*/
         
-        holder.mapButton = (Button) convertView.findViewById(R.id.mapButton);
-        holder.mapButton.setFocusable(false);
+        //holder.mapButton = (Button) convertView.findViewById(R.id.mapButton);
+        //holder.mapButton.setFocusable(false);
         holder.saveButton = (Button) convertView.findViewById(R.id.saveButton);
         holder.saveButton.setFocusable(false);
         
-        holder.mapButton.setOnClickListener(new View.OnClickListener(){
+        /*holder.mapButton.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
 				//Start the map activity
@@ -204,7 +204,7 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
 				//TODO: put the json object into the intent
 				//context.startActivity(intent);
 			}			
-		});
+		});*/
         
         holder.saveButton.setOnClickListener(new View.OnClickListener(){
 			@Override
