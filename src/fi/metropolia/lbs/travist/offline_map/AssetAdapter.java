@@ -62,6 +62,7 @@ public class AssetAdapter {
 		Log.d(TAG, getClass().getSimpleName() + ": creating file..");
 		File outputFile = null;
 		try {
+			
 			// temp file
 			/*
 			 * File outputDir = mContext.getCacheDir(); outputFile =

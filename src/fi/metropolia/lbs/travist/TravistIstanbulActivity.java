@@ -71,12 +71,52 @@ public class TravistIstanbulActivity extends Activity {
 		linearLayout.addView(createButton(fi.metropolia.lbs.travist.offline_gps.TravistLeppavaaraActivity.class));
 	}
 	
+	public void insertPredefinedLocations() {
+		ContentValues cv = new ContentValues();
+		
+		//Taksim
+		cv.put(PlaceTableClass.PLACE_ID, "4cd103d96449a0936af0cdcf");
+		cv.put(PlaceTableClass.PLACE_NAME, "Taksim");
+		cv.put(PlaceTableClass.LATITUDE, "41.036441586758286");
+		cv.put(PlaceTableClass.LONGITUDE, "28.983607292175293");
+		cv.put(PlaceTableClass.ADDRESS, "Beyoğlu");
+		cv.put(PlaceTableClass.IS_IN_SAVED, 1);
+		this.getContentResolver().insert(LBSContentProvider.PLACES_URI, cv);
+		
+		cv.clear();
+		cv.put(PlaceTableClass.PLACE_ID, "4e2463e7b0fbdf9ba7c6d470");
+		cv.put(PlaceTableClass.PLACE_NAME, "Sultanahmet");
+		cv.put(PlaceTableClass.LATITUDE, "41.00815272297204");
+		cv.put(PlaceTableClass.LONGITUDE, "28.975353118830544");
+		cv.put(PlaceTableClass.IS_IN_SAVED, 1);
+		this.getContentResolver().insert(LBSContentProvider.PLACES_URI, cv);
+		
+		cv.clear();
+		cv.put(PlaceTableClass.PLACE_ID, "4d84e9860a0d1456c7a307cc");
+		cv.put(PlaceTableClass.PLACE_NAME, "Pierre Loti & Tarihi Kahve");
+		cv.put(PlaceTableClass.LATITUDE, "41.05421070622379");
+		cv.put(PlaceTableClass.LONGITUDE, "28.933804035186768");
+		cv.put(PlaceTableClass.ADDRESS, "Eyüp Merkez Mah. Balmumcu Sok. No: 1");
+		cv.put(PlaceTableClass.IS_IN_SAVED, 1);
+		this.getContentResolver().insert(LBSContentProvider.PLACES_URI, cv);
+		
+		cv.clear();
+		cv.put(PlaceTableClass.PLACE_ID, "4da0e0e79aa4721e1ce6ee19");
+		cv.put(PlaceTableClass.PLACE_NAME, "Barlar Sokağı");
+		cv.put(PlaceTableClass.LATITUDE, "40.987314");
+		cv.put(PlaceTableClass.LONGITUDE, "29.02693");
+		cv.put(PlaceTableClass.ADDRESS, "Eyüp Merkez Mah. Balmumcu Sok. No: 1");
+		cv.put(PlaceTableClass.IS_IN_SAVED, 1);
+		this.getContentResolver().insert(LBSContentProvider.PLACES_URI, cv);
+	}
+	
 	private class prepareMapFiles extends AsyncTask<String, Void, String> {
 
 		@Override
 		protected String doInBackground(String... params) {
 			AssetAdapter ASS = new AssetAdapter(getBaseContext());
 			ASS.assetsToDir();
+			insertPredefinedLocations();
 			return null;
 		}
 

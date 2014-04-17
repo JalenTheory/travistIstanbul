@@ -1,5 +1,6 @@
 package fi.metropolia.lbs.travist.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -22,6 +23,7 @@ public class HelperClass extends SQLiteOpenHelper {
 		db.execSQL(UserTableClass.createUserTable());
 		db.execSQL(PlaceTableClass.createPlaceTable());
 	}
+	
 
 	//Implement this?
 	@Override
