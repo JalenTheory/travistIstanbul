@@ -121,7 +121,8 @@ public class TestOfflineMapFragment extends Fragment implements
 	//From graphhopper example
 	private void loadMap() {
 		logD("Loading Map");
-		File mapFile = new File("/sdcard/graphhopper/maps/istanbul-gh/istanbul.map");
+		//File mapFile = new File("/sdcard/graphhopper/maps/istanbul-gh/istanbul.map");
+		File mapFile = new File(getActivity().getFilesDir(), "istanbul-gh/istanbul.map");
 		logD(mapFile.getAbsolutePath().toString());
 		mapView.getLayerManager().getLayers().clear();
 
@@ -263,7 +264,8 @@ public class TestOfflineMapFragment extends Fragment implements
 			protected Path saveDoInBackground(Void... v) throws Exception {
 				GraphHopper tmpHopp = new GraphHopper().forMobile();
 				tmpHopp.setCHShortcuts("fastest");
-				File temp = new File("/sdcard/graphhopper/maps/istanbul");
+				//File temp = new File("/sdcard/graphhopper/maps/istanbul");
+				File temp = new File(getActivity().getFilesDir(), "istanbul");
 				tmpHopp.load(temp.getAbsolutePath());
 				logD("found graph " + tmpHopp.getGraph().toString()
 						+ ", nodes:" + tmpHopp.getGraph().getNodes());

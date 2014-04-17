@@ -1,11 +1,15 @@
 package fi.metropolia.lbs.travist;
 
 import travist.pack.R;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -13,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import fi.metropolia.lbs.travist.database.LBSContentProvider;
 import fi.metropolia.lbs.travist.database.PlaceTableClass;
+import fi.metropolia.lbs.travist.offline_map.AssetAdapter;
 import fi.metropolia.lbs.travist.offline_map.TestOfflineMapFragment;
 import fi.metropolia.lbs.travist.savedlist.SavedlistActivity;
 import fi.metropolia.lbs.travist.todo.TodoActivity;
@@ -40,6 +45,7 @@ public class TravistIstanbulActivity extends Activity {
 	}
 
 	/** Called when the activity is first created. */
+	@SuppressLint("CommitPrefEdits")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,41 +54,37 @@ public class TravistIstanbulActivity extends Activity {
 		//Intent todoIntent = new Intent(this, SavedlistActivity.class);
 		//startActivity(todoIntent);
 		
+        SharedPreferences shaPre = getSharedPreferences("MAP", MODE_PRIVATE);
+        SharedPreferences.Editor editor = shaPre.edit();
+
+        if(shaPre.getBoolean("dirStatus", false)) {
+        	Log.d("LOG", "Files are in the app folder");
+        } else {
+        	new prepareMapFiles().execute();
+        	editor.putBoolean("dirStatus", true);
+    		editor.apply();
+        	Log.d("LOG", "Files werent in app folder");
+        }
 		// Make buttons according to Activities of test cases
 		LinearLayout linearLayout = (LinearLayout) findViewById(R.id.main_view_layout);
 		linearLayout.addView(createButton(fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity.class));
 		linearLayout.addView(createButton(fi.metropolia.lbs.travist.offline_gps.TravistLeppavaaraActivity.class));
 	}
 	
-	//Simple examples how to use CRUD methods (Content provider)
-	public void insertIntoDb(View v) {
-		ContentValues cv = new ContentValues();
-		cv.put(PlaceTableClass.PLACE_ID, "asd");
-		cv.put(PlaceTableClass.PLACE_NAME, "CHIGAGO");
-		this.getContentResolver().insert(LBSContentProvider.PLACES_URI, cv);
-		Toast.makeText(getApplicationContext(), "click query to check if it returns anything", Toast.LENGTH_SHORT).show();
-	}
-	
-	public void queryFromDb(View v) {
-		Cursor cursor = this.getContentResolver().query(LBSContentProvider.PLACES_URI, null, null, null, null);
-		if (cursor.getCount() > 0 && cursor.moveToNext()) {
-			int index = cursor.getColumnIndex(PlaceTableClass.PLACE_NAME);
-			String placeName = cursor.getString(index);
-			Toast.makeText(getApplicationContext(), "From db:" + placeName, Toast.LENGTH_SHORT).show();
+	private class prepareMapFiles extends AsyncTask<String, Void, String> {
+
+		@Override
+		protected String doInBackground(String... params) {
+			AssetAdapter ASS = new AssetAdapter(getBaseContext());
+			ASS.assetsToDir();
+			return null;
 		}
-		cursor.close();
-	}
-	
-	public void deleteFromDb(View v) {
-		this.getContentResolver().delete(LBSContentProvider.PLACES_URI, PlaceTableClass.PLACE_ID + " = 'asd'", null);
-		Toast.makeText(getApplicationContext(), "click query to check if it returns anything", Toast.LENGTH_SHORT).show();
-	}
-	
-	public void updateDb(View v) {
-		ContentValues cv = new ContentValues();
-		cv.put(PlaceTableClass.PLACE_ID, "asd");
-		cv.put(PlaceTableClass.PLACE_NAME, "MOSCOW");
-		this.getContentResolver().update(LBSContentProvider.PLACES_URI, cv, PlaceTableClass.PLACE_ID + " = 'asd'", null);
-		Toast.makeText(getApplicationContext(), "Click query to check if placename changed", Toast.LENGTH_SHORT).show();
+
+		@Override
+		protected void onPostExecute(String result) {
+			super.onPostExecute(result);
+			//Enable browse button also?
+			
+		}	
 	}
 }
