@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item 
-        android:id="@+id/route_menu_item_1"
+        android:id="@+id/route_menu_from"
         android:showAsAction="ifRoom|withText"
-        android:title="menu item 1">
+        android:title="route from here">
         
     </item>
     <item 
-        android:id="@+id/route_menu_item_2"
+        android:id="@+id/route_menu_to"
         android:showAsAction="ifRoom|withText"
-        android:title="menu item 2">
+        android:title="route to here">
         
     </item>
 

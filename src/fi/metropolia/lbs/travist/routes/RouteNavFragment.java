@@ -20,13 +20,13 @@ public class RouteNavFragment extends Fragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		
+		mNavView = getActivity().findViewById(R.id.route_nav);
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.routes_nav_fragment, container);
+		return inflater.inflate(R.layout.routes_nav_fragment, container, false);
 	}
 	
 	public void calculateRoute() {

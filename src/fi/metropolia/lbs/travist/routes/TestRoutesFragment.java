@@ -31,11 +31,16 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.TextView;
 
 import com.graphhopper.GHRequest;
@@ -55,22 +60,71 @@ import fi.metropolia.lbs.travist.offline_map.DanielMarker;
 import fi.metropolia.lbs.travist.offline_map.GHAsyncTask;
 
 @SuppressLint("NewApi")
-public class TestRoutesFragment extends Fragment 
-	implements fi.metropolia.lbs.travist.foursquare_api.AsyncFinished {
-	
+public class TestRoutesFragment extends Fragment implements
+		fi.metropolia.lbs.travist.foursquare_api.AsyncFinished {
+
 	private MapView mapView;
 	private TileCache tileCache;
 	private GraphHopperAPI hopperApi;
 	private MapViewPosition mapViewPosition;
 	private DanielMarker tempMarker;
 	private boolean check = false;
-	
+	private LatLong tempLatLong;
+	private LatLong from;
+	private LatLong to;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		setRetainInstance(true);
+		setHasOptionsMenu(true);
+	}
+
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		logD("context menu called ", this);
+		super.onCreateContextMenu(menu, v, menuInfo);
+		MenuInflater inflater = getActivity().getMenuInflater();
+		inflater.inflate(R.menu.route_frag_menu, menu);
+	}
+
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+				.getMenuInfo();
+		switch (item.getItemId()) {
+		case R.id.route_menu_from:
+			routeFrom();
+			return true;
+		case R.id.route_menu_to:
+			routeTo();
+			return true;
+		default:
+			return super.onContextItemSelected(item);
+		}
+	}
+
+	public void routeFrom() {
+		logD("route from..", this);
+		from = tempLatLong;
+	}
+
+	public void routeTo() {
+		logD("route to..", this);
+		if ( from != null ) {
+			calcPath(from.latitude, from.longitude, 
+					tempLatLong.latitude, tempLatLong.longitude);
+		}
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		View rootView = inflater.inflate(R.layout.routes_map_frag, container, false);
+
+		View rootView = inflater.inflate(R.layout.routes_map_frag, container,
+				false);
 
 		mapView = (MapView) rootView.findViewById(R.id.routes_mapview);
 		mapView.setClickable(true);
@@ -86,22 +140,26 @@ public class TestRoutesFragment extends Fragment
 		mapViewPosition = initializePosition(mapView.getModel().mapViewPosition);
 
 		tileCache = AndroidUtil.createTileCache(getActivity(), getClass()
-					.getSimpleName(),
-					mapView.getModel().displayModel.getTileSize(), 1f, 
-					mapView.getModel().frameBufferModel.getOverdrawFactor());
+				.getSimpleName(),
+				mapView.getModel().displayModel.getTileSize(), 1f, mapView
+						.getModel().frameBufferModel.getOverdrawFactor());
 
 		loadMap();
+		
+		// on long click brings up contextual menu
+		registerForContextMenu(mapView);
+		
 		if (!mapView.getLayerManager().getLayers().isEmpty()) {
 			loadGraphStorage();
 		}
 		// testInitialZoom();
 		return rootView;
 	}
-	
+
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		
+
 	}
 
 	protected MapPosition getInitialPosition() {
@@ -113,7 +171,6 @@ public class TestRoutesFragment extends Fragment
 		super();
 	}
 
-	
 	protected MapViewPosition initializePosition(MapViewPosition mvp) {
 		LatLong center = mvp.getCenter();
 
@@ -127,27 +184,18 @@ public class TestRoutesFragment extends Fragment
 		return mvp;
 	}
 
-	//From graphhopper example
+	// From graphhopper example
 	private void loadMap() {
 		logD("Loading Map");
-		File mapFile = new File("/sdcard/graphhopper/maps/istanbul-gh/istanbul.map");
+		File mapFile = new File(
+				"/sdcard/graphhopper/maps/istanbul-gh/istanbul.map");
 		logD(mapFile.getAbsolutePath().toString());
 		mapView.getLayerManager().getLayers().clear();
 
 		TileRendererLayer tileRendererLayer = new TileRendererLayer(tileCache,
 				mapViewPosition, true, AndroidGraphicFactory.INSTANCE) {
-
-			@Override
-			public boolean onTap(LatLong tapLatLong, Point layerXY, Point tapXY) {
-				if (check) {
-					mapView.getLayerManager().getLayers().remove(tempMarker);
-					DanielMarker marker = addMarker(tempMarker.getLatLong(),tempMarker.getPlace());
-					mapView.getLayerManager().getLayers().add(marker);
-					check = false;
-				}
-
-				return super.onTap(tapLatLong, layerXY, tapXY);
-			}
+				// room for code.
+				// this had unfunctional onTap listeners
 
 		};
 
@@ -180,12 +228,15 @@ public class TestRoutesFragment extends Fragment
 						check = true;
 
 						Layers layers = mapView.getLayerManager().getLayers();
-						Log.d("LOG", "Here's tapPoint and viewPosition: " + viewPosition + ", " + tapPoint);
-						Log.w("Tapp", "The Marker was touched with onTap: " + this.getLatLong().toString());
+						Log.d("LOG", "Here's tapPoint and viewPosition: "
+								+ viewPosition + ", " + tapPoint);
+						Log.w("Tapp", "The Marker was touched with onTap: "
+								+ this.getLatLong().toString());
 
 						// From mapsforge examples
 						TextView bubbleView = new TextView(getActivity());
-						setBackground(bubbleView,getResources().getDrawable(R.drawable.bubble));
+						setBackground(bubbleView,
+								getResources().getDrawable(R.drawable.bubble));
 						bubbleView.setGravity(Gravity.CENTER);
 						bubbleView.setMaxEms(50);
 						bubbleView.setTextSize(30);
@@ -193,7 +244,7 @@ public class TestRoutesFragment extends Fragment
 						Bitmap bubble = viewToBitmap(getActivity(), bubbleView);
 						bubble.incrementRefCount();
 						DanielMarker marker = new DanielMarker(latLong, bubble,
-												0, -bubble.getHeight() / 2, place);
+								0, -bubble.getHeight() / 2, place);
 						layers.add(marker);
 						tempMarker = marker;
 						// DSA
@@ -202,10 +253,21 @@ public class TestRoutesFragment extends Fragment
 				}
 				return false;
 			}
+			
+			@Override
+			public boolean onLongPress(LatLong tapLatLong, Point thisXY,
+					Point tapXY) {
+				logD("long press clicked " + tapLatLong.toString(), this);
+				
+				// save coordinates and open menu for to choose from or to
+				tempLatLong = tapLatLong;
+				getActivity().openContextMenu(mapView);
+				return true;
+			}
 		};
 	}
 
-	//From graphhopper examples
+	// From graphhopper examples
 	private void calcPath(final double fromLat, final double fromLon,
 			final double toLat, final double toLon) {
 
@@ -244,7 +306,7 @@ public class TestRoutesFragment extends Fragment
 		}.execute();
 	}
 
-	//From graphhopper example
+	// From graphhopper example
 	private Polyline createPolyline(GHResponse response) {
 		logD("Polyline");
 		Paint paintStroke = AndroidGraphicFactory.INSTANCE.createPaint();
@@ -264,7 +326,7 @@ public class TestRoutesFragment extends Fragment
 		return line;
 	}
 
-	//From graphhopper example
+	// From graphhopper example
 	private void loadGraphStorage() {
 		logD("loading graph (" + Constants.VERSION + ") ... ");
 		new GHAsyncTask<Void, Void, Path>() {
@@ -285,10 +347,9 @@ public class TestRoutesFragment extends Fragment
 							+ getErrorMessage());
 				} else {
 					logD("Finished loading graph. Touch to route.");
-					// callPath(); //Calc distance between to locations
+					callPath(); // Calc distance between to locations
 
-					
-					//Do this in drawernavigation
+					// Do this in drawernavigation
 					Criteria crit = new Criteria();
 					crit.setNear("istanbul");
 					crit.setLimit("30");
@@ -298,7 +359,8 @@ public class TestRoutesFragment extends Fragment
 					String url = fq.createQuery(crit);
 					Log.d("Main", "Main: " + url);
 
-					DownloadJSON dlJSON = new DownloadJSON(this);
+					DownloadJSON dlJSON = new DownloadJSON(
+							TestRoutesFragment.this);
 					dlJSON.startDownload(url);
 				}
 			}
@@ -317,7 +379,7 @@ public class TestRoutesFragment extends Fragment
 		Log.d("Testing", o.getClass().getSimpleName() + ": " + logText);
 	}
 
-	//Called when category is downloaded and parsed into arraylist
+	// Called when category is downloaded and parsed into arraylist
 	@Override
 	public void downloadFinish(ArrayList<Place> places) {
 		for (int i = 0; i < places.size(); i++) {
@@ -327,12 +389,12 @@ public class TestRoutesFragment extends Fragment
 					new LatLong(
 							Double.parseDouble(places.get(i).getLatitude()),
 							Double.parseDouble(places.get(i).getLongitude())),
-							places.get(i));
+					places.get(i));
 			layers.add(marker1);
 		}
 	}
 
-	//From mapsforge 0.4 examples
+	// From mapsforge 0.4 examples
 	static Bitmap viewToBitmap(Context c, View view) {
 		view.measure(MeasureSpec.getSize(view.getMeasuredWidth()),
 				MeasureSpec.getSize(view.getMeasuredHeight()));
@@ -344,7 +406,7 @@ public class TestRoutesFragment extends Fragment
 		return AndroidGraphicFactory.convertToBitmap(drawable);
 	}
 
-	//From mapsforge 0.4 examples
+	// From mapsforge 0.4 examples
 	@SuppressLint("NewApi")
 	public static void setBackground(View view, Drawable background) {
 		if (android.os.Build.VERSION.SDK_INT >= 16) {
@@ -354,5 +416,3 @@ public class TestRoutesFragment extends Fragment
 		}
 	}
 }
-	
-
