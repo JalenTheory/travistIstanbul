@@ -30,7 +30,8 @@ public class RouteNavFragment extends Fragment {
 	}
 	
 	public void calculateRoute() {
-		logD("calculating route", this);
+		// in case route fragment needs extra functions for 
+		// nav fragment. 
 	}
 	
 	private void logD(String logText) {

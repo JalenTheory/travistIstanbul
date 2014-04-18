@@ -18,7 +18,7 @@ import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
 public class TestRoutesActivity extends Activity {
-	private final Fragment mRoutesFragment = new TestRoutesFragment();
+	private final Fragment mRoutesFragment = new TestTravistMapViewAdapterFragment();
 
 	@SuppressLint("NewApi")
 	protected void onCreate(Bundle savedInstanceState) {
