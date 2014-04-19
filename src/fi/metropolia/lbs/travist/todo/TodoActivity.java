@@ -7,13 +7,17 @@ import org.json.JSONObject;
 
 import travist.pack.R;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
@@ -120,26 +124,27 @@ public class TodoActivity extends Activity {
 		expLv = (ExpandableListView) findViewById(R.id.todo_list);
 		adapter = new ExpandableAdapter(this, cursor);
 		expLv.setAdapter(adapter);
-		/*
+		
 		expLv.setOnItemLongClickListener(new OnItemLongClickListener() {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View v,
-					int pos, long id) {
+					final int pos, long id) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(TodoActivity.this);
 				builder.setMessage("Remove item from todolist?")
 				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 					
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						cursor.moveToPosition(groupPosition);
-						int index = cursor.getColumnIndex(PlaceTableClass.PLACE_NAME);
-						String placename = cursor.getString(index);
+						
+						todoList = (List<String>) ((ExpandableAdapter) adapter).todoList;
 						
 						ContentValues cv = new ContentValues();
        					cv.put(PlaceTableClass.IS_IN_TODO, 0);
+       					Log.d("moi","asd: "+todoList.get(pos).toString());
        					TodoActivity.this.getContentResolver().update(LBSContentProvider.PLACES_URI,
-       							cv, PlaceTableClass.PLACE_NAME+" = '"+placename+"'", null);
-       					adapter.todoList.remove(groupPosition);
+       							cv, PlaceTableClass.PLACE_NAME+" = '"+todoList.get(pos).toString()+"'", null);
+       					
+       					todoList.remove(pos);
        					((BaseExpandableListAdapter) adapter).notifyDataSetChanged();
        					((BaseExpandableListAdapter) adapter).notifyDataSetInvalidated();
 					}
@@ -155,7 +160,7 @@ public class TodoActivity extends Activity {
 				dialog.show();
 				return false;
 			}
-		});*/
+		});
 		
 		expLv.setOnChildClickListener(new OnChildClickListener(){
 
@@ -197,7 +202,6 @@ public class TodoActivity extends Activity {
 		});
 	}
 
-
 	private void showMatches(){
 		childList.removeAll(childList);
 		for(int i=0;i<matches.length;i++){
@@ -210,8 +214,6 @@ public class TodoActivity extends Activity {
 				}
 			}
 		}
-		//childList.add("Masa");
-		//childList.add("Pera");
 		((BaseExpandableListAdapter) adapter).notifyDataSetChanged();
 		((BaseExpandableListAdapter) adapter).notifyDataSetInvalidated();
 	}
