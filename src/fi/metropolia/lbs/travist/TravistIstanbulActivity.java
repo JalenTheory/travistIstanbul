@@ -17,6 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import fi.metropolia.lbs.travist.database.LBSContentProvider;
 import fi.metropolia.lbs.travist.database.PlaceTableClass;
+import fi.metropolia.lbs.travist.emergency.EmergencyActivity;
+import fi.metropolia.lbs.travist.exchange.ExchangeActivity;
 import fi.metropolia.lbs.travist.offline_map.AssetAdapter;
 import fi.metropolia.lbs.travist.offline_map.TestOfflineMapFragment;
 import fi.metropolia.lbs.travist.savedlist.SavedlistActivity;
@@ -51,7 +53,7 @@ public class TravistIstanbulActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		
-		//Intent todoIntent = new Intent(this, SavedlistActivity.class);
+		//Intent todoIntent = new Intent(this, ExchangeActivity.class);
 		//startActivity(todoIntent);
 		
         SharedPreferences shaPre = getSharedPreferences("MAP", MODE_PRIVATE);

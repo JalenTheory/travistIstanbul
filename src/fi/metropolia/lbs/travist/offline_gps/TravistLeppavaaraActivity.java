@@ -55,7 +55,7 @@ public class TravistLeppavaaraActivity extends Activity {
 		mapViewPosition = initializePosition(mapView.getModel().mapViewPosition);
 
 		Drawable drawable = getResources()
-				.getDrawable(R.drawable.currency_sign);
+				.getDrawable(R.drawable.currency_dollar_icon);
 		Bitmap bitmap = AndroidGraphicFactory.convertToBitmap(drawable);
 		myLocationOverlay = new MyLocationOverlay(
 				TravistLeppavaaraActivity.this, mapViewPosition, bitmap);
@@ -140,7 +140,7 @@ public class TravistLeppavaaraActivity extends Activity {
 	private Marker addMarker(final LatLong latLong) {
 		logD("Adding marker");
 		Drawable markerIcon = getResources()
-				.getDrawable(R.drawable.dollar_sign);
+				.getDrawable(R.drawable.currency_dollar_icon);
 		Bitmap bm = AndroidGraphicFactory.convertToBitmap(markerIcon);
 
 		return new Marker(latLong, bm, 0, -bm.getHeight() / 2) {

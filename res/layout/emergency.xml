@@ -1,0 +1,292 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:layout_weight="1"
+    tools:context=".MainActivity"
+    android:background="@drawable/travist_half" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+	    <ImageView
+	        android:id="@+id/emergency_button"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:src="@drawable/emergency_button" />
+	</LinearLayout>
+	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:background="@drawable/transparent_background" >
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1.3"
+	        android:orientation="vertical"
+	        android:layout_gravity="center" >
+
+	        <TextView
+	            android:id="@+id/emergency_service_text"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Service"
+	            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+		</LinearLayout>
+		<LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:orientation="vertical"
+	        android:layout_gravity="center" >
+
+			<TextView
+			    android:id="@+id/emergency_number_text"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="Number"
+			    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+		</LinearLayout>
+	</LinearLayout>
+    <LinearLayout
+        android:id="@+id/emergency_ambulance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:background="@drawable/emergency_item" >
+		<LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:orientation="vertical"
+	        android:layout_gravity="center_vertical" >
+	        <TextView
+	            android:id="@+id/emergency_ambulance_text"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Ambulance"
+	            android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+        <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:orientation="vertical"
+	        android:layout_gravity="center_vertical" >
+        	<TextView
+	            android:id="@+id/emergency_ambulance_number"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="112"
+	            android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/emergency_fire"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/emergency_item"
+        android:orientation="horizontal" >
+
+		<LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:orientation="vertical"
+	        android:layout_gravity="center_vertical" >
+	        <TextView
+	            android:id="@+id/emergency_fire_text"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Fire Department"
+	            android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+        <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:orientation="vertical"
+	        android:layout_gravity="center_vertical" >
+        	<TextView
+	            android:id="@+id/emergency_fire_number"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="110"
+	            android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/emergency_police"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/emergency_item"
+        android:orientation="horizontal" >
+
+		<LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:orientation="vertical"
+	        android:layout_gravity="center_vertical" >
+	        <TextView
+	            android:id="@+id/emergency_police_text"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Police"
+	            android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+        <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:orientation="vertical"
+	        android:layout_gravity="center_vertical" >
+        	<TextView
+	            android:id="@+id/emergency_police_number"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="155"
+	            android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/emergency_coastguard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/emergency_item"
+        android:orientation="horizontal" >
+
+		<LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:orientation="vertical"
+	        android:layout_gravity="center_vertical" >
+	        <TextView
+	            android:id="@+id/emergency_coastguard_text"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Coastguard"
+	            android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+        <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:orientation="vertical"
+	        android:layout_gravity="center_vertical" >
+        	<TextView
+	            android:id="@+id/emergency_coastguard_number"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="158"
+	            android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/emergency_forest_fire"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/emergency_item"
+        android:orientation="horizontal" >
+
+		<LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:orientation="vertical"
+	        android:layout_gravity="center_vertical" >
+	        <TextView
+	            android:id="@+id/emergency_forest_fire_text"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Forest fires"
+	            android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+        <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:orientation="vertical"
+	        android:layout_gravity="center_vertical" >
+        	<TextView
+	            android:id="@+id/emergency_forest_fire_number"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="177"
+	            android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/emergency_missing_child"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/emergency_item"
+        android:orientation="horizontal" >
+
+		<LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:orientation="vertical"
+	        android:layout_gravity="center_vertical" >
+	        <TextView
+	            android:id="@+id/emergency_missing_child_text"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Missing Child"
+	            android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+        <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:orientation="vertical"
+	        android:layout_gravity="center_vertical" >
+        	<TextView
+	            android:id="@+id/emergency_missing_child_number"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="183"
+	            android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:background="@drawable/transparent_background" >
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:background="@drawable/transparent_background" >
+    </LinearLayout>
+    
+</LinearLayout>

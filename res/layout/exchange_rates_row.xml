@@ -18,14 +18,15 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.3"
-            android:orientation="horizontal" >
+            android:layout_weight="0.4"
+            android:orientation="horizontal"
+            android:layout_gravity="center" >
             
             <ImageView 
-                android:id="@+id/currency_sign"
+                android:id="@+id/exchange_rates_currency_sign"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/currency_sign" />
+                android:src="@drawable/currency_dollar_icon" />
             
         </LinearLayout>
         <LinearLayout
@@ -35,7 +36,7 @@
             android:orientation="horizontal" >
         
 	        <TextView
-		        android:id="@+id/exchange_rates_currency"
+		        android:id="@+id/exchange_rates_currency_name"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:text="Currency"
@@ -47,16 +48,16 @@
 	    <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.6"
+            android:layout_weight="0.9"
             android:orientation="horizontal" >
 	        <TextView
-	            android:id="@+id/exchange_rates_rate"
+	            android:id="@+id/exchange_rates_currency_rate"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_marginLeft="5dp"
 	            android:layout_marginTop="3dp"
 	            android:text="5"
-	            android:textAppearance="?android:attr/textAppearanceMedium"
+	            android:textAppearance="?android:attr/textAppearanceSmall"
 	            android:onClick="testi" />
 		</LinearLayout>
 	
