@@ -72,8 +72,7 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
 		
 		for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
 			holder.placeName = cursor.getString(cursor.getColumnIndex(PlaceTableClass.PLACE_NAME));
-			String address = cursor.getString(cursor.getColumnIndex(PlaceTableClass.ADDRESS));
-			todoList.add(holder.placeName+", " + address);
+			todoList.add(holder.placeName);
 			List<String> list = new ArrayList<String>();
 			list.add("");
 			contentMap.put(todoList.get(cursor.getPosition()), list);
@@ -209,16 +208,13 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
         holder.group = (TextView) convertView.findViewById(R.id.todo_listname);
         holder.group.setTypeface(null, Typeface.BOLD);
         String nameAddress = (String) getGroup(groupPosition);
-        String name = nameAddress.substring(0, nameAddress.indexOf(","));
-        holder.group.setText(name);
+        holder.group.setText(nameAddress);
         
         holder.address = (TextView) convertView.findViewById(R.id.todo_list_address);
         holder.address.setTypeface(null, Typeface.BOLD);
         String address = nameAddress.substring(nameAddress.lastIndexOf(",") + 1);
         holder.address.setText(address);
         
-        //holder.mapButton = (Button) convertView.findViewById(R.id.mapButton);
-        //holder.mapButton.setFocusable(false);
         holder.saveButton = (Button) convertView.findViewById(R.id.saveButton);
         holder.saveButton.setFocusable(false);
         
@@ -235,34 +231,47 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
 			}
 		});
         
-        /*holder.mapButton.setOnClickListener(new View.OnClickListener(){
-			@Override
-			public void onClick(View arg0) {
-				Intent intent = new Intent();
-				intent.setClass(context, TodoActivity.class);
-				//TODO: put the json object into the intent
-				context.startActivity(intent);
-			}			
-		});*/
-        
         holder.saveButton.setOnClickListener(new View.OnClickListener(){
+        	//dialog gets prompted to verify users decision
 			@Override
 			public void onClick(View v) {
 				
-				cursor.moveToPosition(groupPosition);
-				int index = cursor.getColumnIndex(PlaceTableClass.PLACE_ID);
-				String pid = cursor.getString(index);
-				String url = "http://users.metropolia.fi/~eetupa/Turkki/setSaved.php?pid="+pid+"&uid="+uid;
-				int index2 = cursor.getColumnIndex(PlaceTableClass.PLACE_NAME);
-				String pname = cursor.getString(index2);
-				Log.d(tag,"adapter url: "+url);
-				UpSaved up = new UpSaved(url);
-				up.upload();
-				
-				ContentValues cv = new ContentValues();
-				cv.put(PlaceTableClass.IS_IN_SAVED, 1);
-				
-				context.getContentResolver().update(LBSContentProvider.PLACES_URI, cv, PlaceTableClass.PLACE_NAME+" = '"+pname+"'", null);
+				AlertDialog.Builder builder = new AlertDialog.Builder(context);
+				builder.setMessage("Add item to saved list?")
+				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+
+						//add todo item to saved list and remove it from the todo list
+						cursor.moveToPosition(groupPosition);
+						int index = cursor.getColumnIndex(PlaceTableClass.PLACE_ID);
+						String pid = cursor.getString(index);
+						String url = "http://users.metropolia.fi/~eetupa/Turkki/setSaved.php?pid="+pid+"&uid="+uid;
+						int index2 = cursor.getColumnIndex(PlaceTableClass.PLACE_NAME);
+						String pname = cursor.getString(index2);
+						Log.d(tag,"adapter url: "+url);
+						UpSaved up = new UpSaved(url);
+						up.upload();
+						
+						ContentValues cv = new ContentValues();
+						cv.put(PlaceTableClass.IS_IN_SAVED, 1);
+						cv.put(PlaceTableClass.IS_IN_TODO, 0);
+						context.getContentResolver().update(LBSContentProvider.PLACES_URI, cv, PlaceTableClass.PLACE_NAME+" = '"+pname+"'", null);
+						todoList.remove(groupPosition);
+						notifyDataSetChanged();
+       					notifyDataSetInvalidated();
+						
+					}
+				}).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.cancel();
+					}
+					
+				});
+				AlertDialog dialog = builder.create();
+				dialog.show();	
 			}			
 		});
         
