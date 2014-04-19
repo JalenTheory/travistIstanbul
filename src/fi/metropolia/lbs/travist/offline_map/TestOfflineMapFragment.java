@@ -36,6 +36,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
+import android.widget.FrameLayout.LayoutParams;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.graphhopper.GHRequest;
@@ -177,12 +181,32 @@ public class TestOfflineMapFragment extends Fragment implements
 						Log.w("Tapp", "The Marker was touched with onTap: " + this.getLatLong().toString());
 
 						// From mapsforge examples
+
+
+						TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
+						TableRow.LayoutParams rowParams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
+
+						TableLayout tableLayout = new TableLayout(getActivity());
+						
+						tableLayout.setLayoutParams(tableParams);
+
+						TableRow tableRow = new TableRow(getActivity());
+						tableRow.setLayoutParams(tableParams);
+
 						TextView bubbleView = new TextView(getActivity());
+//						LinearLayout.LayoutParams Params1 = new LinearLayout.LayoutParams(15,50);
+//						bubbleView.setLayoutParams(Params1); 
 						setBackground(bubbleView,getResources().getDrawable(R.drawable.bubble));
 						bubbleView.setGravity(Gravity.CENTER);
-						bubbleView.setMaxEms(50);
-						bubbleView.setTextSize(30);
-						bubbleView.setText(place.getCategoryName());
+						bubbleView.setMaxEms(10);
+						bubbleView.setTextSize(20);
+						
+						  
+						  
+						//bind foursquare data to bubbleview
+						bubbleView.setText(place.getPlaceName()+"\n"+place.getCategoryName()+"\n"+place.getAddress());
+						tableRow.addView(bubbleView);
+
 						Bitmap bubble = viewToBitmap(getActivity(), bubbleView);
 						bubble.incrementRefCount();
 						DanielMarker marker = new DanielMarker(latLong, bubble,

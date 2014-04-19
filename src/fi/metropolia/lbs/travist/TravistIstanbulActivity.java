@@ -24,7 +24,7 @@ import fi.metropolia.lbs.travist.todo.TodoActivity;
 
 public class TravistIstanbulActivity extends Activity {
 	public static final String TAG = "travist debug";
-
+//hello
 	private Button createButton(final Class<?> testCaseClass) {
 		Button button = new Button(this);
 		button.setText(testCaseClass.getSimpleName());
