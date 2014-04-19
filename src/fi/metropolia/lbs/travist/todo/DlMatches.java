@@ -55,7 +55,7 @@ public class DlMatches {
 		// PARSING JSON
 		JSONObject match;
 		JSONArray matches;
-
+		Log.d("moi","parsin json: "+data);
 		try {
 			matches = (new JSONArray(data));
 			returnArray = new JSONObject[matches.length()];

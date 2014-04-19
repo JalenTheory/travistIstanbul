@@ -78,15 +78,6 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
 			list.add("");
 			contentMap.put(todoList.get(cursor.getPosition()), list);
 		}
-		
-		/*for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-			holder.placeName = cursor.getString(cursor.getColumnIndex(PlaceTableClass.PLACE_NAME));
-			String category = cursor.getString(cursor.getColumnIndex(PlaceTableClass.CATEGORY_NAME));
-			todoList.add(holder.placeName+", "+category);
-			List<String> list = new ArrayList<String>();
-			list.add("");
-			contentMap.put(todoList.get(cursor.getPosition()), list);
-		}*/
 	}
     
     public List<String> getChildList(int pos){
@@ -118,8 +109,9 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
         }
  
         TextView txtListChild = (TextView) convertView.findViewById(R.id.todo_match_name); 
-        txtListChild.setText(childText);   
-        txtListChild.setOnClickListener(new View.OnClickListener() {
+        txtListChild.setText(childText);
+        
+        /*txtListChild.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -129,13 +121,13 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
 				TextView matchName = (TextView) matchDialog.findViewById(R.id.dialog_matchmake_name);
 				matchName.setText("Make");
 				TextView matchNationality = (TextView) matchDialog.findViewById(R.id.dialog_matchmake_nationality);
-				matchNationality.setText("Hikiä");
+				matchNationality.setText("Hikiï¿½");
 				
 				LinearLayout dialogSend = (LinearLayout) matchDialog.findViewById(R.id.dialog_matchmake_send);
 				dialogSend.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						Log.d("Eetu", "haluu seuraa tätä kautta");
+						Log.d("Eetu", "haluu seuraa tï¿½tï¿½ kautta");
 						/* Send notification via email
 						String email_address = "match_email";
 						Intent email = new Intent(Intent.ACTION_SEND);
@@ -157,7 +149,7 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
 						sendSMS.setType("vnd.android-dir/mms-sms");
 						startActivity(sendSMS);
 						 */
-						matchDialog.dismiss();
+						/*matchDialog.dismiss();
 					}
 					
 				});
@@ -180,7 +172,7 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
 				int width = display.getWidth();
 				matchDialog.getWindow().setLayout(width, (int) ((int)height * 0.5));
 			}
-		});
+		});*/
         return convertView;
     }
  
@@ -225,40 +217,6 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
         String address = nameAddress.substring(nameAddress.lastIndexOf(",") + 1);
         holder.address.setText(address);
         
-        /*
-        holder.group.setOnLongClickListener(new View.OnLongClickListener() {			
-			@Override
-			public boolean onLongClick(View v) {
-				AlertDialog.Builder builder = new AlertDialog.Builder(context);
-				builder.setMessage("Remove item from TODO-list?")
-				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-					
-                   public void onClick(DialogInterface dialog, int id) {
-                	   	ContentValues cv = new ContentValues();
-       					cv.put(PlaceTableClass.IS_IN_TODO, 0);
-       					context.getContentResolver().update(LBSContentProvider.PLACES_URI,
-       							cv, PlaceTableClass.PLACE_NAME+" = '"+holder.placeName +"'", null);
-       					todoList.remove(groupPosition);
-       					notifyDataSetChanged();
-       					notifyDataSetInvalidated();
-       					cursor = context.getContentResolver().query(LBSContentProvider.PLACES_URI, projection, "IS_IN_TODO = '1'", null, null);
-       					//((Activity) context).finish();
-       					//Intent intent = new Intent(context, TodoActivity.class);
-       					//context.startActivity(intent);
-                   }
-               })
-               .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            	   
-                   public void onClick(DialogInterface dialog, int id) {
-                	   dialog.cancel();
-                   }
-               });
-				AlertDialog dialog = builder.create();
-				dialog.show();
-				return false;
-			}
-		});*/
-        
         //holder.mapButton = (Button) convertView.findViewById(R.id.mapButton);
         //holder.mapButton.setFocusable(false);
         holder.saveButton = (Button) convertView.findViewById(R.id.saveButton);
@@ -295,13 +253,16 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
 				int index = cursor.getColumnIndex(PlaceTableClass.PLACE_ID);
 				String pid = cursor.getString(index);
 				String url = "http://users.metropolia.fi/~eetupa/Turkki/setSaved.php?pid="+pid+"&uid="+uid;
+				int index2 = cursor.getColumnIndex(PlaceTableClass.PLACE_NAME);
+				String pname = cursor.getString(index2);
 				Log.d(tag,"adapter url: "+url);
 				UpSaved up = new UpSaved(url);
 				up.upload();
 				
 				ContentValues cv = new ContentValues();
 				cv.put(PlaceTableClass.IS_IN_SAVED, 1);
-				context.getContentResolver().update(LBSContentProvider.PLACES_URI, cv, PlaceTableClass.PLACE_NAME+" = '"+holder.placeName +"'", null);
+				
+				context.getContentResolver().update(LBSContentProvider.PLACES_URI, cv, PlaceTableClass.PLACE_NAME+" = '"+pname+"'", null);
 			}			
 		});
         

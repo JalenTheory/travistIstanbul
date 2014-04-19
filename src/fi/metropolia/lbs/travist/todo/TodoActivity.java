@@ -2,23 +2,22 @@ package fi.metropolia.lbs.travist.todo;
 
 import java.util.HashMap;
 import java.util.List;
+
 import org.json.JSONObject;
+
 import travist.pack.R;
 import android.app.Activity;
-import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.ContentValues;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,8 +30,8 @@ public class TodoActivity extends Activity {
 	private String url;
 	private JSONObject places[];
 	private JSONObject matches[];
-	//userid should be taken from database
-	private int userId = 1;
+	//useremail should be taken from database
+	private String userEmail = "RAM@RAM.FI";
 	private String download = "";
 	
     private ExpandableListAdapter adapter;
@@ -44,14 +43,12 @@ public class TodoActivity extends Activity {
     private LinearLayout listll;
     private TextView listllChild;
     private Cursor cursor;
+    ProgressDialog pd;
  
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.todo);
-		url = "http://users.metropolia.fi/~eetupa/Turkki/getTodosByUid.php?uid="
-				+ userId;
-		download = "places";
 		
 		ContentValues cv = new ContentValues();
 		cv.put(PlaceTableClass.PLACE_ID, "123");
@@ -93,6 +90,12 @@ public class TodoActivity extends Activity {
 	
 	class Dl extends AsyncTask<String, Void, String> {
 
+		@Override
+		protected void onPreExecute(){
+			pd = new ProgressDialog(TodoActivity.this);
+			pd.setMessage("Getting matches");
+			pd.show();
+		}
 		protected String doInBackground(String... urls) {
 
 			DlMatches dlmatches = new DlMatches(url);
@@ -106,6 +109,7 @@ public class TodoActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(String result) {
+			pd.cancel();
 			showMatches();
 		}
 	}
@@ -153,6 +157,27 @@ public class TodoActivity extends Activity {
 			}
 		});*/
 		
+		expLv.setOnChildClickListener(new OnChildClickListener(){
+
+			@Override
+			public boolean onChildClick(ExpandableListView exlv, View v,
+					int gpos, int cpos, long id) {
+				Log.d("moi","childtext: "+childList.get(cpos).toString());
+				if(!childList.get(cpos).toString().equals("No matches")){
+					MatchDialog md = new MatchDialog();
+					Bundle bundle = new Bundle();
+					bundle.putString("email", matches[cpos].optString("EMAIL"));
+					bundle.putString("name", matches[cpos].optString("NAME"));
+					bundle.putString("country", matches[cpos].optString("COUNTRY"));
+					bundle.putString("gsm", matches[cpos].optString("GSM"));
+					md.setArguments(bundle);
+					md.show(getFragmentManager(), "todo");
+				}
+				return false;
+			}
+			
+		});
+		
 		expLv.setOnGroupExpandListener(new OnGroupExpandListener(){
 			@Override
 			public void onGroupExpand(int gpos) {
@@ -175,16 +200,18 @@ public class TodoActivity extends Activity {
 
 	private void showMatches(){
 		childList.removeAll(childList);
-		//Kaataa koko homman?!
-		/*for(int i=0;i<matches.length;i++){
-			if(!matches[i].optString("UID").equals(String.valueOf(userId))){	
-				childList.add(matches[i].optString("NAME")+", "+matches[i].optString("COUNTRY"));			
-				((BaseExpandableListAdapter) adapter).notifyDataSetChanged();
-				((BaseExpandableListAdapter) adapter).notifyDataSetInvalidated();
+		for(int i=0;i<matches.length;i++){
+			if(!matches[i].optString("EMAIL").equals(String.valueOf(userEmail))){
+				if(!matches[i].optString("EMAIL").equals("null")){
+					Log.d("moi","uid: "+matches[i].optString("UID"));
+					childList.add(matches[i].optString("NAME")+", "+matches[i].optString("COUNTRY"));
+				}else{
+					childList.add("No matches");
+				}
 			}
-		}*/
-		childList.add("Masa");
-		childList.add("Pera");
+		}
+		//childList.add("Masa");
+		//childList.add("Pera");
 		((BaseExpandableListAdapter) adapter).notifyDataSetChanged();
 		((BaseExpandableListAdapter) adapter).notifyDataSetInvalidated();
 	}

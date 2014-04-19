@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main_view_layout"
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#2792c9"
@@ -13,4 +13,65 @@
         android:layout_gravity="top|center_horizontal"
         android:src="@drawable/travist_banner" />
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/main_view_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#2792c9"
+        android:orientation="vertical" >
+
+        <!-- Travist banner -->
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:src="@drawable/travist_banner" />
+
+        <!-- insert -->
+
+        <Button
+            android:id="@+id/insert"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:onClick="insertIntoDb"
+            android:text="insert" >
+        </Button>
+
+        <!-- query -->
+
+        <Button
+            android:id="@+id/query"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:onClick="queryFromDb"
+            android:text="query" >
+        </Button>
+
+        <!-- delete -->
+
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:onClick="deleteFromDb"
+            android:text="delete" >
+        </Button>
+
+        <!-- update -->
+
+        <Button
+            android:id="@+id/update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:onClick="updateDb"
+            android:text="update" >
+        </Button>
+    </LinearLayout>
+
+</ScrollView>
