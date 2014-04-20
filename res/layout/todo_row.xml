@@ -7,12 +7,30 @@
     android:layout_weight="1" >
     
     <LinearLayout
+        
         android:id="@+id/todo_show_map"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_weight="3"
         android:orientation="horizontal"
         android:background="@drawable/todo_item_place" >
+        <LinearLayout
+		    android:id="@+id/todo_matchmake"
+		    android:layout_width="wrap_content"
+		    android:layout_height="30dp"
+		    android:background="@drawable/todo_item_button"
+		    android:orientation="horizontal"
+		    android:layout_weight="2">
+		    <ImageView
+		        android:id="@+id/todo_item_match_icon"
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		        android:layout_gravity="center"
+		        android:layout_marginBottom="5dp"
+		        android:src="@drawable/matchmake_icon">
+
+		    </ImageView> 
+		</LinearLayout>
         
         <TextView
 	        android:id="@+id/todo_listname"
@@ -61,7 +79,7 @@
 	</LinearLayout>
 
 	<LinearLayout
-	    android:id="@+id/todo_matchmake"
+	    android:id="@+id/todo_map"
 	    android:layout_width="wrap_content"
 	    android:layout_height="30dp"
 	    android:background="@drawable/todo_item_button"
@@ -69,7 +87,7 @@
 	    android:layout_weight="2" >
         
 	    <ImageView
-	        android:id="@+id/matchmaking_icon"
+	        android:id="@+id/map_icon"
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent"
 	        android:src="@drawable/map_icon"
