@@ -11,16 +11,18 @@
         android:layout_height="30dp"
         android:layout_weight="2"
         android:orientation="horizontal"
-        android:background="@drawable/exchange_rate_background"
-        android:onClick="testi"
-        android:clickable="true" >
+        android:background="@drawable/exchange_rate_background" >
         
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.4"
+            android:layout_gravity="center"
+            android:layout_weight="0.2"
             android:orientation="horizontal"
-            android:layout_gravity="center" >
+            android:paddingLeft="5dp"
+            android:paddingBottom="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp" >
             
             <ImageView 
                 android:id="@+id/exchange_rates_currency_sign"
@@ -29,10 +31,12 @@
                 android:src="@drawable/currency_dollar_icon" />
             
         </LinearLayout>
+
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="2.00"
             android:orientation="horizontal" >
         
 	        <TextView
@@ -40,25 +44,34 @@
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:text="Currency"
-		        android:layout_marginLeft="5dp"
+		        android:layout_marginLeft="8dp"
 		        android:layout_marginTop="3dp"
+		        android:gravity="left"
+	            android:textAlignment="gravity"
 		        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 		</LinearLayout>
+
 	    <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.9"
-            android:orientation="horizontal" >
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.68"
+	        android:orientation="horizontal"
+	        android:layout_gravity="right"
+	        android:textAlignment="gravity" >
+
 	        <TextView
 	            android:id="@+id/exchange_rates_currency_rate"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
 	            android:layout_marginLeft="5dp"
 	            android:layout_marginTop="3dp"
 	            android:text="5"
-	            android:textAppearance="?android:attr/textAppearanceSmall"
-	            android:onClick="testi" />
+	            android:gravity="right"
+	            android:paddingRight="2dp"
+	            android:textAlignment="gravity"
+	            android:textAppearance="?android:attr/textAppearanceSmall" />
+
 		</LinearLayout>
 	
 

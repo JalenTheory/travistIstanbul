@@ -25,45 +25,63 @@
 	        android:layout_height="wrap_content"
 	        android:src="@drawable/exchange_rates_button" />
 	</LinearLayout>
+	
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/currency_updated_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Updated"
+            android:textColor="#000000"
+            android:textAppearance="?android:attr/textAppearanceSmall" >
+        </TextView>
+    </LinearLayout>
+
 	<LinearLayout
 	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_weight="1"
+	    android:layout_height="30dp"
 	    android:orientation="horizontal" >
+
 	    <LinearLayout
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:orientation="horizontal" >
+	        android:layout_weight="1.5"
+	        android:orientation="horizontal"
+	        android:background="@drawable/transparent_background" >
 	        
 	    </LinearLayout>
 		<LinearLayout
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
+	        android:layout_weight="1.2"
 	        android:orientation="horizontal" >
 	    	<TextView
 		        android:id="@+id/text_currency"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:text="Currency"
-		        android:layout_marginLeft="5dp"
-		        android:layout_marginTop="3dp"
-		        android:textAppearance="?android:attr/textAppearanceSmall" />
+		        android:textAppearance="?android:attr/textAppearanceSmall"
+		        android:textColor="#000000" />
 	    	</LinearLayout>
 	   	    <LinearLayout 
 	   	        android:layout_width="match_parent"
 	   	        android:layout_height="wrap_content"
 	   	        android:layout_weight="1"
 	   	        android:orientation="horizontal" >
+
 		    	<TextView
-			        android:id="@+id/text_in_euros"
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:text="In Euros"
-			        android:layout_marginLeft="5dp"
-			        android:layout_marginTop="3dp"
-			        android:textAppearance="?android:attr/textAppearanceSmall" />
+		    	    android:id="@+id/text_in_euros"
+		    	    android:layout_width="match_parent"
+		    	    android:layout_height="wrap_content"
+		    	    android:gravity="right"
+		    	    android:text="In Euros"
+		    	    android:textAlignment="gravity"
+		    	    android:textAppearance="?android:attr/textAppearanceSmall"
+		    	    android:textColor="#000000" />
+
 	   	</LinearLayout>
    	</LinearLayout>
 	<LinearLayout

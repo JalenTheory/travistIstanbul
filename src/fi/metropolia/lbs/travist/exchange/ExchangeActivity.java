@@ -29,6 +29,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class ExchangeActivity extends Activity {
 	ExchangeAdapter adapter;
@@ -68,6 +69,9 @@ public class ExchangeActivity extends Activity {
 	
 	private ArrayList<ExchangeItem> getRates() throws ClientProtocolException, IOException, IllegalStateException, SAXException, ParserConfigurationException {
 		String[] currency_rate = null;
+		TextView updated_textView = (TextView) findViewById (R.id.currency_updated_text);
+		String updated_date;
+		String updated[] = new String[3];
 		try 
 	    {
 
@@ -78,6 +82,17 @@ public class ExchangeActivity extends Activity {
 	        Document doc = db.parse(new InputSource(url.openStream()));
 	        doc.getDocumentElement().normalize();
 	        NodeList nodeList = doc.getElementsByTagName("Cube");
+	        Node dateNode = nodeList.item(1);
+	        updated_date = nodeToString(dateNode);
+	        updated_date = updated_date.substring(0, updated_date.indexOf('>'));
+	        //updated = updated.substring(updated.lastIndexOf("="));
+	        //updated = updated.substring(1, updated.length() - 3);
+	        updated = updated_date.split("-", 3);
+	        updated[0] = updated[0].substring(12);
+	        updated[2] = updated[2].substring(0, updated[2].length() - 1);
+	        Log.d(updated[0], updated[1]);
+	        updated_textView.setText("Rates updated: " + updated[2] + '.' + updated[1] + '.' + updated[0]);
+	        
 	        Node[] node = new Node[9];
 	        node[0] = nodeList.item(2);
 	        node[1] = nodeList.item(7);
