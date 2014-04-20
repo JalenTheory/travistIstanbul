@@ -54,15 +54,6 @@ public class TodoActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.todo);
 		
-		MatchDialog md = new MatchDialog();
-		Bundle bundle = new Bundle();
-		bundle.putString("email", "email");
-		bundle.putString("name", "Tuisku");
-		bundle.putString("country", "Suami");
-		bundle.putString("gsm", "0404040");
-		md.setArguments(bundle);
-		md.show(getFragmentManager(), "todo");
-		
 		ContentValues cv = new ContentValues();
 		cv.put(PlaceTableClass.PLACE_ID, "123");
 		cv.put(PlaceTableClass.PLACE_NAME, "Manly Spa");
