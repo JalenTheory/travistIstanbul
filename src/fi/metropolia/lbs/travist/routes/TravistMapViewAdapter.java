@@ -159,8 +159,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	// From graphhopper example
 	private void loadMap() {
 		logD("Loading Map");
-		File mapFile = new File(
-				"/sdcard/graphhopper/maps/istanbul-gh/istanbul.map");
+		File mapFile = new File("/sdcard/graphhopper/maps/istanbul-gh/istanbul.map");
 		logD(mapFile.getAbsolutePath().toString());
 		mapView.getLayerManager().getLayers().clear();
 

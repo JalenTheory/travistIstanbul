@@ -4,17 +4,18 @@ import android.util.Log;
 
 public class QuickLog {
 	private QuickLog uniqueInstance = null;
-	
-	private QuickLog() {}
-	
+
+	private QuickLog() {
+	}
+
 	QuickLog getInstance() {
 		if (uniqueInstance == null) {
 			uniqueInstance = new QuickLog();
 		}
-		
+
 		return uniqueInstance;
 	}
-	
+
 	public static void logD(String logText) {
 		Log.d("Testing", logText);
 	}

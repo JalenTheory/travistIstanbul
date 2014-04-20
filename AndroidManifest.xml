@@ -36,8 +36,6 @@
         <!-- Routes testing Tapiola -->
         <activity android:name="fi.metropolia.lbs.travist.routes.TestRoutesActivity" />
 
-        <!-- Content provider permission -->
-        <!-- Name is the directory of the class, authority is the AUTHORITY defined in CP -->
         <!-- <activity android:name="fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity" />  -->
         <activity android:name="fi.metropolia.lbs.travist.foursquare_api.FoursquareActivity" />
         <activity android:name="fi.metropolia.lbs.travist.todo.TodoActivity" />
@@ -45,6 +43,8 @@
         <activity android:name="fi.metropolia.lbs.travist.emergency.EmergencyActivity" />
         <activity android:name="fi.metropolia.lbs.travist.exchange.ExchangeActivity" />
         
+        <!-- Content provider permission -->
+        <!-- Name is the directory of the class, authority is the AUTHORITY defined in CP -->
         <provider
 	    android:name="fi.metropolia.lbs.travist.database.LBSContentProvider"
 	    android:authorities="fi.metropolia.lbs.travist.contentProvider" />

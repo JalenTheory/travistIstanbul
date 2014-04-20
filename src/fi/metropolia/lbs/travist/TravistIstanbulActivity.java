@@ -3,10 +3,8 @@ package fi.metropolia.lbs.travist;
 import travist.pack.R;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,15 +12,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
-import fi.metropolia.lbs.travist.database.LBSContentProvider;
-import fi.metropolia.lbs.travist.database.PlaceTableClass;
-import fi.metropolia.lbs.travist.emergency.EmergencyActivity;
-import fi.metropolia.lbs.travist.exchange.ExchangeActivity;
 import fi.metropolia.lbs.travist.offline_map.AssetAdapter;
 import fi.metropolia.lbs.travist.offline_map.TestOfflineMapFragment;
-import fi.metropolia.lbs.travist.savedlist.SavedlistActivity;
-import fi.metropolia.lbs.travist.todo.TodoActivity;
 
 public class TravistIstanbulActivity extends Activity {
 	public static final String TAG = "travist debug";
@@ -34,8 +25,7 @@ public class TravistIstanbulActivity extends Activity {
 
 			@Override
 			public void onClick(View view) {
-				startActivity(new Intent(TravistIstanbulActivity.this,
-						testCaseClass));
+				startActivity(new Intent(TravistIstanbulActivity.this, testCaseClass));
 			}
 		});
 		return button;
@@ -69,6 +59,12 @@ public class TravistIstanbulActivity extends Activity {
         }
 		// Make buttons according to Activities of test cases
 		LinearLayout linearLayout = (LinearLayout) findViewById(R.id.main_view_layout);
+		linearLayout.addView(createButton(fi.metropolia.lbs.travist.emergency.EmergencyActivity.class));
+		linearLayout.addView(createButton(fi.metropolia.lbs.travist.exchange.ExchangeActivity.class));
+		
+		linearLayout.addView(createButton(fi.metropolia.lbs.travist.todo.TodoActivity.class));
+		linearLayout.addView(createButton(fi.metropolia.lbs.travist.savedlist.SavedlistActivity.class));
+		
 		linearLayout.addView(createButton(fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity.class));
 		linearLayout.addView(createButton(fi.metropolia.lbs.travist.offline_gps.TravistLeppavaaraActivity.class));
 		linearLayout.addView(createButton(fi.metropolia.lbs.travist.routes.TestRoutesActivity.class));
@@ -86,7 +82,8 @@ public class TravistIstanbulActivity extends Activity {
 		@Override
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
-			//Enable browse button also?
+			//Enable map-related buttons here soon as dl is done or use splash activity to do this
+			//This is done only once per installation
 			
 		}	
 	}

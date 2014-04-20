@@ -304,13 +304,12 @@ public class TestOfflineMapFragment extends Fragment implements
 				} else {
 					logD("Finished loading graph. Touch to route.");
 					// callPath(); //Calc distance between to locations
-
-					
-					//Do this in drawernavigation
+		
+					//Do this in drawer navigation
 					Criteria crit = new Criteria();
 					crit.setNear("istanbul");
 					crit.setLimit("30");
-					crit.setCategoryId(Criteria.ARTS_AND_ENTERTAIMENT);
+					crit.setCategoryId(Criteria.MUSEUMS);
 
 					FourSquareQuery fq = new FourSquareQuery();
 					String url = fq.createQuery(crit);
