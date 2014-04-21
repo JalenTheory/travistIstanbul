@@ -148,6 +148,7 @@ public class TestOfflineMapFragment extends Fragment implements
 					mapView.getLayerManager().getLayers().remove(tempMarker);
 					DanielMarker marker = addMarker(tempMarker.getLatLong(),tempMarker.getPlace());
 					mapView.getLayerManager().getLayers().add(marker);
+					tableLayout.setVisibility(View.INVISIBLE);
 					check = false;
 				}
 
