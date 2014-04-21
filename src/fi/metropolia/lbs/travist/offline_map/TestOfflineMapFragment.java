@@ -36,6 +36,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
@@ -61,6 +62,9 @@ public class TestOfflineMapFragment extends Fragment implements
 		fi.metropolia.lbs.travist.foursquare_api.AsyncFinished {
 
 	private MapView mapView;
+	private TableLayout tableLayout; 
+	private Button butt1;
+	private Button butt2;
 	private TileCache tileCache;
 	private GraphHopperAPI hopper;
 	private MapViewPosition mapViewPosition;
@@ -96,6 +100,10 @@ public class TestOfflineMapFragment extends Fragment implements
 			loadGraphStorage();
 		}
 		// testInitialZoom();
+		
+		tableLayout= (TableLayout) rootView.findViewById(R.id.tableMarker);
+		tableLayout.setVisibility(View.INVISIBLE);
+		
 		return rootView;
 	}
 
@@ -181,36 +189,34 @@ public class TestOfflineMapFragment extends Fragment implements
 						Log.w("Tapp", "The Marker was touched with onTap: " + this.getLatLong().toString());
 
 						// From mapsforge examples
-
-
-						TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT);
-						TableRow.LayoutParams rowParams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
-
-						TableLayout tableLayout = new TableLayout(getActivity());
-						
-						tableLayout.setLayoutParams(tableParams);
-
-						TableRow tableRow = new TableRow(getActivity());
-						tableRow.setLayoutParams(tableParams);
-
 						TextView bubbleView = new TextView(getActivity());
 //						LinearLayout.LayoutParams Params1 = new LinearLayout.LayoutParams(15,50);
 //						bubbleView.setLayoutParams(Params1); 
-						setBackground(bubbleView,getResources().getDrawable(R.drawable.bubble));
+						setBackground(bubbleView,getResources().getDrawable(R.drawable.infowin_marker));
 						bubbleView.setGravity(Gravity.CENTER);
 						bubbleView.setMaxEms(10);
 						bubbleView.setTextSize(20);
-						
-						  
+						 
 						  
 						//bind foursquare data to bubbleview
 						bubbleView.setText(place.getPlaceName()+"\n"+place.getCategoryName()+"\n"+place.getAddress());
-						tableRow.addView(bubbleView);
-
+						
 						Bitmap bubble = viewToBitmap(getActivity(), bubbleView);
 						bubble.incrementRefCount();
+						
+						butt1 = (Button)tableLayout.findViewById(R.id.todoButton);
+						butt2 = (Button)tableLayout.findViewById(R.id.savelistButton);
+						
+						tableLayout.setLeft(bubbleView.getLeft());
+						tableLayout.setTop(bubbleView.getTop());
+							
+						tableLayout.setVisibility(View.VISIBLE);
+						
+							
 						DanielMarker marker = new DanielMarker(latLong, bubble,
 												0, -bubble.getHeight() / 2, place);
+						
+						
 						layers.add(marker);
 						tempMarker = marker;
 						// DSA

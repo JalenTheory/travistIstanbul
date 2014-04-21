@@ -9,5 +9,44 @@
         android:id="@+id/mapView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
+    
+     <Button
+        android:id="@+id/categoriesButton"
+         android:text="categories"
+           android:layout_width="wrap_content" 
+               android:layout_height="50dp" />
+    
+    <TableLayout 
+         android:id="@+id/tableMarker"  
+             android:layout_width="wrap_content" 
+             android:layout_height="wrap_content" 
+             android:shrinkColumns="*"  
+             android:stretchColumns="*"> 
+              
+ 
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dip"
+         >
+        
+        <Button
+            android:id="@+id/todoButton"
+            android:layout_column="1"
+            android:text="+ todo list" 
+               android:textSize="10dp"
+               android:layout_width="10dp" 
+               android:layout_height="30dp"/>
+        <Button
+            android:id="@+id/savelistButton"
+            android:layout_column="1"
+            android:text="+ save in list"
+               android:textSize="10dp"
+               android:layout_width="10dp" 
+               android:layout_height="30dp" />
+        
+    </TableRow>
+     </TableLayout> 
+     
 
 </RelativeLayout>
