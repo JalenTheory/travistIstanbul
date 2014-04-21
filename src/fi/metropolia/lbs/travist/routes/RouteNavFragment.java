@@ -2,8 +2,6 @@ package fi.metropolia.lbs.travist.routes;
 
 import travist.pack.R;
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;

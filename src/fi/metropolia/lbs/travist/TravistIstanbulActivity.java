@@ -66,7 +66,6 @@ public class TravistIstanbulActivity extends Activity {
 		linearLayout.addView(createButton(fi.metropolia.lbs.travist.savedlist.SavedlistActivity.class));
 		
 		linearLayout.addView(createButton(fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity.class));
-		linearLayout.addView(createButton(fi.metropolia.lbs.travist.offline_gps.TravistLeppavaaraActivity.class));
 		linearLayout.addView(createButton(fi.metropolia.lbs.travist.routes.TestRoutesActivity.class));
 	}
 	
@@ -82,7 +81,7 @@ public class TravistIstanbulActivity extends Activity {
 		@Override
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
-			//Enable map-related buttons here soon as dl is done or use splash activity to do this
+			//Enable map-related buttons here soon as dl is done or use a splash activity to load maps to internal storage
 			//This is done only once per installation
 			
 		}	

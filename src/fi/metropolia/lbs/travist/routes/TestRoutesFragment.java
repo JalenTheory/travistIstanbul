@@ -195,7 +195,12 @@ public class TestRoutesFragment extends Fragment implements
 	// From graphhopper example
 	private void loadMap() {
 		logD("Loading Map");
-		File mapFile = new File("/sdcard/graphhopper/maps/istanbul-gh/istanbul.map");
+		//File mapFile = new File("/sdcard/graphhopper/maps/istanbul-gh/istanbul.map");
+		
+		File mapFile = new File(
+				TravistMapViewAdapter.getInstance().
+				getContext().getFilesDir(), "istanbul-gh/istanbul.map");
+		
 		logD(mapFile.getAbsolutePath().toString());
 		mapView.getLayerManager().getLayers().clear();
 
@@ -340,7 +345,9 @@ public class TestRoutesFragment extends Fragment implements
 			protected Path saveDoInBackground(Void... v) throws Exception {
 				GraphHopper tmpHopp = new GraphHopper().forMobile();
 				tmpHopp.setCHShortcuts("fastest");
-				File temp = new File("/sdcard/graphhopper/maps/istanbul");
+				File temp = new File(
+						TravistMapViewAdapter.getInstance().
+						getContext().getFilesDir(), "istanbul-gh");
 				tmpHopp.load(temp.getAbsolutePath());
 				logD("found graph " + tmpHopp.getGraph().toString()
 						+ ", nodes:" + tmpHopp.getGraph().getNodes());

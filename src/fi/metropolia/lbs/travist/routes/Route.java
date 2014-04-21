@@ -178,7 +178,6 @@ public class Route {
 				} else {
 					(TravistMapViewAdapter.getInstance()).logD(
 							"Finished loading graph. Touch to route.", this);
-
 				}
 			}
 		}.execute();
