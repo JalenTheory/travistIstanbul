@@ -36,6 +36,16 @@ import fi.metropolia.lbs.travist.foursquare_api.FourSquareQuery;
 import fi.metropolia.lbs.travist.foursquare_api.Place;
 import fi.metropolia.lbs.travist.offline_map.DanielMarker;
 
+/**
+ * Handles the map view. To be used from an activity or a fragment.
+ * 
+ * 1. Get instance ( TravistMapViewAdapter.getInstance(); )
+ * 2. Attach to activity / fragment ( attachTo(this); )
+ * 3. Declare map view for activity / fragment and set ( set( MapView ..); )
+ * 
+ * @author Joni Turunen, Daniel Sanchez
+ *
+ */
 public class TravistMapViewAdapter implements AsyncFinished {
 	
 	private static TravistMapViewAdapter uniqueInstance = null;
@@ -233,6 +243,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 						TextView bubbleView = new TextView(activity);
 						setBackground(bubbleView,
 								activity.getResources().getDrawable(R.drawable.bubble));
+						// TODO refactor hardcoded properties into res/values.xml etc.
 						bubbleView.setGravity(Gravity.CENTER);
 						bubbleView.setMaxEms(50);
 						bubbleView.setTextSize(30);

@@ -9,6 +9,7 @@ import org.mapsforge.core.graphics.Style;
 import org.mapsforge.core.model.LatLong;
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
 import org.mapsforge.map.android.view.MapView;
+import org.mapsforge.map.layer.Layers;
 import org.mapsforge.map.layer.overlay.Polyline;
 
 import android.content.Context;
@@ -26,9 +27,16 @@ import com.graphhopper.util.StopWatch;
 
 import fi.metropolia.lbs.travist.offline_map.GHAsyncTask;
 
+/**
+ * Calculates routes. Get instance and use calcPath(). MapView has to be instanciated and attached (check TravistMapViewAdapter).
+ * 
+ * @author Joni Turunen, Daniel Sanchez
+ *
+ */
 public class Route {
 	private GraphHopperAPI hopperApi;
 	private MapView mapView;
+	private int layerIndex = -1;
 	
 
 	private static Route uniqueInstance = null;
@@ -87,8 +95,8 @@ public class Route {
 							+ "km long, time:" + resp.getMillis() / 60000f
 							+ "min, debug:" + time, this);
 
-					mapView.getLayerManager().getLayers()
-							.add(createPolyline(resp));
+					addToLayers(createPolyline(resp));
+					
 				} else {
 					(TravistMapViewAdapter.getInstance()).logD(
 							"Error:" + resp.getErrors(), this);
@@ -96,6 +104,29 @@ public class Route {
 			}
 		}.execute();
 	}
+	
+	/**
+	 * Add route polyline (layers) to MapView layers. Keeps track
+	 * of routes layer index, to swap it - showing only one route
+	 * at a time.
+	 * 
+	 * @param routePolyline
+	 */
+	private void addToLayers(Polyline routePolyline) {
+		Layers layers = mapView.getLayerManager().getLayers();
+		if (layerIndex < 0) {			
+			// add layer with route and save layer index
+			layers.add(routePolyline);
+			layerIndex = layers.indexOf(routePolyline);
+		} else {
+			// clear previous route layer and add new one
+			layers.remove(layerIndex);
+			layers.add(layerIndex, routePolyline);
+		}
+		
+		TravistMapViewAdapter.getInstance().logD("route layer index: " + layerIndex, this);
+	} 
+	
 
 	// From graphhopper example
 	private Polyline createPolyline(GHResponse response) {
@@ -120,7 +151,7 @@ public class Route {
 	// From graphhopper example
 	private void loadGraphStorage() {
 		if (!mapView.getLayerManager().getLayers().isEmpty()) {
-			// validate layers
+			// TODO validate layers
 		}
 		(TravistMapViewAdapter.getInstance()).logD("loading graph ("
 				+ Constants.VERSION + ") ... ", this);
