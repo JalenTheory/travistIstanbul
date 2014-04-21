@@ -330,7 +330,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 			myLocationOverlay.enableMyLocation(true);
 			myLocationOverlay.setSnapToLocationEnabled(true);
 		} else {
-			myLocationOverlay.enableMyLocation(false);
+			myLocationOverlay.disableMyLocation();
 			myLocationOverlay.setSnapToLocationEnabled(false);
 		}
 	}
