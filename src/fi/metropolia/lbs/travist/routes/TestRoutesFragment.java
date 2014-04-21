@@ -12,8 +12,10 @@ import org.mapsforge.core.model.LatLong;
 import org.mapsforge.core.model.MapPosition;
 import org.mapsforge.core.model.Point;
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
+import org.mapsforge.map.android.layer.MyLocationOverlay;
 import org.mapsforge.map.android.util.AndroidUtil;
 import org.mapsforge.map.android.view.MapView;
+import org.mapsforge.map.layer.LayerManager;
 import org.mapsforge.map.layer.Layers;
 import org.mapsforge.map.layer.cache.TileCache;
 import org.mapsforge.map.layer.overlay.Marker;
@@ -72,6 +74,8 @@ public class TestRoutesFragment extends Fragment implements
 	private LatLong tempLatLong;
 	private LatLong from;
 	private LatLong to;
+	private LayerManager layerManager;
+	private MyLocationOverlay myLocationOverlay;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -92,8 +96,7 @@ public class TestRoutesFragment extends Fragment implements
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
-				.getMenuInfo();
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 		switch (item.getItemId()) {
 		case R.id.route_menu_from:
 			// TODO use TravistMapViewAdapter
@@ -102,6 +105,10 @@ public class TestRoutesFragment extends Fragment implements
 		case R.id.route_menu_to:
 			// TODO use TravistMapViewAdapter
 			routeTo();
+			return true;
+		case R.id.enable_gps:
+			// TODO use TravistMapViewAdapter ?
+			enableGps();
 			return true;
 		default:
 			return super.onContextItemSelected(item);
@@ -119,6 +126,29 @@ public class TestRoutesFragment extends Fragment implements
 			calcPath(from.latitude, from.longitude, 
 					tempLatLong.latitude, tempLatLong.longitude);
 		}
+	}
+	
+	public void enableGps() {
+		logD("gps pressed..", this);
+		if (!myLocationOverlay.isMyLocationEnabled()) {
+			myLocationOverlay.enableMyLocation(true);
+			myLocationOverlay.setSnapToLocationEnabled(true);
+		} else {
+			myLocationOverlay.enableMyLocation(false);
+			myLocationOverlay.setSnapToLocationEnabled(false);
+		}
+	}
+
+	@Override
+	public void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+	}
+
+	@Override
+	public void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
 	}
 
 	@Override
@@ -141,11 +171,14 @@ public class TestRoutesFragment extends Fragment implements
 
 		// initializes position and zoom level
 		mapViewPosition = initializePosition(mapView.getModel().mapViewPosition);
+		
+		//add location tracking to the map
+		myLocationOverlay = new MyLocationOverlay(getActivity(), mapViewPosition, null);
 
 		tileCache = AndroidUtil.createTileCache(getActivity(), getClass()
 				.getSimpleName(),
 				mapView.getModel().displayModel.getTileSize(), 1f, mapView
-						.getModel().frameBufferModel.getOverdrawFactor());
+					   .getModel().frameBufferModel.getOverdrawFactor());
 
 		loadMap();
 		
@@ -153,6 +186,7 @@ public class TestRoutesFragment extends Fragment implements
 		registerForContextMenu(mapView);
 		
 		if (!mapView.getLayerManager().getLayers().isEmpty()) {
+			mapView.getLayerManager().getLayers().add(myLocationOverlay);
 			loadGraphStorage();
 		}
 		// testInitialZoom();
@@ -367,14 +401,14 @@ public class TestRoutesFragment extends Fragment implements
 					Criteria crit = new Criteria();
 					crit.setNear("istanbul");
 					crit.setLimit("30");
+					//crit.setlatlong?
 					crit.setCategoryId(Criteria.ARTS_AND_ENTERTAIMENT);
 
 					FourSquareQuery fq = new FourSquareQuery();
 					String url = fq.createQuery(crit);
 					Log.d("Main", "Main: " + url);
 
-					DownloadJSON dlJSON = new DownloadJSON(
-							TestRoutesFragment.this);
+					DownloadJSON dlJSON = new DownloadJSON(TestRoutesFragment.this);
 					dlJSON.startDownload(url);
 				}
 			}

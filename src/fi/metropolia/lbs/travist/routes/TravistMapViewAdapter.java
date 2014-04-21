@@ -8,6 +8,7 @@ import org.mapsforge.core.model.LatLong;
 import org.mapsforge.core.model.MapPosition;
 import org.mapsforge.core.model.Point;
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
+import org.mapsforge.map.android.layer.MyLocationOverlay;
 import org.mapsforge.map.android.util.AndroidUtil;
 import org.mapsforge.map.android.view.MapView;
 import org.mapsforge.map.layer.Layers;
@@ -60,6 +61,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	private LatLong tempLatLong;
 	private LatLong from;
 	private LatLong to;
+	private MyLocationOverlay myLocationOverlay;
 
 
 	private boolean check = false;
@@ -117,6 +119,9 @@ public class TravistMapViewAdapter implements AsyncFinished {
 
 		// initializes position and zoom level
 		mapViewPosition = initializePosition(mapView.getModel().mapViewPosition);
+		
+		//add location tracking to the map
+		myLocationOverlay = new MyLocationOverlay(context, mapViewPosition, null);
 
 		tileCache = AndroidUtil.createTileCache(context, getClass()
 				.getSimpleName(),
@@ -129,6 +134,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		fragment.registerForContextMenu(mapView);
 		
 		if (!mapView.getLayerManager().getLayers().isEmpty()) {
+			mapView.getLayerManager().getLayers().add(myLocationOverlay);
 			loadPlaces();
 			callPath(); // test routes
 		}
@@ -315,6 +321,17 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		if ( from != null ) {
 			Route.getInstance().calcPath(from.latitude, from.longitude, 
 					tempLatLong.latitude, tempLatLong.longitude);
+		}
+	}
+	
+	public void enableGps() {
+		logD("gps pressed..", this);
+		if (!myLocationOverlay.isMyLocationEnabled()) {
+			myLocationOverlay.enableMyLocation(true);
+			myLocationOverlay.setSnapToLocationEnabled(true);
+		} else {
+			myLocationOverlay.enableMyLocation(false);
+			myLocationOverlay.setSnapToLocationEnabled(false);
 		}
 	}
 	

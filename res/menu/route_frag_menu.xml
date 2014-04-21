@@ -10,7 +10,11 @@
         android:id="@+id/route_menu_to"
         android:showAsAction="ifRoom|withText"
         android:title="route to here">
-        
+    </item>
+        <item 
+        android:id="@+id/enable_gps"
+        android:showAsAction="ifRoom|withText"
+        android:title="gps on/off">
     </item>
 
 </menu>

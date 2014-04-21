@@ -112,6 +112,7 @@ public final class R {
         public static final int emergency_police_number=0x7f090025;
         public static final int emergency_police_text=0x7f090024;
         public static final int emergency_service_text=0x7f09001b;
+        public static final int enable_gps=0x7f09006a;
         public static final int exchange_rates_currency_name=0x7f090035;
         public static final int exchange_rates_currency_rate=0x7f090036;
         public static final int exchange_rates_currency_sign=0x7f090034;

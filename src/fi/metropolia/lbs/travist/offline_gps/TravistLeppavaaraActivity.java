@@ -57,8 +57,7 @@ public class TravistLeppavaaraActivity extends Activity {
 		Drawable drawable = getResources()
 				.getDrawable(R.drawable.currency_dollar_icon);
 		Bitmap bitmap = AndroidGraphicFactory.convertToBitmap(drawable);
-		myLocationOverlay = new MyLocationOverlay(
-				TravistLeppavaaraActivity.this, mapViewPosition, bitmap);
+		myLocationOverlay = new MyLocationOverlay(TravistLeppavaaraActivity.this, mapViewPosition, bitmap);
 		myLocationOverlay.enableMyLocation(true);
 		myLocationOverlay.setSnapToLocationEnabled(true);
 

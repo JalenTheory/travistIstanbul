@@ -1,6 +1,5 @@
 package fi.metropolia.lbs.travist.routes;
 
-import org.mapsforge.map.android.util.AndroidUtil;
 import org.mapsforge.map.android.view.MapView;
 
 import travist.pack.R;
@@ -75,6 +74,8 @@ public class TestTravistMapViewAdapterFragment extends Fragment{
 		case R.id.route_menu_to:
 			mTravistMapViewAdapter.routeTo();
 			return true;
+		case R.id.enable_gps:
+			mTravistMapViewAdapter.enableGps();
 		default:
 			return super.onContextItemSelected(item);
 		}
