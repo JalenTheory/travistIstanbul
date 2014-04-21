@@ -159,7 +159,9 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	// From graphhopper example
 	private void loadMap() {
 		logD("Loading Map");
-		File mapFile = new File("/sdcard/graphhopper/maps/istanbul-gh/istanbul.map");
+		// File mapFile = new File("/sdcard/graphhopper/maps/istanbul-gh/istanbul.map");
+		File mapFileDir = new File(context.getFilesDir(), "istanbul-gh");
+		File mapFile = new File(mapFileDir, "istanbul.map");
 		logD(mapFile.getAbsolutePath().toString());
 		mapView.getLayerManager().getLayers().clear();
 
@@ -325,8 +327,9 @@ public class TravistMapViewAdapter implements AsyncFinished {
 			protected Path saveDoInBackground(Void... v) throws Exception {
 				GraphHopper tmpHopp = new GraphHopper().forMobile();
 				tmpHopp.setCHShortcuts("fastest");
-				File temp = new File("/sdcard/graphhopper/maps/istanbul");
-				tmpHopp.load(temp.getAbsolutePath());
+				// File temp = new File("/sdcard/graphhopper/maps/istanbul");
+				File tempDir = new File(context.getFilesDir(), "istanbul-gh");
+				tmpHopp.load(tempDir.getAbsolutePath());
 				logD("found graph " + tmpHopp.getGraph().toString()
 						+ ", nodes:" + tmpHopp.getGraph().getNodes());
 				hopperApi = tmpHopp;
