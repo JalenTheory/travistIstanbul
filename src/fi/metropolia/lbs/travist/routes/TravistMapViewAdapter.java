@@ -2,12 +2,8 @@ package fi.metropolia.lbs.travist.routes;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.mapsforge.core.graphics.Bitmap;
-import org.mapsforge.core.graphics.Color;
-import org.mapsforge.core.graphics.Paint;
-import org.mapsforge.core.graphics.Style;
 import org.mapsforge.core.model.LatLong;
 import org.mapsforge.core.model.MapPosition;
 import org.mapsforge.core.model.Point;
@@ -17,7 +13,6 @@ import org.mapsforge.map.android.view.MapView;
 import org.mapsforge.map.layer.Layers;
 import org.mapsforge.map.layer.cache.TileCache;
 import org.mapsforge.map.layer.overlay.Marker;
-import org.mapsforge.map.layer.overlay.Polyline;
 import org.mapsforge.map.layer.renderer.TileRendererLayer;
 import org.mapsforge.map.model.MapViewPosition;
 import org.mapsforge.map.rendertheme.InternalRenderTheme;
@@ -29,49 +24,38 @@ import android.app.Fragment;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.MeasureSpec;
 import android.widget.TextView;
-
-import com.graphhopper.GHRequest;
-import com.graphhopper.GHResponse;
-import com.graphhopper.GraphHopper;
-import com.graphhopper.GraphHopperAPI;
-import com.graphhopper.routing.Path;
-import com.graphhopper.util.Constants;
-import com.graphhopper.util.PointList;
-import com.graphhopper.util.StopWatch;
-
 import fi.metropolia.lbs.travist.foursquare_api.AsyncFinished;
 import fi.metropolia.lbs.travist.foursquare_api.Criteria;
 import fi.metropolia.lbs.travist.foursquare_api.DownloadJSON;
 import fi.metropolia.lbs.travist.foursquare_api.FourSquareQuery;
 import fi.metropolia.lbs.travist.foursquare_api.Place;
 import fi.metropolia.lbs.travist.offline_map.DanielMarker;
-import fi.metropolia.lbs.travist.offline_map.GHAsyncTask;
-import fi.metropolia.lbs.travist.offline_map.foursquare_test.TestMapWithPOIs;
 
 public class TravistMapViewAdapter implements AsyncFinished {
+	
 	private static TravistMapViewAdapter uniqueInstance = null;
-	private MapView mapView;
+	
+	private MapView mapView = null;
+	private Context context = null;
+	private Fragment fragment = null;
+	private Activity activity = null;
 	private TileCache tileCache;
-	private GraphHopperAPI hopperApi;
 	private MapViewPosition mapViewPosition;
 	private DanielMarker tempMarker;
-	private boolean check = false;
 	private LatLong tempLatLong;
 	private LatLong from;
 	private LatLong to;
-	private Context context;
-	private Fragment fragment;
-	private Activity activity;
+
+
+	private boolean check = false;
 	
 	// singleton design pattern
-	private TravistMapViewAdapter() {
-	}
+	private TravistMapViewAdapter() {}
 	
 	protected static TravistMapViewAdapter getInstance() {
 		
@@ -135,14 +119,22 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		fragment.registerForContextMenu(mapView);
 		
 		if (!mapView.getLayerManager().getLayers().isEmpty()) {
-			loadGraphStorage();
+			loadPlaces();
+			callPath(); // test routes
 		}
 	}
 	
+	// Center of drawn map at first
 	protected MapPosition getInitialPosition() {
 		return new MapPosition(new LatLong(41.0426483, 28.950041908777372),
 				(byte) 7);
 	}
+	
+	protected MapPosition getInitialPosition(LatLong initPos) {
+		return new MapPosition(initPos,
+				(byte) 7);
+	}
+	
 	protected MapViewPosition initializePosition(MapViewPosition mvp) {
 		LatLong center = mvp.getCenter();
 
@@ -150,16 +142,47 @@ public class TravistMapViewAdapter implements AsyncFinished {
 			mvp.setMapPosition(this.getInitialPosition());
 		}
 
+		// This seemed to just define min and max levels
+		// not sure how much it makes a difference to anything
 		mvp.setZoomLevelMax((byte) 24);
 		mvp.setZoomLevelMin((byte) 7);
 
 		return mvp;
 	}
+	
+	protected void loadPlaces() {
+		// Do this in drawernavigation
+		// This is for testing purposes / hardcoded criteria
+		Criteria crit = new Criteria();
+		crit.setNear("istanbul");
+		crit.setLimit("30");
+		crit.setCategoryId(Criteria.ARTS_AND_ENTERTAIMENT);
+
+		FourSquareQuery fq = new FourSquareQuery();
+		String url = fq.createQuery(crit);
+		Log.d("Main", "Main: " + url);
+
+		downloadJson(url);
+	}
+	protected void loadPlaces(Criteria criteria) {
+		FourSquareQuery fq = new FourSquareQuery();
+		String url = fq.createQuery(criteria);
+		Log.d("Main", "Main: " + url);
+		
+		downloadJson(url);
+	}
+	
+	private void downloadJson(String url) {
+		// fragment needs to implement AsyncFinished
+		DownloadJSON dlJSON = new DownloadJSON(TravistMapViewAdapter.this);
+		dlJSON.startDownload(url);
+	}
 
 	// From graphhopper example
 	private void loadMap() {
 		logD("Loading Map");
-		// File mapFile = new File("/sdcard/graphhopper/maps/istanbul-gh/istanbul.map");
+		
+		// TODO next refactoring iteration validate if map is in mem already
 		File mapFileDir = new File(context.getFilesDir(), "istanbul-gh");
 		File mapFile = new File(mapFileDir, "istanbul.map");
 		logD(mapFile.getAbsolutePath().toString());
@@ -261,109 +284,10 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		return AndroidGraphicFactory.convertToBitmap(drawable);
 	}
 	
-	// From graphhopper examples
-	private void calcPath(final double fromLat, final double fromLon,
-			final double toLat, final double toLon) {
 
-		logD("Calculating");
-		new AsyncTask<Void, Void, GHResponse>() {
-			float time;
-
-			protected GHResponse doInBackground(Void... v) {
-				StopWatch sw = new StopWatch().start();
-				GHRequest req = new GHRequest(fromLat, fromLon, toLat, toLon)
-						.setAlgorithm("dijkstrabi").setVehicle("car")
-						.putHint("instructions", false)
-						.putHint("douglas.minprecision", 1);
-				GHResponse resp = hopperApi.route(req);
-				time = sw.stop().getSeconds();
-				return resp;
-			}
-
-			protected void onPostExecute(GHResponse resp) {
-				if (!resp.hasErrors()) {
-					logD("from:" + fromLat + "," + fromLon + " to:" + toLat
-							+ "," + toLon + " found path with distance:"
-							+ resp.getDistance() / 1000f + ", nodes:"
-							+ resp.getPoints().getSize() + ", time:" + time
-							+ " " + resp.getDebugInfo());
-					logD("the route is " + (int) (resp.getDistance() / 100)
-							/ 10f + "km long, time:" + resp.getMillis()
-							/ 60000f + "min, debug:" + time);
-
-					mapView.getLayerManager().getLayers()
-							.add(createPolyline(resp));
-				} else {
-					logD("Error:" + resp.getErrors());
-				}
-			}
-		}.execute();
-	}
-
-	// From graphhopper example
-	private Polyline createPolyline(GHResponse response) {
-		logD("Polyline");
-		Paint paintStroke = AndroidGraphicFactory.INSTANCE.createPaint();
-		paintStroke.setStyle(Style.STROKE);
-		paintStroke.setColor(Color.BLUE);
-		paintStroke.setDashPathEffect(new float[] { 25, 15 });
-		paintStroke.setStrokeWidth(8);
-
-		Polyline line = new Polyline(
-				(org.mapsforge.core.graphics.Paint) paintStroke,
-				AndroidGraphicFactory.INSTANCE);
-		List<LatLong> geoPoints = line.getLatLongs();
-		PointList tmp = response.getPoints();
-		for (int i = 0; i < response.getPoints().getSize(); i++) {
-			geoPoints.add(new LatLong(tmp.getLatitude(i), tmp.getLongitude(i)));
-		}
-		return line;
-	}
-
-	// From graphhopper example
-	private void loadGraphStorage() {
-		logD("loading graph (" + Constants.VERSION + ") ... ");
-		new GHAsyncTask<Void, Void, Path>() {
-			protected Path saveDoInBackground(Void... v) throws Exception {
-				GraphHopper tmpHopp = new GraphHopper().forMobile();
-				tmpHopp.setCHShortcuts("fastest");
-				// File temp = new File("/sdcard/graphhopper/maps/istanbul");
-				File tempDir = new File(context.getFilesDir(), "istanbul-gh");
-				tmpHopp.load(tempDir.getAbsolutePath());
-				logD("found graph " + tmpHopp.getGraph().toString()
-						+ ", nodes:" + tmpHopp.getGraph().getNodes());
-				hopperApi = tmpHopp;
-				return null;
-			}
-
-			protected void onPostExecute(Path o) {
-				if (hasError()) {
-					logD("An error happend while creating graph:"
-							+ getErrorMessage());
-				} else {
-					logD("Finished loading graph. Touch to route.");
-					callPath(); // Calc distance between to locations
-
-					// Do this in drawernavigation
-					Criteria crit = new Criteria();
-					crit.setNear("istanbul");
-					crit.setLimit("30");
-					crit.setCategoryId(Criteria.ARTS_AND_ENTERTAIMENT);
-
-					FourSquareQuery fq = new FourSquareQuery();
-					String url = fq.createQuery(crit);
-					Log.d("Main", "Main: " + url);
-
-					// fragment needs to implement AsyncFinished
-					DownloadJSON dlJSON = new DownloadJSON(TravistMapViewAdapter.this);
-					dlJSON.startDownload(url);
-				}
-			}
-		}.execute();
-	}
 
 	private void callPath() {
-		calcPath(41.01384, 28.949659999999994, 41.0426483, 28.950041908777372);
+		Route.getInstance().calcPath(41.01384, 28.949659999999994, 41.0426483, 28.950041908777372);
 	}
 	protected void set( MapView newMapView) {
 		mapView = newMapView;
@@ -378,10 +302,19 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	public void routeTo() {
 		logD("route to..", this);
 		if ( from != null ) {
-			calcPath(from.latitude, from.longitude, 
+			Route.getInstance().calcPath(from.latitude, from.longitude, 
 					tempLatLong.latitude, tempLatLong.longitude);
 		}
 	}
+	
+	protected Context getContext() {
+		return context != null ? context : null;
+	}
+	
+	protected MapView getMapView() {
+		return mapView;
+	}
+	
 	// for quick and dirty logging
 	protected void logD(String logText) {
 		Log.d("Testing", logText);

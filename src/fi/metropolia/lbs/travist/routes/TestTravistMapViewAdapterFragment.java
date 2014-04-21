@@ -20,6 +20,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 public class TestTravistMapViewAdapterFragment extends Fragment{
 	
 	private TravistMapViewAdapter mTravistMapViewAdapter;
+	private Route route;
 	
 	@SuppressLint("NewApi")
 	@Override
@@ -41,6 +42,10 @@ public class TestTravistMapViewAdapterFragment extends Fragment{
 				false);
 		MapView mapView = (MapView) rootView.findViewById(R.id.routes_mapview);
 		mTravistMapViewAdapter.set(mapView);
+		
+		// get first instance. For performance, let's show mapView first before
+		// initializing route
+		route = Route.getInstance();
 
 		return rootView;
 	}
