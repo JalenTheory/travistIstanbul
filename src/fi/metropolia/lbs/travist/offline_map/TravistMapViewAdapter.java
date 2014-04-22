@@ -61,7 +61,69 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	private LatLong from;
 	private LatLong to;
 
-
+	// TODO methods to work as a mediator for integration
+	// Save to todo-list
+	// open saved places
+	// open/load todo list (is there more of them? for other user's trips maybe)
+	// load pois by category
+	/**
+	 * list of pois
+	 * 	has to load type, icon, position.. easiest with poi-object (
+	 * 	extends DanielMarker (has location)
+	 * 
+	 * MatchMaking (basically viewing other profiles
+	 * 	Mostly done by todolist (or delegated to its own screen by todolist)
+	 * 	shortcut to edit own profile (its own screen?)
+	 * 	List profiles/users by poi
+	 * 		view profile
+	 * 			request more info
+	 * 			send message (server db injection)
+	 * 				maybe predefined choices like..
+	 * 					hi, would to like to meet (programmatically add poi)
+	 * 					when would be the best for me (time or timeframe)
+	 * 					option to change time at the receiver
+	 * 			received msg
+	 * 				maybe more predefinition..
+	 * 					accept info request
+	 * 					ignore user
+	 * 					change suggested time (or timeframe)
+	 * 					ignore poi
+	 * 
+	 * Profile
+	 * 	should have its own screen
+	 * 	edit & preview
+	 * 
+	 * Performance
+	 * 	hashtable could keep layer indexes and its poigroups (categories)
+	 * 
+	 * POI
+	 * 	should take the code from 
+	 * 	addMarker() 		(refactor the hardcoded stuff)
+	 *  viewToBitmap()		(Poi handles its own drawing to the layers. Map just delegates)
+	 *  finishDownload() 	(Whatever needs to be done after loading. Map delegates)
+	 *  Should have a function named draw() that uses the viewToBitmap() and if possible
+	 *  builds the ontap and longtap listeners. longtap could have a dialog
+	 *  	Dialog for long tap (if possible shown all at once.)
+	 *  		Title
+	 *  			(& Short description?)
+	 *  		Route 
+	 *  			from here
+	 *  			to here
+	 *  		Add to todolist
+	 *  
+	 * POIGroup (Composite?)
+	 * 	would these combine the functionality needed to populate the layers on the map
+	 *  from either foursquare (categories), todo-list (uncategorised) and saved list (uncat.)
+	 *  
+	 * Criteria (extended by FoursquareQuery)
+	 * 	passed by the slide drawer
+	 * 
+	 * Slide drawer
+	 * 	implemented into the underlying activity or fragment below the fragment that holds 
+	 * 	the mapview 
+	 * 
+	 * 
+	 */
 	private boolean check = false;
 	
 	// singleton design pattern
@@ -79,15 +141,13 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	// connectors. References used by 
 	// needs to implement asyncFinished?
 	protected void attachTo(Context newContext) {
-		// TODO attachTo :Context
 		context = newContext;
 	}
 	protected void attachTo(Activity newActivity) {
-		// TODO attachTo :Activity
 		activity = newActivity;
 	}
 	@SuppressLint("NewApi")
-	protected void attachTo(Fragment newFragment) {
+	public void attachTo(Fragment newFragment) {
 		fragment = newFragment;
 		
 		// TODO can these be reduced to just :Context?
@@ -160,7 +220,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		return mvp;
 	}
 	
-	protected void loadPlaces() {
+	private void loadPlaces() {
 		// Do this in drawernavigation
 		// This is for testing purposes / hardcoded criteria
 		Criteria crit = new Criteria();
@@ -174,7 +234,13 @@ public class TravistMapViewAdapter implements AsyncFinished {
 
 		downloadJson(url);
 	}
-	protected void loadPlaces(Criteria criteria) {
+	
+	/**
+	 * Loads places depending on its given type (Criteria)
+	 * 
+	 * @param criteria
+	 */
+	public void loadPlaces(Criteria criteria) {
 		FourSquareQuery fq = new FourSquareQuery();
 		String url = fq.createQuery(criteria);
 		Log.d("Main", "Main: " + url);
@@ -202,6 +268,10 @@ public class TravistMapViewAdapter implements AsyncFinished {
 				mapViewPosition, true, AndroidGraphicFactory.INSTANCE) {
 				// room for code.
 				// this had unfunctional onTap listeners
+				// 
+				// I think the onTap listeners should be implemented on the
+				// markers
+				// - Joni
 
 		};
 
@@ -294,13 +364,11 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		view.setDrawingCacheEnabled(false);
 		return AndroidGraphicFactory.convertToBitmap(drawable);
 	}
-	
-
 
 	private void callPath() {
 		Route.getInstance().calcPath(41.01384, 28.949659999999994, 41.0426483, 28.950041908777372);
 	}
-	protected void set( MapView newMapView) {
+	public void set( MapView newMapView) {
 		mapView = newMapView;
 		initMapView();
 	}
