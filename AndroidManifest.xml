@@ -34,7 +34,7 @@
         <activity android:name="fi.metropolia.lbs.travist.offline_gps.TravistLeppavaaraActivity" />
         
         <!-- Routes testing Tapiola -->
-        <activity android:name="fi.metropolia.lbs.travist.routes.TestRoutesActivity" />
+        <activity android:name="fi.metropolia.lbs.travist.offline_map.routes.TestRoutesActivity" />
 
         <!-- <activity android:name="fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity" />  -->
         <activity android:name="fi.metropolia.lbs.travist.foursquare_api.FoursquareActivity" />
