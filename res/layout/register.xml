@@ -12,18 +12,22 @@
     android:layout_weight="1"
     tools:context=".MainActivity"
     android:background="@drawable/travist_half" >
-    <LinearLayout 
-        android:layout_width="match_parent"
+
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="1" >
-    </LinearLayout>
-    <LinearLayout 
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_weight="1"
-        android:background="@drawable/info_background" >
+        android:orientation="vertical" >
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/info_background"
+        android:orientation="vertical" >
+
         <EditText
             android:id="@+id/register_username"
             android:layout_width="wrap_content"
@@ -31,14 +35,17 @@
             android:text="Your Username"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_gravity="center"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:background="@null" />
     </LinearLayout>
-    <LinearLayout 
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_weight="1"
-        android:background="@drawable/info_background" >
+        android:background="@drawable/info_background"
+        android:orientation="vertical" >
+
         <EditText
             android:id="@+id/register_name"
             android:layout_width="wrap_content"
@@ -46,14 +53,17 @@
             android:text="Your Name"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_gravity="center"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:background="@null" />
     </LinearLayout>
-    <LinearLayout 
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_weight="1"
-        android:background="@drawable/info_background" >
+        android:background="@drawable/info_background"
+        android:orientation="vertical" >
+
         <EditText
             android:id="@+id/register_country"
             android:layout_width="wrap_content"
@@ -61,14 +71,17 @@
             android:text="Your Country"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_gravity="center"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:background="@null" />
     </LinearLayout>
-    <LinearLayout 
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_weight="1"
-        android:background="@drawable/info_background" >
+        android:background="@drawable/info_background"
+        android:orientation="vertical" >
+
         <EditText
             android:id="@+id/register_email"
             android:layout_width="wrap_content"
@@ -76,14 +89,17 @@
             android:text="Your Email"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_gravity="center"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:background="@null" />
     </LinearLayout>
-    <LinearLayout 
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_weight="1"
-        android:background="@drawable/info_background" >
+        android:background="@drawable/info_background"
+        android:orientation="vertical" >
+
         <EditText
             android:id="@+id/register_password"
             android:layout_width="wrap_content"
@@ -91,14 +107,17 @@
             android:text="Your Password"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_gravity="center"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:background="@null" />
     </LinearLayout>
-    <LinearLayout 
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_weight="1"
-        android:background="@drawable/info_background" >
+        android:background="@drawable/info_background"
+        android:orientation="vertical" >
+
         <EditText
             android:id="@+id/register_GSM"
             android:layout_width="wrap_content"
@@ -106,19 +125,51 @@
             android:text="Your Phone Number"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_gravity="center"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:background="@null" />
     </LinearLayout>
-    <LinearLayout 
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_weight="1"
-        android:background="@drawable/info_background" >
-        <Switch
-            android:id="@+id/register_matchmakingSwitch"
+        android:background="@drawable/info_background"
+        android:orientation="horizontal" >
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Matchmaking" /> 
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+            
+
+	        <LinearLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:orientation="vertical"
+	            android:layout_weight="1" >
+	
+		        <RadioButton
+		            android:id="@+id/matchmake_radio_yes"
+		            android:layout_width="match_parent"
+		            android:layout_height="match_parent"
+		            android:text="Yes" />
+	        </LinearLayout>
+	        <LinearLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:orientation="vertical"
+	            android:layout_weight="1" >
+	
+	            <RadioButton
+	                android:id="@+id/matchmake_radio_no"
+	                android:layout_width="match_parent"
+	                android:layout_height="match_parent"
+	                android:text="No" />
+	
+	        </LinearLayout>
+
+		</LinearLayout>
     </LinearLayout>
     <LinearLayout 
         android:layout_width="match_parent"
@@ -126,14 +177,14 @@
         android:orientation="horizontal"
         android:layout_weight="1" >
         <LinearLayout
+            android:id="@+id/register_register"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_weight="1"
-            android:background="@drawable/profile_cancel" >
+            android:background="@drawable/register_register" >
 
             <TextView
-                android:id="@+id/register_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Register"
@@ -143,13 +194,13 @@
             
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/register_cancel"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_weight="1"
-            android:background="@drawable/profile_ok" >
+            android:background="@drawable/register_cancel" >
             <TextView
-                android:id="@+id/register_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cancel"

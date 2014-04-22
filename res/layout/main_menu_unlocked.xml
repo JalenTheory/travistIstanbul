@@ -67,13 +67,16 @@
         android:layout_weight="1" >
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/main_checkins"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_weight="1"
-        android:background="@drawable/checkins_button" >
+        android:background="@drawable/checkins_button"
+        android:alpha=".20" >
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/main_todo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -81,6 +84,7 @@
         android:background="@drawable/todo_button" >
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/main_saved"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -88,6 +92,7 @@
         android:background="@drawable/saved_button" >
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/main_emergency"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -95,6 +100,7 @@
         android:background="@drawable/emergency_button" >
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/main_exchange"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -102,6 +108,7 @@
         android:background="@drawable/exchange_button" >
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/main_browse"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -109,6 +116,7 @@
         android:background="@drawable/browse_button" >
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/main_achievements"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
