@@ -38,144 +38,176 @@ public final class R {
         public static final int header=0x7f020012;
         public static final int ic_launcher=0x7f020013;
         public static final int info_background=0x7f020014;
-        public static final int locked=0x7f020015;
-        public static final int login=0x7f020016;
-        public static final int login_password_background=0x7f020017;
-        public static final int logoff=0x7f020018;
-        public static final int map_icon=0x7f020019;
-        public static final int match_dialog_button=0x7f02001a;
-        public static final int matchmake_icon=0x7f02001b;
-        public static final int matchmaking_button=0x7f02001c;
-        public static final int nationality=0x7f02001d;
-        public static final int password=0x7f02001e;
-        public static final int profile_cancel=0x7f02001f;
-        public static final int profile_ok=0x7f020020;
-        public static final int row_item=0x7f020021;
-        public static final int saved_button=0x7f020022;
-        public static final int saved_item_address=0x7f020023;
-        public static final int saved_item_button=0x7f020024;
-        public static final int saved_item_place=0x7f020025;
-        public static final int send=0x7f020026;
-        public static final int todo_button=0x7f020027;
-        public static final int todo_item_address=0x7f020028;
-        public static final int todo_item_button=0x7f020029;
-        public static final int todo_item_match_button=0x7f02002a;
-        public static final int todo_item_place=0x7f02002b;
-        public static final int transparent_background=0x7f02002c;
-        public static final int travist_banner=0x7f02002d;
-        public static final int travist_half=0x7f02002e;
-        public static final int travist_icon=0x7f02002f;
-        public static final int unlocked=0x7f020030;
-        public static final int username=0x7f020031;
-        public static final int welcome_button=0x7f020032;
+        public static final int infowin_marker=0x7f020015;
+        public static final int locked=0x7f020016;
+        public static final int login=0x7f020017;
+        public static final int login_dialog_button=0x7f020018;
+        public static final int login_password_background=0x7f020019;
+        public static final int logoff=0x7f02001a;
+        public static final int map_icon=0x7f02001b;
+        public static final int mapmarker_azure=0x7f02001c;
+        public static final int match_dialog_button=0x7f02001d;
+        public static final int matchmake_icon=0x7f02001e;
+        public static final int matchmaking_button=0x7f02001f;
+        public static final int nationality=0x7f020020;
+        public static final int password=0x7f020021;
+        public static final int register_cancel=0x7f020022;
+        public static final int register_register=0x7f020023;
+        public static final int row_item=0x7f020024;
+        public static final int saved_button=0x7f020025;
+        public static final int saved_item_address=0x7f020026;
+        public static final int saved_item_button=0x7f020027;
+        public static final int saved_item_place=0x7f020028;
+        public static final int send=0x7f020029;
+        public static final int speechbubble=0x7f02002a;
+        public static final int speechbubble_blue=0x7f02002b;
+        public static final int todo_button=0x7f02002c;
+        public static final int todo_item_address=0x7f02002d;
+        public static final int todo_item_button=0x7f02002e;
+        public static final int todo_item_match_button=0x7f02002f;
+        public static final int todo_item_place=0x7f020030;
+        public static final int transparent_background=0x7f020031;
+        public static final int travist_banner=0x7f020032;
+        public static final int travist_half=0x7f020033;
+        public static final int travist_icon=0x7f020034;
+        public static final int unlocked=0x7f020035;
+        public static final int username=0x7f020036;
+        public static final int welcome_button=0x7f020037;
     }
     public static final class id {
-        public static final int button1=0x7f080000;
-        public static final int button2=0x7f080001;
-        public static final int categories_list=0x7f080005;
-        public static final int delete=0x7f08003c;
-        public static final int dialog_cancel=0x7f080014;
-        public static final int dialog_cancel_background=0x7f08000c;
-        public static final int dialog_cancel_text=0x7f080010;
-        public static final int dialog_login=0x7f080013;
-        public static final int dialog_matchmake_cancel=0x7f08001b;
-        public static final int dialog_matchmake_name=0x7f080015;
-        public static final int dialog_matchmake_nationality=0x7f080016;
-        public static final int dialog_matchmake_send_email=0x7f080017;
-        public static final int dialog_matchmake_send_sms=0x7f080019;
-        public static final int dialog_name=0x7f08000d;
-        public static final int dialog_name_background=0x7f080009;
-        public static final int dialog_nationality=0x7f08000e;
-        public static final int dialog_nationality_background=0x7f08000a;
-        public static final int dialog_password=0x7f080012;
-        public static final int dialog_send_background=0x7f08000b;
-        public static final int dialog_send_email_text=0x7f080018;
-        public static final int dialog_send_sms_text=0x7f08001a;
-        public static final int dialog_send_text=0x7f08000f;
-        public static final int dialog_username=0x7f080011;
-        public static final int emergency_ambulance=0x7f08001f;
-        public static final int emergency_ambulance_number=0x7f080021;
-        public static final int emergency_ambulance_text=0x7f080020;
-        public static final int emergency_button=0x7f08001c;
-        public static final int emergency_coastguard=0x7f080028;
-        public static final int emergency_coastguard_number=0x7f08002a;
-        public static final int emergency_coastguard_text=0x7f080029;
-        public static final int emergency_fire=0x7f080022;
-        public static final int emergency_fire_number=0x7f080024;
-        public static final int emergency_fire_text=0x7f080023;
-        public static final int emergency_forest_fire=0x7f08002b;
-        public static final int emergency_forest_fire_number=0x7f08002d;
-        public static final int emergency_forest_fire_text=0x7f08002c;
-        public static final int emergency_missing_child=0x7f08002e;
-        public static final int emergency_missing_child_number=0x7f080030;
-        public static final int emergency_missing_child_text=0x7f08002f;
-        public static final int emergency_number_text=0x7f08001e;
-        public static final int emergency_police=0x7f080025;
-        public static final int emergency_police_number=0x7f080027;
-        public static final int emergency_police_text=0x7f080026;
-        public static final int emergency_service_text=0x7f08001d;
-        public static final int exchange_rates_currency_name=0x7f080036;
-        public static final int exchange_rates_currency_rate=0x7f080037;
-        public static final int exchange_rates_currency_sign=0x7f080035;
-        public static final int exchange_rates_list=0x7f080034;
-        public static final int expandableListView=0x7f080059;
-        public static final int header=0x7f080004;
-        public static final int imageView1=0x7f080039;
-        public static final int insert=0x7f08003a;
-        public static final int item_detail=0x7f080041;
-        public static final int listHeader=0x7f080065;
-        public static final int listItem=0x7f080067;
-        public static final int login=0x7f08003e;
-        public static final int logoff=0x7f080040;
-        public static final int main_view_layout=0x7f080038;
-        public static final int mapButton=0x7f080066;
-        public static final int mapView=0x7f080042;
-        public static final int map_fragment_container=0x7f080043;
-        public static final int map_icon=0x7f080064;
-        public static final int mapview=0x7f080003;
-        public static final int query=0x7f08003b;
-        public static final int register_GSM=0x7f080049;
-        public static final int register_cancel=0x7f08004c;
-        public static final int register_country=0x7f080046;
-        public static final int register_email=0x7f080047;
-        public static final int register_matchmakingSwitch=0x7f08004a;
-        public static final int register_name=0x7f080045;
-        public static final int register_password=0x7f080048;
-        public static final int register_register=0x7f08004b;
-        public static final int register_username=0x7f080044;
-        public static final int route_menu_item_1=0x7f080068;
-        public static final int route_menu_item_2=0x7f080069;
-        public static final int row_item_background=0x7f080006;
-        public static final int row_item_category=0x7f080008;
-        public static final int row_item_category_icon=0x7f080007;
-        public static final int saveButton=0x7f080062;
-        public static final int savedTitle=0x7f080053;
-        public static final int saved_button=0x7f080031;
-        public static final int saved_item_address=0x7f080051;
-        public static final int saved_list=0x7f08004f;
-        public static final int saved_listaddress=0x7f080052;
-        public static final int saved_listname=0x7f080050;
-        public static final int savedlistItem=0x7f080055;
-        public static final int savedlistview=0x7f080054;
-        public static final int text_address=0x7f08004e;
-        public static final int text_currency=0x7f080032;
-        public static final int text_in_euros=0x7f080033;
-        public static final int text_place=0x7f08004d;
-        public static final int title=0x7f080058;
-        public static final int todo_button=0x7f080056;
-        public static final int todo_item_address=0x7f080060;
-        public static final int todo_item_match_icon=0x7f08005e;
-        public static final int todo_list=0x7f080057;
-        public static final int todo_list_address=0x7f080061;
-        public static final int todo_listname=0x7f08005f;
-        public static final int todo_map=0x7f080063;
-        public static final int todo_match_name=0x7f08005a;
-        public static final int todo_match_nationality=0x7f08005b;
-        public static final int todo_matchmake=0x7f08005d;
-        public static final int todo_show_map=0x7f08005c;
-        public static final int tv=0x7f080002;
-        public static final int update=0x7f08003d;
-        public static final int welcome_username=0x7f08003f;
+        public static final int button1=0x7f090000;
+        public static final int button2=0x7f090001;
+        public static final int categoriesButton=0x7f09004e;
+        public static final int categories_list=0x7f090005;
+        public static final int currency_updated_text=0x7f090035;
+        public static final int delete=0x7f090040;
+        public static final int dialog_cancel_background=0x7f09000c;
+        public static final int dialog_cancel_text=0x7f090010;
+        public static final int dialog_log_in_text=0x7f090014;
+        public static final int dialog_login_cancel=0x7f090015;
+        public static final int dialog_login_log_in=0x7f090013;
+        public static final int dialog_login_name=0x7f090011;
+        public static final int dialog_login_password=0x7f090012;
+        public static final int dialog_login_register=0x7f090016;
+        public static final int dialog_matchmake_cancel=0x7f09001e;
+        public static final int dialog_matchmake_name=0x7f090018;
+        public static final int dialog_matchmake_nationality=0x7f090019;
+        public static final int dialog_matchmake_send_email=0x7f09001a;
+        public static final int dialog_matchmake_send_sms=0x7f09001c;
+        public static final int dialog_name=0x7f09000d;
+        public static final int dialog_name_background=0x7f090009;
+        public static final int dialog_nationality=0x7f09000e;
+        public static final int dialog_nationality_background=0x7f09000a;
+        public static final int dialog_register_text=0x7f090017;
+        public static final int dialog_send_background=0x7f09000b;
+        public static final int dialog_send_email_text=0x7f09001b;
+        public static final int dialog_send_sms_text=0x7f09001d;
+        public static final int dialog_send_text=0x7f09000f;
+        public static final int emergency_ambulance=0x7f090022;
+        public static final int emergency_ambulance_number=0x7f090024;
+        public static final int emergency_ambulance_text=0x7f090023;
+        public static final int emergency_button=0x7f09001f;
+        public static final int emergency_coastguard=0x7f09002b;
+        public static final int emergency_coastguard_number=0x7f09002d;
+        public static final int emergency_coastguard_text=0x7f09002c;
+        public static final int emergency_fire=0x7f090025;
+        public static final int emergency_fire_number=0x7f090027;
+        public static final int emergency_fire_text=0x7f090026;
+        public static final int emergency_forest_fire=0x7f09002e;
+        public static final int emergency_forest_fire_number=0x7f090030;
+        public static final int emergency_forest_fire_text=0x7f09002f;
+        public static final int emergency_missing_child=0x7f090031;
+        public static final int emergency_missing_child_number=0x7f090033;
+        public static final int emergency_missing_child_text=0x7f090032;
+        public static final int emergency_number_text=0x7f090021;
+        public static final int emergency_police=0x7f090028;
+        public static final int emergency_police_number=0x7f09002a;
+        public static final int emergency_police_text=0x7f090029;
+        public static final int emergency_service_text=0x7f090020;
+        public static final int enable_gps=0x7f090081;
+        public static final int exchange_rates_currency_name=0x7f09003a;
+        public static final int exchange_rates_currency_rate=0x7f09003b;
+        public static final int exchange_rates_currency_sign=0x7f090039;
+        public static final int exchange_rates_list=0x7f090038;
+        public static final int expandableListView=0x7f090070;
+        public static final int header=0x7f090004;
+        public static final int imageView1=0x7f09003c;
+        public static final int insert=0x7f09003e;
+        public static final int item_detail=0x7f09004c;
+        public static final int listHeader=0x7f09007c;
+        public static final int listItem=0x7f09007e;
+        public static final int logoff=0x7f090049;
+        public static final int main_achievements=0x7f09004b;
+        public static final int main_browse=0x7f090048;
+        public static final int main_checkins=0x7f09004a;
+        public static final int main_emergency=0x7f090046;
+        public static final int main_exchange=0x7f090047;
+        public static final int main_login=0x7f090042;
+        public static final int main_saved=0x7f090045;
+        public static final int main_todo=0x7f090044;
+        public static final int main_view_layout=0x7f09003d;
+        public static final int mapButton=0x7f09007d;
+        public static final int mapView=0x7f09004d;
+        public static final int map_fragment_container=0x7f090052;
+        public static final int map_icon=0x7f09007b;
+        public static final int mapview=0x7f090003;
+        public static final int matchmake_radio_no=0x7f09005a;
+        public static final int matchmake_radio_yes=0x7f090059;
+        public static final int query=0x7f09003f;
+        public static final int register_GSM=0x7f090058;
+        public static final int register_cancel=0x7f09005c;
+        public static final int register_country=0x7f090055;
+        public static final int register_email=0x7f090056;
+        public static final int register_name=0x7f090054;
+        public static final int register_password=0x7f090057;
+        public static final int register_register=0x7f09005b;
+        public static final int register_username=0x7f090053;
+        public static final int route_button=0x7f090061;
+        public static final int route_button2=0x7f090062;
+        public static final int route_button3=0x7f090063;
+        public static final int route_menu_from=0x7f09007f;
+        public static final int route_menu_to=0x7f090080;
+        public static final int route_nav=0x7f09005d;
+        public static final int routes_mapview=0x7f090060;
+        public static final int routes_mapview_fragment=0x7f09005f;
+        public static final int row_item_background=0x7f090006;
+        public static final int row_item_category=0x7f090008;
+        public static final int row_item_category_icon=0x7f090007;
+        public static final int saveButton=0x7f090079;
+        public static final int savedTitle=0x7f09006a;
+        public static final int saved_button=0x7f090034;
+        public static final int saved_item_address=0x7f090068;
+        public static final int saved_list=0x7f090066;
+        public static final int saved_listaddress=0x7f090069;
+        public static final int saved_listname=0x7f090067;
+        public static final int savedlistItem=0x7f09006c;
+        public static final int savedlistview=0x7f09006b;
+        public static final int savelistButton=0x7f090051;
+        public static final int tableMarker=0x7f09004f;
+        public static final int test_route_mapview=0x7f09005e;
+        public static final int text_address=0x7f090065;
+        public static final int text_currency=0x7f090036;
+        public static final int text_in_euros=0x7f090037;
+        public static final int text_place=0x7f090064;
+        public static final int title=0x7f09006f;
+        public static final int todoButton=0x7f090050;
+        public static final int todo_button=0x7f09006d;
+        public static final int todo_item_address=0x7f090077;
+        public static final int todo_item_match_icon=0x7f090075;
+        public static final int todo_list=0x7f09006e;
+        public static final int todo_list_address=0x7f090078;
+        public static final int todo_listname=0x7f090076;
+        public static final int todo_map=0x7f09007a;
+        public static final int todo_match_name=0x7f090071;
+        public static final int todo_match_nationality=0x7f090072;
+        public static final int todo_matchmake=0x7f090074;
+        public static final int todo_show_map=0x7f090073;
+        public static final int tv=0x7f090002;
+        public static final int update=0x7f090041;
+        public static final int welcome_username=0x7f090043;
+    }
+    public static final class integer {
+        public static final int test_route_fragment=0x7f050000;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -193,25 +225,28 @@ public final class R {
         public static final int main_menu_unlocked=0x7f03000c;
         public static final int map_frag=0x7f03000d;
         public static final int map_fragment=0x7f03000e;
-        public static final int profile=0x7f03000f;
-        public static final int saved=0x7f030010;
-        public static final int saved_row=0x7f030011;
-        public static final int savedlist_activity=0x7f030012;
-        public static final int savedlist_item=0x7f030013;
-        public static final int todo=0x7f030014;
-        public static final int todo_activity=0x7f030015;
-        public static final int todo_matchmaking=0x7f030016;
-        public static final int todo_row=0x7f030017;
-        public static final int todolist_group=0x7f030018;
-        public static final int todolist_item=0x7f030019;
+        public static final int register=0x7f03000f;
+        public static final int routes_activity=0x7f030010;
+        public static final int routes_map_frag=0x7f030011;
+        public static final int routes_nav_fragment=0x7f030012;
+        public static final int saved=0x7f030013;
+        public static final int saved_row=0x7f030014;
+        public static final int savedlist_activity=0x7f030015;
+        public static final int savedlist_item=0x7f030016;
+        public static final int todo=0x7f030017;
+        public static final int todo_activity=0x7f030018;
+        public static final int todo_matchmaking=0x7f030019;
+        public static final int todo_row=0x7f03001a;
+        public static final int todolist_group=0x7f03001b;
+        public static final int todolist_item=0x7f03001c;
     }
     public static final class menu {
-        public static final int route_frag_menu=0x7f070000;
+        public static final int route_frag_menu=0x7f080000;
     }
     public static final class string {
-        public static final int action_settings=0x7f050001;
-        public static final int app_name=0x7f050000;
-        public static final int debug_tag=0x7f050002;
+        public static final int action_settings=0x7f060001;
+        public static final int app_name=0x7f060000;
+        public static final int debug_tag=0x7f060002;
     }
     public static final class style {
         /** 
@@ -224,64 +259,10 @@ public final class R {
             backward-compatibility can go here.
         
          */
-        public static final int AppBaseTheme=0x7f060000;
+        public static final int AppBaseTheme=0x7f070000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f060001;
-    }
-    }
-    public static final class layout {
-        public static final int activity_main=0x7f030000;
-        public static final int browse=0x7f030001;
-        public static final int browse_sidebar=0x7f030002;
-        public static final int browse_sidebar_row=0x7f030003;
-        public static final int dialog=0x7f030004;
-        public static final int dialog_login=0x7f030005;
-        public static final int dialog_matchmaking=0x7f030006;
-        public static final int emergency=0x7f030007;
-        public static final int exchange_rates=0x7f030008;
-        public static final int exchange_rates_row=0x7f030009;
-        public static final int main=0x7f03000a;
-        public static final int main_menu_locked=0x7f03000b;
-        public static final int main_menu_unlocked=0x7f03000c;
-        public static final int map_frag=0x7f03000d;
-        public static final int map_fragment=0x7f03000e;
-        public static final int profile=0x7f03000f;
-        public static final int saved=0x7f030010;
-        public static final int saved_row=0x7f030011;
-        public static final int savedlist_activity=0x7f030012;
-        public static final int savedlist_item=0x7f030013;
-        public static final int todo=0x7f030014;
-        public static final int todo_activity=0x7f030015;
-        public static final int todo_matchmaking=0x7f030016;
-        public static final int todo_row=0x7f030017;
-        public static final int todolist_group=0x7f030018;
-        public static final int todolist_item=0x7f030019;
-    }
-    public static final class menu {
-        public static final int route_frag_menu=0x7f070000;
-    }
-    public static final class string {
-        public static final int action_settings=0x7f050001;
-        public static final int app_name=0x7f050000;
-        public static final int debug_tag=0x7f050002;
-    }
-    public static final class style {
-        /** 
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    
-
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        
-         */
-        public static final int AppBaseTheme=0x7f060000;
-        /**  Application theme. 
- All customizations that are NOT specific to a particular API-level can go here. 
-         */
-        public static final int AppTheme=0x7f060001;
+        public static final int AppTheme=0x7f070001;
     }
 }
