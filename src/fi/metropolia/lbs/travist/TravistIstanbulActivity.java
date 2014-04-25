@@ -65,13 +65,13 @@ public class TravistIstanbulActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+		//setContentView(R.layout.main);
 		//Use layout below to enable demo-version
-		//setContentView(R.layout.main_menu_locked);
+		setContentView(R.layout.main_menu_locked);
 		
 		
 		
-        SharedPreferences shaPre = getSharedPreferences("MAP", MODE_PRIVATE);
+        /*SharedPreferences shaPre = getSharedPreferences("MAP", MODE_PRIVATE);
         SharedPreferences.Editor editor = shaPre.edit();
 
         if(shaPre.getBoolean("dirStatus", false)) {
@@ -83,7 +83,7 @@ public class TravistIstanbulActivity extends Activity {
         	Log.d("LOG", "Files werent in app folder");
         }
 		// Make buttons according to Activities of test cases
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.main_view_layout);
+        /*LinearLayout linearLayout = (LinearLayout) findViewById(R.id.main_view_layout);
 		linearLayout.addView(createButton(fi.metropolia.lbs.travist.emergency.EmergencyActivity.class));
 		linearLayout.addView(createButton(fi.metropolia.lbs.travist.exchange.ExchangeActivity.class));
 		
@@ -93,8 +93,8 @@ public class TravistIstanbulActivity extends Activity {
 		linearLayout.addView(createButton(fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity.class));
 		linearLayout.addView(createButton(fi.metropolia.lbs.travist.routes.TestRoutesActivity.class));
         
-		//Remove comment tags to enable demo-version
-        /*final Context context = this;
+		//Remove comment tags to enable demo-version*/
+        final Context context = this;
 		
 		todoIntent = new Intent(this, TodoActivity.class);
 		savedIntent = new Intent(this, SavedlistActivity.class);
@@ -174,15 +174,16 @@ public class TravistIstanbulActivity extends Activity {
 				dialog.setTitle("Login");
 				dialog.show();
 			}
-        });*/
+        });
 	}
 	
-	private class prepareMapFiles extends AsyncTask<String, Void, String> {
+	/*private class prepareMapFiles extends AsyncTask<String, Void, String> {
 
 		@Override
 		protected String doInBackground(String... params) {
 			AssetAdapter ASS = new AssetAdapter(getBaseContext());
 			ASS.assetsToDir();
+			Log.d("TULEEKO", "TULEEEE");
 			return null;
 		}
 
@@ -193,5 +194,5 @@ public class TravistIstanbulActivity extends Activity {
 			//This is done only once per installation
 			
 		}	
-	}
+	}*/
 }

@@ -90,9 +90,9 @@ public class ExchangeActivity extends Activity {
 	        updated = updated_date.split("-", 3);
 	        updated[0] = updated[0].substring(12);
 	        updated[2] = updated[2].substring(0, updated[2].length() - 1);
-	        Log.d(updated[0], updated[1]);
+
 	        updated_textView.setText("Rates updated: " + updated[2] + '.' + updated[1] + '.' + updated[0]);
-	        
+
 	        Node[] node = new Node[9];
 	        node[0] = nodeList.item(2);
 	        node[1] = nodeList.item(7);
