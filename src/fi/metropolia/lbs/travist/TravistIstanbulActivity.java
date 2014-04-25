@@ -15,6 +15,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import fi.metropolia.lbs.travist.browsemenu.BrowseMenu;
 import fi.metropolia.lbs.travist.emergency.EmergencyActivity;
 import fi.metropolia.lbs.travist.exchange.ExchangeActivity;
 import fi.metropolia.lbs.travist.offline_map.AssetAdapter;
@@ -68,6 +69,7 @@ public class TravistIstanbulActivity extends Activity {
 		//setContentView(R.layout.main);
 		//Use layout below to enable demo-version
 		setContentView(R.layout.main_menu_locked);
+		getActionBar().hide(); // hides the action bar in the main activity
 		
 		
 		
@@ -82,9 +84,8 @@ public class TravistIstanbulActivity extends Activity {
     		editor.apply();
         	Log.d("LOG", "Files werent in app folder");
         }
-        /*
 		// Make buttons according to Activities of test cases
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.main_view_layout);
+       /* LinearLayout linearLayout = (LinearLayout) findViewById(R.id.main_view_layout);
 		linearLayout.addView(createButton(fi.metropolia.lbs.travist.emergency.EmergencyActivity.class));
 		linearLayout.addView(createButton(fi.metropolia.lbs.travist.exchange.ExchangeActivity.class));
 		
@@ -102,7 +103,7 @@ public class TravistIstanbulActivity extends Activity {
 		emergencyIntent = new Intent(this, EmergencyActivity.class);
 		exchangeIntent = new Intent(this, ExchangeActivity.class);
 		//This should open the maps activity(?)
-		browseIntent = new Intent(this, TestOfflineMapActivity.class);
+		browseIntent = new Intent(this, BrowseMenu.class);
 		registerIntent = new Intent(this, RegisterActivity.class);
         
         todoButton = (LinearLayout) findViewById (R.id.main_todo);
