@@ -20,6 +20,7 @@ import fi.metropolia.lbs.travist.exchange.ExchangeActivity;
 import fi.metropolia.lbs.travist.offline_map.AssetAdapter;
 import fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity;
 import fi.metropolia.lbs.travist.offline_map.TestOfflineMapFragment;
+import fi.metropolia.lbs.travist.offline_map.MapActivity;
 import fi.metropolia.lbs.travist.register.RegisterActivity;
 import fi.metropolia.lbs.travist.savedlist.SavedlistActivity;
 import fi.metropolia.lbs.travist.todo.TodoActivity;
@@ -82,6 +83,8 @@ public class TravistIstanbulActivity extends Activity {
     		editor.apply();
         	Log.d("LOG", "Files werent in app folder");
         }
+        
+        // TODO clean up
         /*
 		// Make buttons according to Activities of test cases
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.main_view_layout);
@@ -102,7 +105,7 @@ public class TravistIstanbulActivity extends Activity {
 		emergencyIntent = new Intent(this, EmergencyActivity.class);
 		exchangeIntent = new Intent(this, ExchangeActivity.class);
 		//This should open the maps activity(?)
-		browseIntent = new Intent(this, TestOfflineMapActivity.class);
+		browseIntent = new Intent(this, MapActivity.class);
 		registerIntent = new Intent(this, RegisterActivity.class);
         
         todoButton = (LinearLayout) findViewById (R.id.main_todo);
