@@ -65,9 +65,9 @@ public class TravistIstanbulActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+		//setContentView(R.layout.main);
 		//Use layout below to enable demo-version
-		//setContentView(R.layout.main_menu_locked);
+		setContentView(R.layout.main_menu_locked);
 		
 		
 		
@@ -82,6 +82,7 @@ public class TravistIstanbulActivity extends Activity {
     		editor.apply();
         	Log.d("LOG", "Files werent in app folder");
         }
+        /*
 		// Make buttons according to Activities of test cases
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.main_view_layout);
 		linearLayout.addView(createButton(fi.metropolia.lbs.travist.emergency.EmergencyActivity.class));
@@ -92,9 +93,9 @@ public class TravistIstanbulActivity extends Activity {
 		
 		linearLayout.addView(createButton(fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity.class));
 		linearLayout.addView(createButton(fi.metropolia.lbs.travist.routes.TestRoutesActivity.class));
-        
+        */
 		//Remove comment tags to enable demo-version
-        /*final Context context = this;
+        final Context context = this;
 		
 		todoIntent = new Intent(this, TodoActivity.class);
 		savedIntent = new Intent(this, SavedlistActivity.class);
@@ -174,7 +175,7 @@ public class TravistIstanbulActivity extends Activity {
 				dialog.setTitle("Login");
 				dialog.show();
 			}
-        });*/
+        });
 	}
 	
 	private class prepareMapFiles extends AsyncTask<String, Void, String> {
