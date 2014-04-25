@@ -117,6 +117,7 @@ public class ExchangeActivity extends Activity {
 	    }
 		ArrayList<ExchangeItem> items = new ArrayList<ExchangeItem>();
 		items.add(new ExchangeItem(R.drawable.currency_dollar_icon, "US Dollar", currency_rate[0]));
+
 		items.add(new ExchangeItem(R.drawable.currency_british_icon, "British Pound", currency_rate[1]));
 		items.add(new ExchangeItem(R.drawable.currency_indian_icon, "Indian Rupee", currency_rate[2]));
 		items.add(new ExchangeItem(R.drawable.currency_dollar_icon, "Australian Dollar", currency_rate[3]));

@@ -2,8 +2,19 @@
 <resources>
 
   
-    <string name="app_name">TravistIstanbul</string>
+    <string name="app_name">Travist</string>
     <string name="action_settings">Settings</string>
 	<string name="debug_tag">Travist debug</string>
+	<string-array name="categories">
+	    <item>Arts &amp; Entertainment</item>
+	    <item>Food</item>
+	    <item>Nightlife Spots</item>
+	    <item>Medical Center</item>
+	    <item>Shop &amp; Service</item>
+	   <item>Travel &amp; Transport</item>
+</string-array>
+
+	    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
 
 </resources>
