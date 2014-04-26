@@ -79,7 +79,6 @@ public class FourSquarePlaces extends ListActivity{
 		} 
 		
 		catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}				
 		

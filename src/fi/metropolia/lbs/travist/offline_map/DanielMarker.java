@@ -13,7 +13,6 @@ public class DanielMarker extends Marker{
 	
 	public DanielMarker(LatLong latLong, Bitmap bitmap, int horizontalOffset, int verticalOffset) {
 		super(latLong, bitmap, horizontalOffset, verticalOffset);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public DanielMarker(LatLong latLong, Bitmap bitmap, int horizontalOffset, int verticalOffset, Place place) {

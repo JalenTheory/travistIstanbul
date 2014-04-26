@@ -24,7 +24,8 @@ import fi.metropolia.lbs.travist.emergency.EmergencyActivity;
 import fi.metropolia.lbs.travist.exchange.ExchangeActivity;
 import fi.metropolia.lbs.travist.offline_map.AssetAdapter;
 import fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity;
-import fi.metropolia.lbs.travist.offline_map.TestOfflineMapFragment;
+import fi.metropolia.lbs.travist.offline_map.TravistMapFragment;
+import fi.metropolia.lbs.travist.offline_map.TravistMapActivity;
 import fi.metropolia.lbs.travist.register.RegisterActivity;
 import fi.metropolia.lbs.travist.savedlist.SavedlistActivity;
 import fi.metropolia.lbs.travist.todo.TodoActivity;
@@ -62,7 +63,7 @@ public class TravistIstanbulActivity extends Activity {
 	}
 
 	public void openMap(View view) {
-		Intent intent = new Intent(this, TestOfflineMapFragment.class);
+		Intent intent = new Intent(this, TravistMapFragment.class);
 		startActivity(intent);
 	}
 
@@ -94,6 +95,9 @@ public class TravistIstanbulActivity extends Activity {
     		editor.apply();
         	Log.d("LOG", "Files werent in app folder");
         }
+        
+        // TODO clean up
+        /*
 		// Make buttons according to Activities of test cases
         /*LinearLayout linearLayout = (LinearLayout) findViewById(R.id.main_view_layout);
 		linearLayout.addView(createButton(fi.metropolia.lbs.travist.emergency.EmergencyActivity.class));
