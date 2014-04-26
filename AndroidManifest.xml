@@ -20,6 +20,7 @@
         <!-- MainActivity -->
         <activity
             android:name="fi.metropolia.lbs.travist.TravistIstanbulActivity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,21 +29,23 @@
         </activity>
 
         <!-- OfflineMap -->
-        <activity android:name="fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity"/>
+        <activity android:name="fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity"
+            android:screenOrientation="portrait" />
 
         <!-- Leppävaara -->
-        <activity android:name="fi.metropolia.lbs.travist.offline_gps.TravistLeppavaaraActivity" />
+        <activity android:name="fi.metropolia.lbs.travist.offline_gps.TravistLeppavaaraActivity" 
+            android:screenOrientation="portrait" />
         
         <!-- Routes testing Tapiola -->
-        <activity android:name="fi.metropolia.lbs.travist.offline_map.MapActivity" />
+        <activity android:name="fi.metropolia.lbs.travist.offline_map.TravistMapActivity" android:screenOrientation="portrait"/>
 
         <!-- <activity android:name="fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity" />  -->
-        <activity android:name="fi.metropolia.lbs.travist.foursquare_api.FoursquareActivity" />
-        <activity android:name="fi.metropolia.lbs.travist.todo.TodoActivity" />
-        <activity android:name="fi.metropolia.lbs.travist.savedlist.SavedlistActivity" />
-        <activity android:name="fi.metropolia.lbs.travist.emergency.EmergencyActivity" />
-        <activity android:name="fi.metropolia.lbs.travist.exchange.ExchangeActivity" />
-        <activity android:name="fi.metropolia.lbs.travist.register.RegisterActivity" />
+        <activity android:name="fi.metropolia.lbs.travist.foursquare_api.FoursquareActivity" android:screenOrientation="portrait"/>
+        <activity android:name="fi.metropolia.lbs.travist.todo.TodoActivity" android:screenOrientation="portrait"/>
+        <activity android:name="fi.metropolia.lbs.travist.savedlist.SavedlistActivity" android:screenOrientation="portrait"/>
+        <activity android:name="fi.metropolia.lbs.travist.emergency.EmergencyActivity" android:screenOrientation="portrait"/>
+        <activity android:name="fi.metropolia.lbs.travist.exchange.ExchangeActivity" android:screenOrientation="portrait"/>
+        <activity android:name="fi.metropolia.lbs.travist.register.RegisterActivity" android:screenOrientation="portrait"/>
         
         <!-- Content provider permission -->
         <!-- Name is the directory of the class, authority is the AUTHORITY defined in CP -->

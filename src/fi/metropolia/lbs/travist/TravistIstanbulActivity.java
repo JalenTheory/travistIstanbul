@@ -19,8 +19,8 @@ import fi.metropolia.lbs.travist.emergency.EmergencyActivity;
 import fi.metropolia.lbs.travist.exchange.ExchangeActivity;
 import fi.metropolia.lbs.travist.offline_map.AssetAdapter;
 import fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity;
-import fi.metropolia.lbs.travist.offline_map.TestOfflineMapFragment;
-import fi.metropolia.lbs.travist.offline_map.MapActivity;
+import fi.metropolia.lbs.travist.offline_map.TravistMapFragment;
+import fi.metropolia.lbs.travist.offline_map.TravistMapActivity;
 import fi.metropolia.lbs.travist.register.RegisterActivity;
 import fi.metropolia.lbs.travist.savedlist.SavedlistActivity;
 import fi.metropolia.lbs.travist.todo.TodoActivity;
@@ -57,7 +57,7 @@ public class TravistIstanbulActivity extends Activity {
 	}
 
 	public void openMap(View view) {
-		Intent intent = new Intent(this, TestOfflineMapFragment.class);
+		Intent intent = new Intent(this, TravistMapFragment.class);
 		startActivity(intent);
 	}
 
@@ -105,7 +105,7 @@ public class TravistIstanbulActivity extends Activity {
 		emergencyIntent = new Intent(this, EmergencyActivity.class);
 		exchangeIntent = new Intent(this, ExchangeActivity.class);
 		//This should open the maps activity(?)
-		browseIntent = new Intent(this, MapActivity.class);
+		browseIntent = new Intent(this, TravistMapActivity.class);
 		registerIntent = new Intent(this, RegisterActivity.class);
         
         todoButton = (LinearLayout) findViewById (R.id.main_todo);
