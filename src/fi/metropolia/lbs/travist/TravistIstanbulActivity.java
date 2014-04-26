@@ -1,5 +1,7 @@
 package fi.metropolia.lbs.travist;
 
+import java.net.HttpURLConnection;
+
 import travist.pack.R;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -7,6 +9,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,6 +46,7 @@ public class TravistIstanbulActivity extends Activity {
 	ImageView login;
 	ImageView logoff;
 	
+	CheckInternetConnectivity checkInternet = new CheckInternetConnectivity();
 //hello
 	private Button createButton(final Class<?> testCaseClass) {
 		Button button = new Button(this);
@@ -70,7 +75,12 @@ public class TravistIstanbulActivity extends Activity {
 		//Use layout below to enable demo-version
 		setContentView(R.layout.main_menu_locked);
 		
-		
+		if (checkInternet.isInternetAvailable()) {
+			Log.d("Haetaan tiedot xml:st‰ ja tallennetaan tiedostoon", "Jihuu");
+		}
+		else {
+			Log.d("Ei haeta mit‰‰", "Tekstin‰ pit‰is olla jo tiedot");
+		}
 		
         /*SharedPreferences shaPre = getSharedPreferences("MAP", MODE_PRIVATE);
         SharedPreferences.Editor editor = shaPre.edit();

@@ -23,6 +23,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import fi.metropolia.lbs.travist.CheckInternetConnectivity;
+
 import travist.pack.R;
 import android.app.Activity;
 import android.os.Bundle;
@@ -33,6 +35,7 @@ import android.widget.TextView;
 
 public class ExchangeActivity extends Activity {
 	ExchangeAdapter adapter;
+	CheckInternetConnectivity checkInternet = new CheckInternetConnectivity();
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -42,23 +45,29 @@ public class ExchangeActivity extends Activity {
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 	    StrictMode.setThreadPolicy(policy);
 		
-		try {
-			adapter = new ExchangeAdapter(this, getRates());
-		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (checkInternet.isInternetAvailable()) {
+			Log.d("Haetaa xml:stä uusimmat tiedot", "Jihuu");
+			try {
+				adapter = new ExchangeAdapter(this, getRates());
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SAXException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParserConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else {
+			Log.d("Luetaa tekstitiedostosta", "Vanhaa paskaa");
 		}
 		
 		ListView listView = (ListView) findViewById (R.id.exchange_rates_list);
