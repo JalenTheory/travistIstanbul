@@ -81,6 +81,7 @@ public class ExchangeActivity extends Activity {
 		TextView updated_textView = (TextView) findViewById (R.id.currency_updated_text);
 		String updated_date;
 		String updated[] = new String[3];
+		
 		try 
 	    {
 
@@ -99,8 +100,9 @@ public class ExchangeActivity extends Activity {
 	        updated = updated_date.split("-", 3);
 	        updated[0] = updated[0].substring(12);
 	        updated[2] = updated[2].substring(0, updated[2].length() - 1);
+	        updated_date = updated[2] + '.' + updated[1] + '.' + updated[0];
 
-	        updated_textView.setText("Rates updated: " + updated[2] + '.' + updated[1] + '.' + updated[0]);
+	        updated_textView.setText("Rates updated: " + updated_date);
 
 	        Node[] node = new Node[9];
 	        node[0] = nodeList.item(2);
@@ -112,7 +114,7 @@ public class ExchangeActivity extends Activity {
 	        node[6] = nodeList.item(21);
 	        node[7] = nodeList.item(28);
 	        node[8] = nodeList.item(29);
-	        //Node node = nodeList.item(2);
+	        
 	        currency_rate = new String[9];
 	        for (int i = 0; i < 9; i++) {
 	        	currency_rate[i] = nodeToString(node[i]);
@@ -126,7 +128,6 @@ public class ExchangeActivity extends Activity {
 	    }
 		ArrayList<ExchangeItem> items = new ArrayList<ExchangeItem>();
 		items.add(new ExchangeItem(R.drawable.currency_dollar_icon, "US Dollar", currency_rate[0]));
-
 		items.add(new ExchangeItem(R.drawable.currency_british_icon, "British Pound", currency_rate[1]));
 		items.add(new ExchangeItem(R.drawable.currency_indian_icon, "Indian Rupee", currency_rate[2]));
 		items.add(new ExchangeItem(R.drawable.currency_dollar_icon, "Australian Dollar", currency_rate[3]));

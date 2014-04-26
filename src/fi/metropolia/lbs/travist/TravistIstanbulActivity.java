@@ -77,6 +77,7 @@ public class TravistIstanbulActivity extends Activity {
 		
 		if (checkInternet.isInternetAvailable()) {
 			Log.d("Haetaan tiedot xml:st‰ ja tallennetaan tiedostoon", "Jihuu");
+			
 		}
 		else {
 			Log.d("Ei haeta mit‰‰", "Tekstin‰ pit‰is olla jo tiedot");
