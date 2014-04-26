@@ -23,6 +23,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import fi.metropolia.lbs.travist.CheckInternetConnectivity;
+
 import travist.pack.R;
 import android.app.Activity;
 import android.os.Bundle;
@@ -33,6 +35,7 @@ import android.widget.TextView;
 
 public class ExchangeActivity extends Activity {
 	ExchangeAdapter adapter;
+	CheckInternetConnectivity checkInternet = new CheckInternetConnectivity();
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -42,23 +45,29 @@ public class ExchangeActivity extends Activity {
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 	    StrictMode.setThreadPolicy(policy);
 		
-		try {
-			adapter = new ExchangeAdapter(this, getRates());
-		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (checkInternet.isInternetAvailable()) {
+			Log.d("Haetaa xml:stä uusimmat tiedot", "Jihuu");
+			try {
+				adapter = new ExchangeAdapter(this, getRates());
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SAXException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParserConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else {
+			Log.d("Luetaa tekstitiedostosta", "Vanhaa paskaa");
 		}
 		
 		ListView listView = (ListView) findViewById (R.id.exchange_rates_list);
@@ -72,6 +81,7 @@ public class ExchangeActivity extends Activity {
 		TextView updated_textView = (TextView) findViewById (R.id.currency_updated_text);
 		String updated_date;
 		String updated[] = new String[3];
+		
 		try 
 	    {
 
@@ -90,9 +100,10 @@ public class ExchangeActivity extends Activity {
 	        updated = updated_date.split("-", 3);
 	        updated[0] = updated[0].substring(12);
 	        updated[2] = updated[2].substring(0, updated[2].length() - 1);
-	        Log.d(updated[0], updated[1]);
-	        updated_textView.setText("Rates updated: " + updated[2] + '.' + updated[1] + '.' + updated[0]);
-	        
+	        updated_date = updated[2] + '.' + updated[1] + '.' + updated[0];
+
+	        updated_textView.setText("Rates updated: " + updated_date);
+
 	        Node[] node = new Node[9];
 	        node[0] = nodeList.item(2);
 	        node[1] = nodeList.item(7);
@@ -103,7 +114,7 @@ public class ExchangeActivity extends Activity {
 	        node[6] = nodeList.item(21);
 	        node[7] = nodeList.item(28);
 	        node[8] = nodeList.item(29);
-	        //Node node = nodeList.item(2);
+	        
 	        currency_rate = new String[9];
 	        for (int i = 0; i < 9; i++) {
 	        	currency_rate[i] = nodeToString(node[i]);
