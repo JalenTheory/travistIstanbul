@@ -30,8 +30,6 @@ public class TravistMapActivity extends Activity {
 		if (savedInstanceState == null) {
 			FragmentTransaction fragmentTransaction = getFragmentManager()
 					.beginTransaction();
-			Log.d("Testing", "nav fragment");
-			fragmentTransaction.add(R.id.route_nav, new RouteNavFragment());
 			Log.d("Testing", "map fragment");
 			fragmentTransaction.add(R.id.test_route_mapview, mRoutesFragment);
 			fragmentTransaction.commit();

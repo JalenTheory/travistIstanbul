@@ -39,7 +39,7 @@ public class TestTravistMapViewAdapterFragment extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		
-		Log.i("tag", "i am here");
+		//Log.i("tag", "i am here");
 
 		View rootView = inflater.inflate(R.layout.map_based_on_category, container,
 				false);
