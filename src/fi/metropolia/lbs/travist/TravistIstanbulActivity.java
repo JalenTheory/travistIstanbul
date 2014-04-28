@@ -1,6 +1,15 @@
 package fi.metropolia.lbs.travist;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.apache.http.client.ClientProtocolException;
+import org.xml.sax.SAXException;
 
 import travist.pack.R;
 import android.annotation.SuppressLint;
@@ -13,6 +22,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,6 +32,7 @@ import android.widget.LinearLayout;
 import fi.metropolia.lbs.travist.browsemenu.BrowseMenu;
 import fi.metropolia.lbs.travist.emergency.EmergencyActivity;
 import fi.metropolia.lbs.travist.exchange.ExchangeActivity;
+import fi.metropolia.lbs.travist.exchange.ExchangeFetchXML;
 import fi.metropolia.lbs.travist.offline_map.AssetAdapter;
 import fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity;
 import fi.metropolia.lbs.travist.offline_map.TestOfflineMapFragment;
@@ -45,6 +56,8 @@ public class TravistIstanbulActivity extends Activity {
 	Intent registerIntent;
 	ImageView login;
 	ImageView logoff;
+	
+	ExchangeFetchXML XMLOperations = new ExchangeFetchXML();
 	
 	CheckInternetConnectivity checkInternet = new CheckInternetConnectivity();
 //hello
@@ -75,13 +88,30 @@ public class TravistIstanbulActivity extends Activity {
 		//Use layout below to enable demo-version
 		setContentView(R.layout.main_menu_locked);
 		
-		if (checkInternet.isInternetAvailable()) {
+		//This bypasses the policy that doesn't allow users to run network operations in main thread
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+	    StrictMode.setThreadPolicy(policy);
+		
+		/*if (checkInternet.isInternetAvailable() || !checkInternet.isInternetAvailable()) {
 			Log.d("Haetaan tiedot xml:st‰ ja tallennetaan tiedostoon", "Jihuu");
+			try {
+				XMLOperations.saveXMLToFile(XMLOperations.getRates(), getBaseContext());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SAXException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParserConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		}
-		else {
-			Log.d("Ei haeta mit‰‰", "Tekstin‰ pit‰is olla jo tiedot");
-		}
+		
 		
         /*SharedPreferences shaPre = getSharedPreferences("MAP", MODE_PRIVATE);
         SharedPreferences.Editor editor = shaPre.edit();

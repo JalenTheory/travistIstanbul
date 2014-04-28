@@ -1,8 +1,19 @@
 package fi.metropolia.lbs.travist.exchange;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URL;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -23,20 +34,27 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import travist.pack.R;
+import android.content.Context;
+import android.os.StrictMode;
+import android.util.Log;
 import android.widget.TextView;
 
 public class ExchangeFetchXML {
 
 	public String[] getRates() throws ClientProtocolException, IOException, IllegalStateException, SAXException, ParserConfigurationException {
-		String[] currency_rate = null;
-		//TextView updated_textView = (TextView) findViewById (R.id.currency_updated_text);
+		String[] currency_rate = new String[10];
 		String updated_date;
 		String updated[] = new String[3];
+		
+		//This bypasses the policy that doesn't allow users to run network operations in main thread
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+	    StrictMode.setThreadPolicy(policy);
 		
 		try 
 	    {
 
 	        URL url = new URL("http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml");
+	        Log.d("LUETAA", "XML");
 
 	        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 	        DocumentBuilder db = dbf.newDocumentBuilder();
@@ -46,14 +64,10 @@ public class ExchangeFetchXML {
 	        Node dateNode = nodeList.item(1);
 	        updated_date = nodeToString(dateNode);
 	        updated_date = updated_date.substring(0, updated_date.indexOf('>'));
-	        //updated = updated.substring(updated.lastIndexOf("="));
-	        //updated = updated.substring(1, updated.length() - 3);
 	        updated = updated_date.split("-", 3);
 	        updated[0] = updated[0].substring(12);
 	        updated[2] = updated[2].substring(0, updated[2].length() - 1);
 	        updated_date = updated[2] + '.' + updated[1] + '.' + updated[0];
-
-	        //updated_textView.setText("Rates updated: " + updated_date);
 
 	        Node[] node = new Node[9];
 	        node[0] = nodeList.item(2);
@@ -65,12 +79,13 @@ public class ExchangeFetchXML {
 	        node[6] = nodeList.item(21);
 	        node[7] = nodeList.item(28);
 	        node[8] = nodeList.item(29);
-	        
-	        currency_rate = new String[9];
-	        for (int i = 0; i < 9; i++) {
-	        	currency_rate[i] = nodeToString(node[i]);
+
+	        currency_rate[0] = updated_date;
+	        for (int i = 1; i < 10; i++) {
+	        	currency_rate[i] = nodeToString(node[i-1]);
 	        	currency_rate[i] = currency_rate[i].substring(currency_rate[i].lastIndexOf("=") + 1 );
 	        	currency_rate[i] = currency_rate[i].substring(1, currency_rate[i].length() - 3);
+	        	
 	        }		
 	    } 
 	    catch (Exception e) 
@@ -80,16 +95,6 @@ public class ExchangeFetchXML {
 		
 		return currency_rate;
 		
-		/*items.add(new ExchangeItem(R.drawable.currency_dollar_icon, "US Dollar", currency_rate[0]));
-		items.add(new ExchangeItem(R.drawable.currency_british_icon, "British Pound", currency_rate[1]));
-		items.add(new ExchangeItem(R.drawable.currency_indian_icon, "Indian Rupee", currency_rate[2]));
-		items.add(new ExchangeItem(R.drawable.currency_dollar_icon, "Australian Dollar", currency_rate[3]));
-		items.add(new ExchangeItem(R.drawable.currency_dollar_icon, "Canadian Dollar", currency_rate[4]));
-		items.add(new ExchangeItem(R.drawable.currency_swiss_icon, "Swiss Franc", currency_rate[5]));
-		items.add(new ExchangeItem(R.drawable.currency_chinese_icon, "Chinese Yuan Renminbi", currency_rate[6]));
-		items.add(new ExchangeItem(R.drawable.currency_malaysian_icon, "Malaysian Ringgit", currency_rate[7]));
-		items.add(new ExchangeItem(R.drawable.currency_dollar_icon, "New Zealand Dollar", currency_rate[8]));
-		*/
 	}
 	
 	private String nodeToString(Node node) {
@@ -104,4 +109,38 @@ public class ExchangeFetchXML {
 		  }
 		  return sw.toString();
 		}
+	
+	public void saveXMLToFile(String[] exchange_rate, Context context) throws IOException {
+		
+		    FileOutputStream fos = context.openFileOutput("exchange_rates.txt", context.MODE_PRIVATE);
+		    
+		    fos.write("".getBytes());
+		    
+		    for (String string : exchange_rate) {  
+		    	string = string + "\r\n";
+			    fos.write(string.getBytes());
+			}
+		    fos.close();
+
+	}
+	
+	public String[] readXMLFromFile (Context context) {
+		String rates[] = new String[10];
+		int i = 0;
+		
+		try {
+		    BufferedReader inputReader = new BufferedReader(new InputStreamReader(
+		    		context.openFileInput("exchange_rates.txt")));
+		    String stringFromFile;		    
+		    while ((stringFromFile = inputReader.readLine()) != null) {
+		        rates[i] = stringFromFile;
+		        i++;
+		    }
+		    inputReader.close();
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}	
+		
+		return rates;
+	}
 }
