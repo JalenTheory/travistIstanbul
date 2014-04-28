@@ -8,6 +8,7 @@ public class Place {
 	private String address;
 	private String categoryId;
 	private String categoryName;
+	private String iconURL;
 	
 	public String getPlaceId() {
 		return placeId;
@@ -51,4 +52,11 @@ public class Place {
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
+	public String getIconUrl() {
+		return iconURL;
+	}
+	public void setIconUrl(String iconURL) {
+		this.iconURL = iconURL;
+	}
+	
 }
