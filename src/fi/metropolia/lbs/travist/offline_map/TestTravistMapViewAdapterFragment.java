@@ -47,13 +47,13 @@ public class TestTravistMapViewAdapterFragment extends Fragment{
 		int categoryNumber = getArguments().getInt(TEST_CATEGORY);
 		String mapCategory = getResources().getStringArray(R.array.categories)[categoryNumber];
 
-		//View rootView = inflater.inflate(R.layout.map_based_on_category, container,
-				//false);
-		
+		View rootView = inflater.inflate(R.layout.map_based_on_category, container,
+				false);
+		/*
 		getActivity().setTitle(mapCategory);
 		View rootView = inflater.inflate(R.layout.routes_map_frag, container, false);
 		
-		MapView mapView = (MapView) rootView.findViewById(R.id.routes_mapview);
+		MapView mapView = (MapView) rootView.findViewById(R.id.the_mapview);
 		Log.d("mit vit", "mapview ohitettu, sit mapview adapter");
 		mTravistMapViewAdapter.set(mapView);
 		Log.d("mit vit", "mapview adapter ohitettu, sit return rootView");
@@ -61,7 +61,7 @@ public class TestTravistMapViewAdapterFragment extends Fragment{
 		// get first instance. For performance, let's show mapView first before
 		// initializing route
 		//route = Route.getInstance();
-
+		*/
 		return rootView;
 	}
 	

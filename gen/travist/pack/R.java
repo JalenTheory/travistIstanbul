@@ -177,7 +177,6 @@ public final class R {
         public static final int route_menu_from=0x7f0a0086;
         public static final int route_menu_to=0x7f0a0087;
         public static final int route_nav=0x7f0a0062;
-        public static final int routes_mapview=0x7f0a0065;
         public static final int routes_mapview_fragment=0x7f0a0064;
         public static final int row_item_background=0x7f0a0006;
         public static final int row_item_category=0x7f0a0008;
@@ -201,6 +200,7 @@ public final class R {
         public static final int text_currency=0x7f0a003a;
         public static final int text_in_euros=0x7f0a003b;
         public static final int text_place=0x7f0a0069;
+        public static final int the_mapview=0x7f0a0065;
         public static final int title=0x7f0a0076;
         public static final int todoButton=0x7f0a0055;
         public static final int todo_button=0x7f0a0074;
