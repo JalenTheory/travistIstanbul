@@ -6,6 +6,7 @@ import travist.pack.R;
 import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -53,7 +54,9 @@ public class TestTravistMapViewAdapterFragment extends Fragment{
 		View rootView = inflater.inflate(R.layout.routes_map_frag, container, false);
 		
 		MapView mapView = (MapView) rootView.findViewById(R.id.routes_mapview);
+		Log.d("mit vit", "mapview ohitettu, sit mapview adapter");
 		mTravistMapViewAdapter.set(mapView);
+		Log.d("mit vit", "mapview adapter ohitettu, sit return rootView");
 		
 		// get first instance. For performance, let's show mapView first before
 		// initializing route
