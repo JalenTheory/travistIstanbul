@@ -1,6 +1,9 @@
 package fi.metropolia.lbs.travist.offline_map;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +29,7 @@ import travist.pack.R;
 import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -61,16 +65,20 @@ import fi.metropolia.lbs.travist.foursquare_api.Place;
 public class TravistMapFragment extends Fragment implements
 		fi.metropolia.lbs.travist.foursquare_api.AsyncFinished {
 
-	private MapView mapView;
+	private MapView mapView;	
 	private TableLayout tableLayout; 
 	private Button butt1;
 	private Button butt2;
+	private int categoriesSwitch = 0;
 	private TileCache tileCache;
 	private GraphHopperAPI hopper;
 	private MapViewPosition mapViewPosition;
 	private DanielMarker tempMarker;
 	private boolean check = false;
-
+	 String client_id = "GWA2NRBNDFBENJIZIGFF2IFX5JTDTOUYUPLHCOCOTXMF34LU";
+	String client_secret = "JSI4CFI3HSMK1FPCIE4DLEDBXL321CM1SGENAX4HLXYTSCHG";
+	String version = "20131016";
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -174,7 +182,41 @@ public class TravistMapFragment extends Fragment implements
 
 	private DanielMarker addMarker(final LatLong latLong, final Place place) {
 		logD("Adding marker");
-		Drawable markerIcon = getResources().getDrawable(R.drawable.flag_green);
+		  
+		Drawable markerIcon;
+//		 try {
+//			URL url = new URL(place.getIconUrl());
+//			android.graphics.Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+//			markerIcon = new BitmapDrawable(getResources(), bmp);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			 markerIcon = getResources().getDrawable(R.drawable.flag_green);
+//			e.printStackTrace();
+//		}
+		 
+		Log.d("LOG","cartegory name "+place.getCategoryName());
+		
+		
+		if(place.getCategoryName()== "Cafe")
+		{
+				markerIcon = getResources().getDrawable(R.drawable.flag_green);
+		}
+		if(place.getCategoryName()== "Museum")
+		{
+				markerIcon = getResources().getDrawable(R.drawable.flag_red);
+		}
+		if(place.getCategoryName()== "History Museum")
+		{
+			markerIcon = getResources().getDrawable(R.drawable.flag_red);
+		}
+		if(place.getCategoryName()== "Library")
+		{
+			markerIcon = getResources().getDrawable(R.drawable.flag_red);
+		}
+		else
+			markerIcon = getResources().getDrawable(R.drawable.flag_green);
+		
+		//hello
 		Bitmap bm = AndroidGraphicFactory.convertToBitmap(markerIcon);
 
 		return new DanielMarker(latLong, bm, 0, -bm.getHeight(), place) {

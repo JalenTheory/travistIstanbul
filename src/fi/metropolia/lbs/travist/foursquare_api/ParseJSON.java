@@ -31,6 +31,7 @@ abstract class ParseJSON{
 			JSONObject categoryinfo;
 			JSONArray venues;
 			JSONArray categories;
+			JSONObject iconUrl;
 
 			try {
 				response = (new JSONObject(data)).getJSONObject("response");
@@ -46,8 +47,15 @@ abstract class ParseJSON{
 					
 					place.setPlaceName(venue.optString("name"));
 					place.setCategoryName(categoryinfo.optString("name"));
+					place.setAddress(location.optString("address"));
 					place.setLatitude(location.optString("lat"));
 					place.setLongitude(location.optString("lng"));
+					
+					//JSONObject jsonBook = new JSONObject(venue.toString());
+					JSONObject iconinfo = categoryinfo.getJSONObject("icon");
+					place.setIconUrl(iconinfo.optString("prefix")+"32"+iconinfo.optString("suffix"));
+					
+					 
 					listOfPlaces.add(place);
 				}
 
