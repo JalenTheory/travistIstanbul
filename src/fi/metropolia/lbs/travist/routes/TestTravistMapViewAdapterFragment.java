@@ -21,6 +21,8 @@ public class TestTravistMapViewAdapterFragment extends Fragment{
 	private TravistMapViewAdapter mTravistMapViewAdapter;
 	private Route route;
 	
+	public TestTravistMapViewAdapterFragment(){}
+	
 	@SuppressLint("NewApi")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
