@@ -194,28 +194,47 @@ public class TestOfflineMapFragment extends Fragment implements
 //			e.printStackTrace();
 //		}
 		 
-		Log.d("LOG","cartegory name "+place.getCategoryName());
-		
-		
-		if(place.getCategoryName()== "Cafe")
+	 	
+		 if(place.getCategoryName().equals("Café"))
 		{
-				markerIcon = getResources().getDrawable(R.drawable.flag_green);
+				markerIcon = getResources().getDrawable(R.drawable.cafe);
 		}
-		if(place.getCategoryName()== "Museum")
+		else if(place.getCategoryName().equals("History Museum"))
 		{
-				markerIcon = getResources().getDrawable(R.drawable.flag_red);
+			 markerIcon = getResources().getDrawable(R.drawable.historymuseum);
 		}
-		if(place.getCategoryName()== "History Museum")
+		else if(place.getCategoryName().equals("Museum"))
 		{
-			markerIcon = getResources().getDrawable(R.drawable.flag_red);
+				markerIcon = getResources().getDrawable(R.drawable.museum);
 		}
-		if(place.getCategoryName()== "Library")
+		else if(place.getCategoryName().equals("Art Museum"))
 		{
-			markerIcon = getResources().getDrawable(R.drawable.flag_red);
+				markerIcon = getResources().getDrawable(R.drawable.artmuseum);
 		}
-		else
+		else if(place.getCategoryName().equals("Science Museum"))
+		{
+				markerIcon = getResources().getDrawable(R.drawable.sciencemuseum);
+		}
+		else if(place.getCategoryName().contains("Site"))
+		{
+				markerIcon = getResources().getDrawable(R.drawable.historicsite);
+		}
+		else if(place.getCategoryName().equals("Library"))
+		{
+			markerIcon = getResources().getDrawable(R.drawable.library);
+		}
+		else if(place.getCategoryName().contains("Event"))
+		{
+				markerIcon = getResources().getDrawable(R.drawable.eventspace);
+		}
+		else if(place.getCategoryName().contains("Residential"))
+		{
+				markerIcon = getResources().getDrawable(R.drawable.apartment);
+		}
+		else{
 			markerIcon = getResources().getDrawable(R.drawable.flag_green);
-		
+	 	 }
+		 
 		//hello
 		Bitmap bm = AndroidGraphicFactory.convertToBitmap(markerIcon);
 
@@ -239,6 +258,7 @@ public class TestOfflineMapFragment extends Fragment implements
 						bubbleView.setGravity(Gravity.CENTER);
 						bubbleView.setMaxEms(10);
 						bubbleView.setTextSize(20);
+						bubbleView.setMaxWidth(40);
 						 
 						  
 						//bind foursquare data to bubbleview
