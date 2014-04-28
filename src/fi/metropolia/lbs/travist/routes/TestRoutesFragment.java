@@ -28,6 +28,7 @@ import travist.pack.R;
 import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -80,7 +81,6 @@ public class TestRoutesFragment extends Fragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		setRetainInstance(true);
 		setHasOptionsMenu(true);
 	}
@@ -96,7 +96,8 @@ public class TestRoutesFragment extends Fragment implements
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+				.getMenuInfo();
 		switch (item.getItemId()) {
 		case R.id.route_menu_from:
 			// TODO use TravistMapViewAdapter
@@ -122,12 +123,12 @@ public class TestRoutesFragment extends Fragment implements
 
 	public void routeTo() {
 		logD("route to..", this);
-		if ( from != null ) {
-			calcPath(from.latitude, from.longitude, 
-					tempLatLong.latitude, tempLatLong.longitude);
+		if (from != null) {
+			calcPath(from.latitude, from.longitude, tempLatLong.latitude,
+					tempLatLong.longitude);
 		}
 	}
-	
+
 	public void enableGps() {
 		logD("gps pressed..", this);
 		if (!myLocationOverlay.isMyLocationEnabled()) {
@@ -171,29 +172,29 @@ public class TestRoutesFragment extends Fragment implements
 
 		// initializes position and zoom level
 		mapViewPosition = initializePosition(mapView.getModel().mapViewPosition);
-		
-		//add location tracking to the map
-		myLocationOverlay = new MyLocationOverlay(getActivity(), mapViewPosition, null);
+
+		// add location tracking to the map
+		myLocationOverlay = new MyLocationOverlay(getActivity(),
+				mapViewPosition, null);
 
 		tileCache = AndroidUtil.createTileCache(getActivity(), getClass()
 				.getSimpleName(),
 				mapView.getModel().displayModel.getTileSize(), 1f, mapView
-					   .getModel().frameBufferModel.getOverdrawFactor());
+						.getModel().frameBufferModel.getOverdrawFactor());
 
 		loadMap();
-		
+
 		// on long click brings up contextual menu
 		registerForContextMenu(mapView);
-		
+
 		if (!mapView.getLayerManager().getLayers().isEmpty()) {
 			mapView.getLayerManager().getLayers().add(myLocationOverlay);
 			loadGraphStorage();
 		}
 		// testInitialZoom();
 		/*
-		 * 		// on long click brings up contextual menu
-		registerForContextMenu(mapView);
-		 * 
+		 * // on long click brings up contextual menu
+		 * registerForContextMenu(mapView);
 		 */
 		return rootView;
 	}
@@ -229,19 +230,19 @@ public class TestRoutesFragment extends Fragment implements
 	// From graphhopper example
 	private void loadMap() {
 		logD("Loading Map");
-		//File mapFile = new File("/sdcard/graphhopper/maps/istanbul-gh/istanbul.map");
-		
-		File mapFile = new File(
-				TravistMapViewAdapter.getInstance().
-				getContext().getFilesDir(), "istanbul-gh/istanbul.map");
-		
+		// File mapFile = new
+		// File("/sdcard/graphhopper/maps/istanbul-gh/istanbul.map");
+
+		File mapFile = new File(TravistMapViewAdapter.getInstance()
+				.getContext().getFilesDir(), "istanbul-gh/istanbul.map");
+
 		logD(mapFile.getAbsolutePath().toString());
 		mapView.getLayerManager().getLayers().clear();
 
 		TileRendererLayer tileRendererLayer = new TileRendererLayer(tileCache,
 				mapViewPosition, true, AndroidGraphicFactory.INSTANCE) {
-				// room for code.
-				// this had unfunctional onTap listeners
+			// room for code.
+			// this had unfunctional onTap listeners
 
 		};
 
@@ -299,12 +300,12 @@ public class TestRoutesFragment extends Fragment implements
 				}
 				return false;
 			}
-			
+
 			@Override
 			public boolean onLongPress(LatLong tapLatLong, Point thisXY,
 					Point tapXY) {
 				logD("long press clicked " + tapLatLong.toString(), this);
-				
+
 				// save coordinates and open menu for to choose from or to
 				tempLatLong = tapLatLong;
 				getActivity().openContextMenu(mapView);
@@ -379,9 +380,8 @@ public class TestRoutesFragment extends Fragment implements
 			protected Path saveDoInBackground(Void... v) throws Exception {
 				GraphHopper tmpHopp = new GraphHopper().forMobile();
 				tmpHopp.setCHShortcuts("fastest");
-				File temp = new File(
-						TravistMapViewAdapter.getInstance().
-						getContext().getFilesDir(), "istanbul-gh");
+				File temp = new File(TravistMapViewAdapter.getInstance()
+						.getContext().getFilesDir(), "istanbul-gh");
 				tmpHopp.load(temp.getAbsolutePath());
 				logD("found graph " + tmpHopp.getGraph().toString()
 						+ ", nodes:" + tmpHopp.getGraph().getNodes());
@@ -401,14 +401,15 @@ public class TestRoutesFragment extends Fragment implements
 					Criteria crit = new Criteria();
 					crit.setNear("istanbul");
 					crit.setLimit("30");
-					//crit.setlatlong?
+					// crit.setlatlong?
 					crit.setCategoryId(Criteria.ARTS_AND_ENTERTAIMENT);
 
 					FourSquareQuery fq = new FourSquareQuery();
 					String url = fq.createQuery(crit);
 					Log.d("Main", "Main: " + url);
 
-					DownloadJSON dlJSON = new DownloadJSON(TestRoutesFragment.this);
+					DownloadJSON dlJSON = new DownloadJSON(
+							TestRoutesFragment.this);
 					dlJSON.startDownload(url);
 				}
 			}

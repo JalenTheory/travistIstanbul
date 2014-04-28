@@ -120,8 +120,10 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		// initializes position and zoom level
 		mapViewPosition = initializePosition(mapView.getModel().mapViewPosition);
 		
-		//add location tracking to the map
+		// add location tracking to the map
 		myLocationOverlay = new MyLocationOverlay(context, mapViewPosition, null);
+		myLocationOverlay.enableMyLocation(true);
+		//myLocationOverlay.setSnapToLocationEnabled(true);
 
 		tileCache = AndroidUtil.createTileCache(context, getClass()
 				.getSimpleName(),
@@ -169,10 +171,13 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	protected void loadPlaces() {
 		// Do this in drawernavigation
 		// This is for testing purposes / hardcoded criteria
+		LatLong lng = myLocationOverlay.getPosition();
+		
 		Criteria crit = new Criteria();
 		crit.setNear("istanbul");
 		crit.setLimit("30");
 		crit.setCategoryId(Criteria.ARTS_AND_ENTERTAIMENT);
+		Log.d("LOG", "LatLong, " + lng);
 
 		FourSquareQuery fq = new FourSquareQuery();
 		String url = fq.createQuery(crit);
@@ -330,7 +335,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 			myLocationOverlay.enableMyLocation(true);
 			myLocationOverlay.setSnapToLocationEnabled(true);
 		} else {
-			myLocationOverlay.disableMyLocation();
+			myLocationOverlay.enableMyLocation(false);
 			myLocationOverlay.setSnapToLocationEnabled(false);
 		}
 	}
@@ -341,6 +346,10 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	
 	protected MapView getMapView() {
 		return mapView;
+	}
+	
+	protected MyLocationOverlay getLocOverLay() {
+		return myLocationOverlay;
 	}
 	
 	// for quick and dirty logging
