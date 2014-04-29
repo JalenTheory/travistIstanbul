@@ -8,7 +8,7 @@ import android.util.Log;
 
 public class FourSquareQuery extends Criteria{
 
-	// Do we always use Eetu's id and secret?
+	// TODO Do we always use Eetu's id and secret?
 	private final String FOURSQUARE_ID = "LTVFBAO5CGUDU5GFKTRGTNWII1HQBLLYRXX2J5E2ONUMJA20";
 	private final String FOURSQUARE_SECRET = "LFRZC3HOVDEBXI3LPFSD4JQW23ZCWDNIO3T4YCVCFYJ1TXM1";
 	private final String baseUrl = "https://api.foursquare.com/v2/venues/search";
