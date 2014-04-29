@@ -1,12 +1,9 @@
 package fi.metropolia.lbs.travist.offline_map;
 
-import org.mapsforge.map.android.view.MapView;
-
 import travist.pack.R;
 import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;

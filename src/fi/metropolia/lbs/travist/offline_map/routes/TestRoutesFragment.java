@@ -12,8 +12,10 @@ import org.mapsforge.core.model.LatLong;
 import org.mapsforge.core.model.MapPosition;
 import org.mapsforge.core.model.Point;
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
+import org.mapsforge.map.android.layer.MyLocationOverlay;
 import org.mapsforge.map.android.util.AndroidUtil;
 import org.mapsforge.map.android.view.MapView;
+import org.mapsforge.map.layer.LayerManager;
 import org.mapsforge.map.layer.Layers;
 import org.mapsforge.map.layer.cache.TileCache;
 import org.mapsforge.map.layer.overlay.Marker;
@@ -26,7 +28,6 @@ import travist.pack.R;
 import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -59,6 +60,7 @@ import fi.metropolia.lbs.travist.foursquare_api.FourSquareQuery;
 import fi.metropolia.lbs.travist.foursquare_api.Place;
 import fi.metropolia.lbs.travist.offline_map.DanielMarker;
 import fi.metropolia.lbs.travist.offline_map.GHAsyncTask;
+import fi.metropolia.lbs.travist.offline_map.TravistMapViewAdapter;
 
 @SuppressLint("NewApi")
 public class TestRoutesFragment extends Fragment implements
@@ -127,16 +129,7 @@ public class TestRoutesFragment extends Fragment implements
 		}
 	}
 
-	public void enableGps() {
-		logD("gps pressed..", this);
-		if (!myLocationOverlay.isMyLocationEnabled()) {
-			myLocationOverlay.enableMyLocation(true);
-			myLocationOverlay.setSnapToLocationEnabled(true);
-		} else {
-			myLocationOverlay.enableMyLocation(false);
-			myLocationOverlay.setSnapToLocationEnabled(false);
-		}
-	}
+
 	public void enableGps() {
 		logD("gps pressed..", this);
 		if (!myLocationOverlay.isMyLocationEnabled()) {
@@ -150,25 +143,11 @@ public class TestRoutesFragment extends Fragment implements
 
 	@Override
 	public void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
 	}
 
 	@Override
 	public void onStop() {
-		// TODO Auto-generated method stub
-		super.onStop();
-	}
-
-	@Override
-	public void onStart() {
-		// TODO Auto-generated method stub
-		super.onStart();
-	}
-
-	@Override
-	public void onStop() {
-		// TODO Auto-generated method stub
 		super.onStop();
 	}
 

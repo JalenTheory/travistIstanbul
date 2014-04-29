@@ -1,7 +1,5 @@
 package fi.metropolia.lbs.travist;
 
-import java.net.HttpURLConnection;
-
 import travist.pack.R;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -9,8 +7,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,11 +19,8 @@ import fi.metropolia.lbs.travist.browsemenu.BrowseMenu;
 import fi.metropolia.lbs.travist.emergency.EmergencyActivity;
 import fi.metropolia.lbs.travist.exchange.ExchangeActivity;
 import fi.metropolia.lbs.travist.offline_map.AssetAdapter;
-import fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity;
 import fi.metropolia.lbs.travist.offline_map.TravistMapFragment;
-import fi.metropolia.lbs.travist.offline_map.TravistMapActivity;
 import fi.metropolia.lbs.travist.register.RegisterActivity;
-import fi.metropolia.lbs.travist.routes.TestRoutesActivity;
 import fi.metropolia.lbs.travist.savedlist.SavedlistActivity;
 import fi.metropolia.lbs.travist.todo.TodoActivity;
 
@@ -64,7 +57,7 @@ public class TravistIstanbulActivity extends Activity {
 	}
 
 	public void openMap(View view) {
-		Intent intent = new Intent(this, TestOfflineMapFragment.class);
+		Intent intent = new Intent(this, TravistMapFragment.class);
 		startActivity(intent);
 	}
 
@@ -78,11 +71,11 @@ public class TravistIstanbulActivity extends Activity {
 		setContentView(R.layout.main_menu_locked);
 		
 		if (checkInternet.isInternetAvailable()) {
-			Log.d("Haetaan tiedot xml:stä ja tallennetaan tiedostoon", "Jihuu");
+			Log.d("Haetaan tiedot xml:stï¿½ ja tallennetaan tiedostoon", "Jihuu");
 			
 		}
 		else {
-			Log.d("Ei haeta mitää", "Tekstinä pitäis olla jo tiedot");
+			Log.d("Ei haeta mitï¿½ï¿½", "Tekstinï¿½ pitï¿½is olla jo tiedot");
 		}
 		
 		
@@ -119,7 +112,7 @@ public class TravistIstanbulActivity extends Activity {
 		emergencyIntent = new Intent(this, EmergencyActivity.class);
 		exchangeIntent = new Intent(this, ExchangeActivity.class);
 		//This should open the maps activity(?)
-		browseIntent = new Intent(this, TestRoutesActivity.class);
+		browseIntent = new Intent(this, BrowseMenu.class);
 		registerIntent = new Intent(this, RegisterActivity.class);
         
         todoButton = (LinearLayout) findViewById (R.id.main_todo);
