@@ -110,10 +110,7 @@ public class RegisterActivity extends Activity {
 			    
 			    Intent i = new Intent(RegisterActivity.this, TravistIstanbulActivity.class);
 			    startActivity(i);
-				//slistener.setCView();
-				//finish();
 			}
-			
 		});
 		
 		cancel_button.setOnClickListener(new OnClickListener() {
@@ -168,7 +165,6 @@ public class RegisterActivity extends Activity {
 			}else if(result.equals("Bad input")){
 				Toast.makeText(RegisterActivity.this, "Check your input", Toast.LENGTH_LONG).show();
 			}else{
-				//SET LOGGED IN
 				Toast.makeText(RegisterActivity.this, "Success! Welcome to Travist!", Toast.LENGTH_LONG).show();
 				finish();
 			}

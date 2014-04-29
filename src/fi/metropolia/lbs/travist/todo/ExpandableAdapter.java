@@ -69,16 +69,16 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
     private void prepareLists(){		
 		todoList = new ArrayList<String>();
 		contentMap = new HashMap<String, List<String>>();
-		
-		for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-			holder.placeName = cursor.getString(cursor.getColumnIndex(PlaceTableClass.PLACE_NAME));
-			todoList.add(holder.placeName);
-			List<String> list = new ArrayList<String>();
-			list.add("");
-			contentMap.put(todoList.get(cursor.getPosition()), list);
+		if(cursor!=null){
+			for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+				holder.placeName = cursor.getString(cursor.getColumnIndex(PlaceTableClass.PLACE_NAME));
+				todoList.add(holder.placeName);
+				List<String> list = new ArrayList<String>();
+				list.add("");
+				contentMap.put(todoList.get(cursor.getPosition()), list);
+			}
 		}
-	}
-    
+    }
     public List<String> getChildList(int pos){
     	List<String> list = (List<String>) contentMap.get(this.getGroup(pos));
     	return list;
