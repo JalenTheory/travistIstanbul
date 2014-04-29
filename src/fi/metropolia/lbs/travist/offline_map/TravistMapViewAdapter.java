@@ -69,7 +69,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	// singleton design pattern
 	private TravistMapViewAdapter() {}
 	
-	protected static TravistMapViewAdapter getInstance() {
+	public static TravistMapViewAdapter getInstance() {
 		
 		if (uniqueInstance == null) {
 			uniqueInstance = new TravistMapViewAdapter();
@@ -364,7 +364,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		}
 	}
 	
-	protected Context getContext() {
+	public Context getContext() {
 		return context != null ? context : null;
 	}
 

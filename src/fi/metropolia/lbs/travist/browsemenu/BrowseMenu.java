@@ -35,11 +35,8 @@ public class BrowseMenu extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.categorydrawer);
 		
-		if (savedInstanceState == null) {
-			AndroidGraphicFactory.createInstance(getApplication());
-			selectItem(0);
-		}
-
+		selectItem(0);
+		
 		mTitle = mDrawerTitle = getTitle();
 		categoriesItem = getResources().getStringArray(R.array.categories);
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);

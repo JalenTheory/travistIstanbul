@@ -1,5 +1,7 @@
 package fi.metropolia.lbs.travist;
 
+import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
+
 import travist.pack.R;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -186,6 +188,10 @@ public class TravistIstanbulActivity extends Activity {
 				dialog.show();
 			}
         });
+        
+		if (savedInstanceState == null) {
+			AndroidGraphicFactory.createInstance(getApplication());			
+		}
 	}
 	
 	private class prepareMapFiles extends AsyncTask<String, Void, String> {

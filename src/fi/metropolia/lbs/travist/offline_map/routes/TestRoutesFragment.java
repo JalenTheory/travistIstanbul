@@ -158,7 +158,7 @@ public class TestRoutesFragment extends Fragment implements
 		View rootView = inflater.inflate(R.layout.routes_map_frag, container,
 				false);
 
-		mapView = (MapView) rootView.findViewById(R.id.routes_mapview);
+		mapView = (MapView) rootView.findViewById(R.id.the_mapview);
 		// TODO set mapview to adapter
 		mapView.setClickable(true);
 		// makes a nifty ruler
