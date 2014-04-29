@@ -1,8 +1,18 @@
 package fi.metropolia.lbs.travist;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.apache.http.client.ClientProtocolException;
+import org.xml.sax.SAXException;
+
+import fi.metropolia.lbs.travist.exchange.ExchangeFetchXML;
 import fi.metropolia.lbs.travist.offline_map.AssetAdapter;
 import fi.metropolia.lbs.travist.todo.TodoActivity;
 import travist.pack.R;
@@ -65,7 +75,4 @@ public class SplashScreenActivity extends Activity {
 			
 		}	
 	}
-	
-	
-
 }

@@ -8,18 +8,23 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import fi.metropolia.lbs.travist.browsemenu.BrowseMenu;
 import fi.metropolia.lbs.travist.emergency.EmergencyActivity;
 import fi.metropolia.lbs.travist.exchange.ExchangeActivity;
+import fi.metropolia.lbs.travist.exchange.ExchangeFetchXML;
 import fi.metropolia.lbs.travist.offline_map.AssetAdapter;
 import fi.metropolia.lbs.travist.offline_map.TestTravistMapViewAdapterFragment;
 import fi.metropolia.lbs.travist.register.RegisterActivity;
@@ -42,6 +47,10 @@ public class TravistIstanbulActivity extends Activity {
 	Intent registerIntent;
 	ImageView login;
 	ImageView logoff;
+	
+	ExchangeFetchXML XMLOperations = new ExchangeFetchXML();
+	
+	Thread t;
 	
 	CheckInternetConnectivity checkInternet = new CheckInternetConnectivity();
 //hello
@@ -72,14 +81,30 @@ public class TravistIstanbulActivity extends Activity {
 		//Use layout below to enable demo-version
 		setContentView(R.layout.main_menu_locked);
 		
-		getActionBar().hide();// full screen activity ..
+		//This bypasses the policy that doesn't allow users to run network operations in main thread
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+	    StrictMode.setThreadPolicy(policy);
+		
+		/*if (checkInternet.isInternetAvailable() || !checkInternet.isInternetAvailable()) {
+			Log.d("Haetaan tiedot xml:st� ja tallennetaan tiedostoon", "Jihuu");
+			try {
+				XMLOperations.saveXMLToFile(XMLOperations.getRates(), getBaseContext());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SAXException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParserConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 		
 		if (checkInternet.isInternetAvailable()) {
 			Log.d("Haetaan tiedot xml:st� ja tallennetaan tiedostoon", "Jihuu");
 			
-		}
-		else {
-			Log.d("Ei haeta mitää", "Tekstinä pitäis olla jo tiedot");
 		}
 		
 		
@@ -126,37 +151,80 @@ public class TravistIstanbulActivity extends Activity {
         browseButton = (LinearLayout) findViewById (R.id.main_browse);
         login = (ImageView) findViewById (R.id.main_login);
         logoff = (ImageView) findViewById (R.id.logoff);
+        
+        final Animation animScale = AnimationUtils.loadAnimation(this, R.layout.anim_button);
 
         todoButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startActivity(todoIntent);
+				new ActivityStartAsync(TodoActivity.class).execute();
+				v.startAnimation(animScale);
+				todoButton.setAlpha(1f);
 			}
         });
+        
+        todoButton.setOnTouchListener(new OnTouchListener() {
+			public boolean onTouch(View v, MotionEvent event) {
+				todoButton.setAlpha(0.30f);
+				return false;
+			}
+		});
         savedButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startActivity(savedIntent);
+				new ActivityStartAsync(SavedlistActivity.class).execute();
+				v.startAnimation(animScale);
+				savedButton.setAlpha(1f);
 			}
         });
+        savedButton.setOnTouchListener(new OnTouchListener() {
+			public boolean onTouch(View v, MotionEvent event) {
+				savedButton.setAlpha(0.30f);
+				return false;
+			}
+		});
         emergencyButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startActivity(emergencyIntent);
+				new ActivityStartAsync(EmergencyActivity.class).execute();
+				v.startAnimation(animScale);
+				emergencyButton.setAlpha(1f);
 			}
         });
+        emergencyButton.setOnTouchListener(new OnTouchListener() {
+			public boolean onTouch(View v, MotionEvent event) {
+				emergencyButton.setAlpha(0.30f);
+				return false;
+			}
+		});
         exchangeButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startActivity(exchangeIntent);
+				new ActivityStartAsync(ExchangeActivity.class).execute();
+				v.startAnimation(animScale);
+				exchangeButton.setAlpha(1f);
 			}
         });
+        exchangeButton.setOnTouchListener(new OnTouchListener() {
+			public boolean onTouch(View v, MotionEvent event) {
+				exchangeButton.setAlpha(0.30f);
+				return false;
+			}
+		});
         browseButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startActivity(browseIntent);
+				new ActivityStartAsync(BrowseMenu.class).execute();
+				v.startAnimation(animScale);
+				browseButton.setAlpha(1f);
 			}
         });
+        browseButton.setOnTouchListener(new OnTouchListener() {
+			public boolean onTouch(View v, MotionEvent event) {
+				browseButton.setAlpha(0.30f);
+				return false;
+			}
+		});
         login.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -196,7 +264,58 @@ public class TravistIstanbulActivity extends Activity {
 		}
 	}
 	
-	private class prepareMapFiles extends AsyncTask<String, Void, String> {
+	class ActivityStartAsync extends AsyncTask<String, String, String> {
+		
+		Class<?> classs;
+		
+		public ActivityStartAsync (Class<?> classs){
+	        this.classs = classs;
+	    }
+			
+		@Override
+		protected String doInBackground(String... params) {
+			Intent i = new Intent(TravistIstanbulActivity.this, classs);
+			startActivity(i);
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(String result) {
+
+		}
+		
+		
+		@Override
+		protected void onPreExecute() {
+			 t = new Thread(new Runnable() {
+
+			        @Override
+			        public void run() {
+			            try {
+			                t.sleep(200);
+			                runOnUiThread(new Runnable() {
+			                    public void run() {
+			                        setContentView(R.layout.splash_screen);
+			                    }
+			                });
+
+			            } catch (InterruptedException e) {
+			                // TODO Auto-generated catch block
+			                e.printStackTrace();
+			            }
+
+			        }
+			    });
+			    t.start();
+			//setContentView(R.layout.splash_screen);
+		}
+		
+		@Override
+		protected void onProgressUpdate(String... text) {
+		}
+	}
+	
+private class prepareMapFiles extends AsyncTask<String, Void, String> {
 
 		@Override
 		protected String doInBackground(String... params) {

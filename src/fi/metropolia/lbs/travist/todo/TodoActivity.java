@@ -11,6 +11,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import fi.metropolia.lbs.travist.TravistIstanbulActivity;
 import fi.metropolia.lbs.travist.database.LBSContentProvider;
 import fi.metropolia.lbs.travist.database.PlaceTableClass;
 
@@ -216,5 +218,13 @@ public class TodoActivity extends Activity {
 		}
 		((BaseExpandableListAdapter) adapter).notifyDataSetChanged();
 		((BaseExpandableListAdapter) adapter).notifyDataSetInvalidated();
+	}
+	
+	public void onBackPressed() {  
+	    //do whatever you want the 'Back' button to do  
+	    //as an example the 'Back' button is set to start a new Activity named 'NewActivity'  
+	    startActivity(new Intent(this, TravistIstanbulActivity.class));  
+
+	    return;  
 	}
 }

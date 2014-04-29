@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import fi.metropolia.lbs.travist.TravistIstanbulActivity;
 import fi.metropolia.lbs.travist.database.LBSContentProvider;
 import fi.metropolia.lbs.travist.database.PlaceTableClass;
 import fi.metropolia.lbs.travist.savedlist.ListAdapter.ViewHolder;
@@ -47,6 +48,14 @@ public class SavedlistActivity extends Activity{
 				SavedlistActivity.this.startActivity(newintent);
 			}
 		});
+	}
+	
+	public void onBackPressed() {  
+	    //do whatever you want the 'Back' button to do  
+	    //as an example the 'Back' button is set to start a new Activity named 'NewActivity'  
+	    startActivity(new Intent(this, TravistIstanbulActivity.class));  
+
+	    return;  
 	}
 	
 }

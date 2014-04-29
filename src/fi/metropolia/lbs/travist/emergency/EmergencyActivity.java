@@ -1,5 +1,6 @@
 package fi.metropolia.lbs.travist.emergency;
 
+import fi.metropolia.lbs.travist.TravistIstanbulActivity;
 import travist.pack.R;
 import android.net.Uri;
 import android.os.Bundle;
@@ -77,6 +78,14 @@ public class EmergencyActivity extends Activity {
 				startActivity(intent);
 			}
 		});
+	}
+	
+	public void onBackPressed() {  
+	    //do whatever you want the 'Back' button to do  
+	    //as an example the 'Back' button is set to start a new Activity named 'NewActivity'  
+	    startActivity(new Intent(this, TravistIstanbulActivity.class));  
+
+	    return;  
 	}
 
 }
