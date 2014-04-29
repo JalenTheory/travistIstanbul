@@ -3,7 +3,6 @@ package fi.metropolia.lbs.travist;
 import travist.pack.R;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,16 +14,21 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 import fi.metropolia.lbs.travist.emergency.EmergencyActivity;
 import fi.metropolia.lbs.travist.exchange.ExchangeActivity;
 import fi.metropolia.lbs.travist.offline_map.AssetAdapter;
 import fi.metropolia.lbs.travist.offline_map.TestOfflineMapFragment;
 import fi.metropolia.lbs.travist.offline_map.routes.TestRoutesActivity;
-import fi.metropolia.lbs.travist.register.RegisterActivity;
 import fi.metropolia.lbs.travist.savedlist.SavedlistActivity;
 import fi.metropolia.lbs.travist.todo.TodoActivity;
+import fi.metropolia.lbs.travist.userprofile.RegisterActivity;
+import fi.metropolia.lbs.travist.userprofile.SigninListener;
+import fi.metropolia.lbs.travist.userprofile.UserDialog;
+import fi.metropolia.lbs.travist.userprofile.UserHelper;
 
-public class TravistIstanbulActivity extends Activity {
+public class TravistIstanbulActivity extends Activity implements SigninListener{
 	public static final String TAG = "travist debug";
 	
 	LinearLayout todoButton;
@@ -59,7 +63,7 @@ public class TravistIstanbulActivity extends Activity {
 		Intent intent = new Intent(this, TestOfflineMapFragment.class);
 		startActivity(intent);
 	}
-
+	
 	/** Called when the activity is first created. */
 	@SuppressLint("CommitPrefEdits")
 	@Override
@@ -67,10 +71,12 @@ public class TravistIstanbulActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		//setContentView(R.layout.main);
 		//Use layout below to enable demo-version
-		setContentView(R.layout.main_menu_locked);
 		
+		//check if a user is logged in, if yes set the unlocked menu
 		
-		
+		//setThisContentView();
+		//signedIn();
+		setCView();
         SharedPreferences shaPre = getSharedPreferences("MAP", MODE_PRIVATE);
         SharedPreferences.Editor editor = shaPre.edit();
 
@@ -97,7 +103,56 @@ public class TravistIstanbulActivity extends Activity {
 		//Remove comment tags to enable demo-version
         final Context context = this;
 		
-		todoIntent = new Intent(this, TodoActivity.class);
+		
+	}
+	
+	private class prepareMapFiles extends AsyncTask<String, Void, String> {
+
+		@Override
+		protected String doInBackground(String... params) {
+			AssetAdapter ASS = new AssetAdapter(getBaseContext());
+			ASS.assetsToDir();
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			super.onPostExecute(result);
+			//Enable map-related buttons here soon as dl is done or use a splash activity to load maps to internal storage
+			//This is done only once per installation
+			
+		}	
+	}
+
+	@Override
+	public void signedIn() {
+		SharedPreferences settings = getSharedPreferences("user", 0);
+		String email = settings.getString("signed_in", "none");
+			
+	    if(email.equals("none")){
+	    	setContentView(R.layout.main_menu_locked);
+	    }else{
+	    	setContentView(R.layout.main_menu_unlocked);
+	    	TextView tv = (TextView) findViewById(R.id.welcome_username);
+	    	tv.setText(email+"'s Travist");
+	    }
+		
+	}
+
+	@Override
+	public void setCView() {
+		SharedPreferences settings = getSharedPreferences("user", 0);
+		String email = settings.getString("signed_in", "none");
+			
+	    if(email.equals("none")){
+	    	setContentView(R.layout.main_menu_locked);
+	    }else{
+	    	setContentView(R.layout.main_menu_unlocked);
+	    	UserHelper tmp = UserHelper.getInstance( );
+	    	TextView tv = (TextView) findViewById(R.id.welcome_username);
+	    	tv.setText(tmp.getName(this, email)+"'s Travist");
+	    }
+	    todoIntent = new Intent(this, TodoActivity.class);
 		savedIntent = new Intent(this, SavedlistActivity.class);
 		emergencyIntent = new Intent(this, EmergencyActivity.class);
 		exchangeIntent = new Intent(this, ExchangeActivity.class);
@@ -143,56 +198,30 @@ public class TravistIstanbulActivity extends Activity {
 				startActivity(browseIntent);
 			}
         });
+        /* UNCOMMENT TO ENABLE LOGIN/LOGOFF
+        if(login!=null){
         login.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				final Dialog dialog = new Dialog(context);
-				dialog.setContentView(R.layout.dialog_login);
-				LinearLayout login_button = (LinearLayout) dialog.findViewById(R.id.dialog_login_log_in);
-				LinearLayout login_cancel = (LinearLayout) dialog.findViewById(R.id.dialog_login_cancel);
-				LinearLayout register_button = (LinearLayout) dialog.findViewById(R.id.dialog_login_register);
-
-				login_button.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						dialog.dismiss();
-					}
-				});
-				login_cancel.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						dialog.dismiss();
-					}			
-				});
-				register_button.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						startActivity(registerIntent);
-						dialog.dismiss();
-					}
-					
-				});
-				dialog.setTitle("Login");
-				dialog.show();
+				UserDialog ud = new UserDialog();
+				ud.show(getFragmentManager(), "mainact");
 			}
-        });
-	}
-	
-	private class prepareMapFiles extends AsyncTask<String, Void, String> {
-
-		@Override
-		protected String doInBackground(String... params) {
-			AssetAdapter ASS = new AssetAdapter(getBaseContext());
-			ASS.assetsToDir();
-			return null;
-		}
-
-		@Override
-		protected void onPostExecute(String result) {
-			super.onPostExecute(result);
-			//Enable map-related buttons here soon as dl is done or use a splash activity to load maps to internal storage
-			//This is done only once per installation
-			
-		}	
+        	});
+        }
+		
+        if(logoff!=null){
+        	logoff.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					Log.d("moi","logoff");
+					Toast.makeText(TravistIstanbulActivity.this, "Logged out.", Toast.LENGTH_LONG).show();
+					SharedPreferences settings = getSharedPreferences("user", 0);
+				    SharedPreferences.Editor editor = settings.edit();
+				    editor.remove("signed_in");
+				    editor.commit();
+				    setCView();
+				}     		
+        	});
+        }*/
 	}
 }

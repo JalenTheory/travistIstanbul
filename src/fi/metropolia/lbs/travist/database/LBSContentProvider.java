@@ -254,8 +254,8 @@ public class LBSContentProvider extends ContentProvider {
 			cursor = this
 					.getContext()
 					.getContentResolver()
-					.query(LBSContentProvider.PLACES_URI, null,
-							email + " = '" + UserTableClass.EMAIL + "'", null,
+					.query(LBSContentProvider.USERS_URI, null,
+							UserTableClass.EMAIL + " = '" + email + "'", null,
 							null);
 			
 			if (cursor.getCount() != 0) {
