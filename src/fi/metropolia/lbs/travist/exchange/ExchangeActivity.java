@@ -28,9 +28,11 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import fi.metropolia.lbs.travist.CheckInternetConnectivity;
+import fi.metropolia.lbs.travist.TravistIstanbulActivity;
 
 import travist.pack.R;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -136,5 +138,13 @@ public class ExchangeActivity extends Activity {
 		ListView listView = (ListView) findViewById (R.id.exchange_rates_list);
 		listView.setAdapter(adapter);
 		
+	}
+	
+	public void onBackPressed() {  
+	    //do whatever you want the 'Back' button to do  
+	    //as an example the 'Back' button is set to start a new Activity named 'NewActivity'  
+	    startActivity(new Intent(this, TravistIstanbulActivity.class));  
+
+	    return;  
 	}
 }

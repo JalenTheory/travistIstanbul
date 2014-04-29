@@ -1,15 +1,7 @@
 package fi.metropolia.lbs.travist;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.HttpURLConnection;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.apache.http.client.ClientProtocolException;
-import org.xml.sax.SAXException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import travist.pack.R;
 import android.annotation.SuppressLint;
@@ -17,15 +9,17 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.StrictMode;
-import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -33,8 +27,6 @@ import fi.metropolia.lbs.travist.browsemenu.BrowseMenu;
 import fi.metropolia.lbs.travist.emergency.EmergencyActivity;
 import fi.metropolia.lbs.travist.exchange.ExchangeActivity;
 import fi.metropolia.lbs.travist.exchange.ExchangeFetchXML;
-import fi.metropolia.lbs.travist.offline_map.AssetAdapter;
-import fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity;
 import fi.metropolia.lbs.travist.offline_map.TestOfflineMapFragment;
 import fi.metropolia.lbs.travist.register.RegisterActivity;
 import fi.metropolia.lbs.travist.savedlist.SavedlistActivity;
@@ -58,6 +50,8 @@ public class TravistIstanbulActivity extends Activity {
 	ImageView logoff;
 	
 	ExchangeFetchXML XMLOperations = new ExchangeFetchXML();
+	
+	Thread t;
 	
 	CheckInternetConnectivity checkInternet = new CheckInternetConnectivity();
 //hello
@@ -153,37 +147,80 @@ public class TravistIstanbulActivity extends Activity {
         browseButton = (LinearLayout) findViewById (R.id.main_browse);
         login = (ImageView) findViewById (R.id.main_login);
         logoff = (ImageView) findViewById (R.id.logoff);
+        
+        final Animation animScale = AnimationUtils.loadAnimation(this, R.layout.anim_button);
 
         todoButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startActivity(todoIntent);
+				new ActivityStartAsync(TodoActivity.class).execute();
+				v.startAnimation(animScale);
+				todoButton.setAlpha(1f);
 			}
         });
+        
+        todoButton.setOnTouchListener(new OnTouchListener() {
+			public boolean onTouch(View v, MotionEvent event) {
+				todoButton.setAlpha(0.30f);
+				return false;
+			}
+		});
         savedButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startActivity(savedIntent);
+				new ActivityStartAsync(SavedlistActivity.class).execute();
+				v.startAnimation(animScale);
+				savedButton.setAlpha(1f);
 			}
         });
+        savedButton.setOnTouchListener(new OnTouchListener() {
+			public boolean onTouch(View v, MotionEvent event) {
+				savedButton.setAlpha(0.30f);
+				return false;
+			}
+		});
         emergencyButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startActivity(emergencyIntent);
+				new ActivityStartAsync(EmergencyActivity.class).execute();
+				v.startAnimation(animScale);
+				emergencyButton.setAlpha(1f);
 			}
         });
+        emergencyButton.setOnTouchListener(new OnTouchListener() {
+			public boolean onTouch(View v, MotionEvent event) {
+				emergencyButton.setAlpha(0.30f);
+				return false;
+			}
+		});
         exchangeButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startActivity(exchangeIntent);
+				new ActivityStartAsync(ExchangeActivity.class).execute();
+				v.startAnimation(animScale);
+				exchangeButton.setAlpha(1f);
 			}
         });
+        exchangeButton.setOnTouchListener(new OnTouchListener() {
+			public boolean onTouch(View v, MotionEvent event) {
+				exchangeButton.setAlpha(0.30f);
+				return false;
+			}
+		});
         browseButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startActivity(browseIntent);
+				new ActivityStartAsync(BrowseMenu.class).execute();
+				v.startAnimation(animScale);
+				browseButton.setAlpha(1f);
 			}
         });
+        browseButton.setOnTouchListener(new OnTouchListener() {
+			public boolean onTouch(View v, MotionEvent event) {
+				browseButton.setAlpha(0.30f);
+				return false;
+			}
+		});
         login.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -217,6 +254,57 @@ public class TravistIstanbulActivity extends Activity {
 				dialog.show();
 			}
         });
+	}
+	
+	class ActivityStartAsync extends AsyncTask<String, String, String> {
+		
+		Class<?> classs;
+		
+		public ActivityStartAsync (Class<?> classs){
+	        this.classs = classs;
+	    }
+			
+		@Override
+		protected String doInBackground(String... params) {
+			Intent i = new Intent(TravistIstanbulActivity.this, classs);
+			startActivity(i);
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(String result) {
+
+		}
+		
+		
+		@Override
+		protected void onPreExecute() {
+			 t = new Thread(new Runnable() {
+
+			        @Override
+			        public void run() {
+			            try {
+			                t.sleep(200);
+			                runOnUiThread(new Runnable() {
+			                    public void run() {
+			                        setContentView(R.layout.splash_screen);
+			                    }
+			                });
+
+			            } catch (InterruptedException e) {
+			                // TODO Auto-generated catch block
+			                e.printStackTrace();
+			            }
+
+			        }
+			    });
+			    t.start();
+			//setContentView(R.layout.splash_screen);
+		}
+		
+		@Override
+		protected void onProgressUpdate(String... text) {
+		}
 	}
 	
 	/*private class prepareMapFiles extends AsyncTask<String, Void, String> {
