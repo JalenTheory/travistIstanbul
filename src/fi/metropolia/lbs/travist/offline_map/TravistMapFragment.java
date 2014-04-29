@@ -1,9 +1,6 @@
 package fi.metropolia.lbs.travist.offline_map;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +26,6 @@ import travist.pack.R;
 import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -41,10 +37,7 @@ import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout.LayoutParams;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.graphhopper.GHRequest;
@@ -75,43 +68,52 @@ public class TravistMapFragment extends Fragment implements
 	private MapViewPosition mapViewPosition;
 	private DanielMarker tempMarker;
 	private boolean check = false;
-	 String client_id = "GWA2NRBNDFBENJIZIGFF2IFX5JTDTOUYUPLHCOCOTXMF34LU";
+	String client_id = "GWA2NRBNDFBENJIZIGFF2IFX5JTDTOUYUPLHCOCOTXMF34LU";
 	String client_secret = "JSI4CFI3HSMK1FPCIE4DLEDBXL321CM1SGENAX4HLXYTSCHG";
 	String version = "20131016";
+	public static final String TEST_CATEGORY = "category_numero";
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		
+		
+		
+		
+		
+		
 		// TODO Auto-generated method stub
+		int i = 0;
+		Log.d("LOG", "FUCK" + i++);
 		View rootView = inflater.inflate(R.layout.map_frag, container, false);
-
+		Log.d("LOG", "FUCK" + i++);
 		mapView = (MapView) rootView.findViewById(R.id.mapView);
 		mapView.setClickable(true);
 		// makes a nifty ruler
 		mapView.getMapScaleBar().setVisible(true);
 		mapView.setBuiltInZoomControls(true);
-
+		Log.d("LOG", "FUCK" + i++);
 		// don't know.
 		mapView.getMapZoomControls().setZoomLevelMin((byte) 10);
 		mapView.getMapZoomControls().setZoomLevelMax((byte) 20);
-
+		Log.d("LOG", "FUCK" + i++);
 		// initializes position and zoom level
 		mapViewPosition = initializePosition(mapView.getModel().mapViewPosition);
-
+		Log.d("LOG", "FUCK" + i++);
 		tileCache = AndroidUtil.createTileCache(getActivity(), getClass()
 					.getSimpleName(),
 					mapView.getModel().displayModel.getTileSize(), 1f, 
 					mapView.getModel().frameBufferModel.getOverdrawFactor());
-
+		Log.d("LOG", "FUCK" + i++);
 		loadMap();
 		if (!mapView.getLayerManager().getLayers().isEmpty()) {
 			loadGraphStorage();
 		}
 		// testInitialZoom();
-		
+		/*
 		tableLayout= (TableLayout) rootView.findViewById(R.id.tableMarker);
 		tableLayout.setVisibility(View.INVISIBLE);
-		
+		*/
 		return rootView;
 	}
 
@@ -154,7 +156,7 @@ public class TravistMapFragment extends Fragment implements
 				// TODO Auto-generated method stub
 				if (check) {
 					mapView.getLayerManager().getLayers().remove(tempMarker);
-					DanielMarker marker = addMarker(tempMarker.getLatLong(),tempMarker.getPlace());
+					DanielMarker marker = addMarker(tempMarker.getLatLong(), tempMarker.getPlace());
 					mapView.getLayerManager().getLayers().add(marker);
 					tableLayout.setVisibility(View.INVISIBLE);
 					check = false;
@@ -247,6 +249,7 @@ public class TravistMapFragment extends Fragment implements
 						Bitmap bubble = viewToBitmap(getActivity(), bubbleView);
 						bubble.incrementRefCount();
 						
+						/*
 						butt1 = (Button)tableLayout.findViewById(R.id.todoButton);
 						butt2 = (Button)tableLayout.findViewById(R.id.savelistButton);
 						
@@ -254,7 +257,7 @@ public class TravistMapFragment extends Fragment implements
 						tableLayout.setTop(bubbleView.getTop());
 							
 						tableLayout.setVisibility(View.VISIBLE);
-						
+						*/
 							
 						DanielMarker marker = new DanielMarker(latLong, bubble,
 												0, -bubble.getHeight() / 2, place);
@@ -364,8 +367,8 @@ public class TravistMapFragment extends Fragment implements
 					String url = fq.createQuery(crit);
 					Log.d("Main", "Main: " + url);
 
-					DownloadJSON dlJSON = new DownloadJSON(TravistMapFragment.this);
-					dlJSON.startDownload(url);
+					//DownloadJSON dlJSON = new DownloadJSON(TravistMapFragment.this);
+					//dlJSON.startDownload(url);
 				}
 			}
 		}.execute();
