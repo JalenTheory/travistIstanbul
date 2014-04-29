@@ -43,13 +43,13 @@ public class TestTravistMapViewAdapterFragment extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		
-		//Log.i("tag", "i am here");
+		Log.i("tag", "i am here");
 		int categoryNumber = getArguments().getInt(TEST_CATEGORY);
 		String mapCategory = getResources().getStringArray(R.array.categories)[categoryNumber];
 
-		View rootView = inflater.inflate(R.layout.map_based_on_category, container,
+		/*View rootView = inflater.inflate(R.layout.map_based_on_category, container,
 				false);
-		/*
+		*/
 		getActivity().setTitle(mapCategory);
 		View rootView = inflater.inflate(R.layout.routes_map_frag, container, false);
 		
@@ -60,8 +60,8 @@ public class TestTravistMapViewAdapterFragment extends Fragment{
 		
 		// get first instance. For performance, let's show mapView first before
 		// initializing route
-		//route = Route.getInstance();
-		*/
+		route = Route.getInstance();
+		
 		return rootView;
 	}
 	

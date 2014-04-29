@@ -1,17 +1,11 @@
 package fi.metropolia.lbs.travist;
 
-import java.net.HttpURLConnection;
-
 import travist.pack.R;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,10 +16,7 @@ import android.widget.LinearLayout;
 import fi.metropolia.lbs.travist.browsemenu.BrowseMenu;
 import fi.metropolia.lbs.travist.emergency.EmergencyActivity;
 import fi.metropolia.lbs.travist.exchange.ExchangeActivity;
-import fi.metropolia.lbs.travist.offline_map.AssetAdapter;
-import fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity;
-import fi.metropolia.lbs.travist.offline_map.TravistMapFragment;
-import fi.metropolia.lbs.travist.offline_map.TravistMapActivity;
+import fi.metropolia.lbs.travist.offline_map.TestTravistMapViewAdapterFragment;
 import fi.metropolia.lbs.travist.register.RegisterActivity;
 import fi.metropolia.lbs.travist.savedlist.SavedlistActivity;
 import fi.metropolia.lbs.travist.todo.TodoActivity;
@@ -63,7 +54,7 @@ public class TravistIstanbulActivity extends Activity {
 	}
 
 	public void openMap(View view) {
-		Intent intent = new Intent(this, TravistMapFragment.class);
+		Intent intent = new Intent(this, TestTravistMapViewAdapterFragment.class);
 		startActivity(intent);
 	}
 
@@ -75,6 +66,8 @@ public class TravistIstanbulActivity extends Activity {
 		//setContentView(R.layout.main);
 		//Use layout below to enable demo-version
 		setContentView(R.layout.main_menu_locked);
+		
+		getActionBar().hide();// full screen activity ..
 		
 		if (checkInternet.isInternetAvailable()) {
 			Log.d("Haetaan tiedot xml:stä ja tallennetaan tiedostoon", "Jihuu");

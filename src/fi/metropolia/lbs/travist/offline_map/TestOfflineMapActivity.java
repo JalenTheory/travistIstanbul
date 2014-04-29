@@ -25,7 +25,7 @@ public class TestOfflineMapActivity extends Activity {
 
 		if (savedInstanceState == null) {
 	        AndroidGraphicFactory.createInstance(getApplication());
-			Fragment newFragment = new TravistMapFragment();
+			Fragment newFragment = new TestTravistMapViewAdapterFragment();
 			FragmentTransaction ft = getFragmentManager().beginTransaction();
 			ft.add(CONTENT_VIEW_ID, newFragment).commit();
 		}

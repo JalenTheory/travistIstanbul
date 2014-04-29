@@ -2,8 +2,6 @@ package fi.metropolia.lbs.travist.browsemenu;
 
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
 
-import fi.metropolia.lbs.travist.offline_map.TravistMapFragment;
-import fi.metropolia.lbs.travist.offline_map.routes.TestRoutesFragment;
 import travist.pack.R;
 import android.app.Activity;
 import android.app.Fragment;
@@ -18,8 +16,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import fi.metropolia.lbs.travist.offline_map.TestTravistMapViewAdapterFragment;
 
 public class BrowseMenu extends Activity {
 
@@ -30,6 +28,8 @@ public class BrowseMenu extends Activity {
 	private CharSequence mTitle;
 	private String[] categoriesItem;
 
+	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,6 +39,8 @@ public class BrowseMenu extends Activity {
 			AndroidGraphicFactory.createInstance(getApplication());
 			selectItem(0);
 		}
+		
+		Integer[] drawableIcons ={R.drawable.arts,R.drawable.food,R.drawable.nightlife,R.drawable.medical,R.drawable.shopping,R.drawable.travel};
 
 		mTitle = mDrawerTitle = getTitle();
 		categoriesItem = getResources().getStringArray(R.array.categories);
@@ -47,7 +49,7 @@ public class BrowseMenu extends Activity {
 
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
-		mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.categoryname, categoriesItem));
+		mDrawerList.setAdapter(new ListViewAdapter(this, categoriesItem, drawableIcons));
 		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
 		getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -119,9 +121,9 @@ public class BrowseMenu extends Activity {
 
 	private void selectItem(int position) {		
 		
-		Fragment fragment = new TravistMapFragment();
+		Fragment fragment = new TestTravistMapViewAdapterFragment();
 		Bundle args = new Bundle();
-		args.putInt(TravistMapFragment.TEST_CATEGORY, position);
+		args.putInt(TestTravistMapViewAdapterFragment.TEST_CATEGORY, position);
 		fragment.setArguments(args);
 		FragmentManager fragmentManager = getFragmentManager();
 		fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
