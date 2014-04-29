@@ -11,13 +11,16 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import fi.metropolia.lbs.travist.foursquare_api.Criteria;
 import fi.metropolia.lbs.travist.offline_map.TestTravistMapViewAdapterFragment;
+import fi.metropolia.lbs.travist.offline_map.TravistMapViewAdapter;
 
 public class BrowseMenu extends Activity {
 
@@ -35,10 +38,15 @@ public class BrowseMenu extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.categorydrawer);
 		
+
 		if (savedInstanceState == null) {
 			AndroidGraphicFactory.createInstance(getApplication());
-			selectItem(0);
+			
+			Fragment fragment = new TestTravistMapViewAdapterFragment();
+			FragmentManager fragmentManager = getFragmentManager();
+			fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 		}
+	
 		
 		Integer[] drawableIcons ={R.drawable.arts,R.drawable.food,R.drawable.nightlife,R.drawable.medical,R.drawable.shopping,R.drawable.travel};
 
@@ -75,9 +83,7 @@ public class BrowseMenu extends Activity {
 		};
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-		if (savedInstanceState == null) {
-			selectItem(0);
-		}
+	
 
 	}
 
@@ -110,23 +116,56 @@ public class BrowseMenu extends Activity {
 	}
 
 	/* The click listener for ListView in the navigation drawer */
-	private class DrawerItemClickListener implements
-			ListView.OnItemClickListener {
+private class DrawerItemClickListener implements ListView.OnItemClickListener {
 		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position,
-				long id) {
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			selectItem(position);
+			
+			Criteria crit = new Criteria();
+			crit.setNear("istanbul");
+			crit.setLimit("30");
+			
+			//ADD HERE GPS LOC / CRIT.SETLATLONG
+			
+			switch(position) {
+			case 0:
+				crit.setCategoryId(Criteria.ARTS_AND_ENTERTAIMENT);
+				break;
+			case 1:
+				crit.setCategoryId(Criteria.FOOD);
+				break;
+			case 2:
+				crit.setCategoryId(Criteria.NIGHTLIFE_SPOTS);
+				break;
+			case 3: 
+				crit.setCategoryId(Criteria.MEDICAL_CENTER);
+				break;
+			case 4: 
+				crit.setCategoryId(Criteria.SHOP_AND_SERVICE);
+				break;
+			case 5:
+				crit.setCategoryId(Criteria.TRAVEL_AND_TRANSPORT);
+				break;
+			}
+			TravistMapViewAdapter.getInstance().loadPlaces(crit);
 		}
 	}
 
+
+
 	private void selectItem(int position) {		
 		
-		Fragment fragment = new TestTravistMapViewAdapterFragment();
-		Bundle args = new Bundle();
-		args.putInt(TestTravistMapViewAdapterFragment.TEST_CATEGORY, position);
-		fragment.setArguments(args);
-		FragmentManager fragmentManager = getFragmentManager();
-		fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+		
+		mDrawerList.setItemChecked(position, true);
+		setTitle(categoriesItem[position]);
+		mDrawerLayout.closeDrawer(mDrawerList);
+		Log.d("LOG", "Click: " + position);
+		//Fragment fragment = new TestTravistMapViewAdapterFragment();
+	//	Bundle args = new Bundle();
+		//args.putInt(TestTravistMapViewAdapterFragment.TEST_CATEGORY, position);
+	//	fragment.setArguments(args);
+	//	FragmentManager fragmentManager = getFragmentManager();
+		//fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 	}
 
 	@Override
