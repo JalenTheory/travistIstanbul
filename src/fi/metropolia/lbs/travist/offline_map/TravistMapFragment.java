@@ -50,7 +50,6 @@ import com.graphhopper.util.PointList;
 import com.graphhopper.util.StopWatch;
 
 import fi.metropolia.lbs.travist.foursquare_api.Criteria;
-import fi.metropolia.lbs.travist.foursquare_api.DownloadJSON;
 import fi.metropolia.lbs.travist.foursquare_api.FourSquareQuery;
 import fi.metropolia.lbs.travist.foursquare_api.Place;
 
@@ -197,7 +196,7 @@ public class TravistMapFragment extends Fragment implements
 //		}
 		 
 	 	
-		 if(place.getCategoryName().equals("Café"))
+		 if(place.getCategoryName().equals("Cafï¿½"))
 		{
 				markerIcon = getResources().getDrawable(R.drawable.cafe);
 		}
@@ -381,7 +380,7 @@ public class TravistMapFragment extends Fragment implements
 					Criteria crit = new Criteria();
 					crit.setNear("istanbul");
 					crit.setLimit("30");
-					crit.setCategoryId(Criteria.MUSEUMS);
+					crit.setCategoryId(Criteria.FOOD);
 
 					FourSquareQuery fq = new FourSquareQuery();
 					String url = fq.createQuery(crit);

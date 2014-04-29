@@ -1,9 +1,12 @@
 package fi.metropolia.lbs.travist.offline_map;
 
+import org.mapsforge.map.android.view.MapView;
+
 import travist.pack.R;
 import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -19,8 +22,6 @@ public class TestTravistMapViewAdapterFragment extends Fragment{
 
 	public TestTravistMapViewAdapterFragment(){}
 	
-	public static final String TEST_CATEGORY = "category_numero";
-	
 	private TravistMapViewAdapter mTravistMapViewAdapter;
 	private Route route;
 	
@@ -28,7 +29,6 @@ public class TestTravistMapViewAdapterFragment extends Fragment{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
 		mTravistMapViewAdapter = TravistMapViewAdapter.getInstance();
 		mTravistMapViewAdapter.attachTo(this);
 
@@ -39,26 +39,16 @@ public class TestTravistMapViewAdapterFragment extends Fragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		View rootView = inflater.inflate(R.layout.map_frag, container, false);
+		MapView mapView = (MapView) rootView.findViewById(R.id.mapView);
 		
-		//Log.i("tag", "i am here");
-		int categoryNumber = getArguments().getInt(TEST_CATEGORY);
-		String mapCategory = getResources().getStringArray(R.array.categories)[categoryNumber];
-
-		View rootView = inflater.inflate(R.layout.map_based_on_category, container,
-				false);
-		/*
-		getActivity().setTitle(mapCategory);
-		View rootView = inflater.inflate(R.layout.routes_map_frag, container, false);
-		
-		MapView mapView = (MapView) rootView.findViewById(R.id.the_mapview);
-		Log.d("mit vit", "mapview ohitettu, sit mapview adapter");
+		if (mapView == null) {
+			Log.d("LOG", "VITTU");
+		}
 		mTravistMapViewAdapter.set(mapView);
-		Log.d("mit vit", "mapview adapter ohitettu, sit return rootView");
-		
 		// get first instance. For performance, let's show mapView first before
 		// initializing route
-		//route = Route.getInstance();
-		*/
+		route = Route.getInstance();
 		return rootView;
 	}
 	

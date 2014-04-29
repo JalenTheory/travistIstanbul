@@ -13,7 +13,6 @@ import org.mapsforge.map.android.util.AndroidUtil;
 import org.mapsforge.map.android.view.MapView;
 import org.mapsforge.map.layer.Layers;
 import org.mapsforge.map.layer.cache.TileCache;
-import org.mapsforge.map.layer.overlay.Marker;
 import org.mapsforge.map.layer.renderer.TileRendererLayer;
 import org.mapsforge.map.model.MapViewPosition;
 import org.mapsforge.map.rendertheme.InternalRenderTheme;
@@ -60,6 +59,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	private LatLong tempLatLong;
 	private LatLong from;
 	private LatLong to;
+	private ArrayList<DanielMarker> danielMarkers = new ArrayList<DanielMarker>();
 	private MyLocationOverlay myLocationOverlay;
 
 	// TODO methods to work as a mediator for integration
@@ -140,9 +140,10 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		fragment.registerForContextMenu(mapView);
 
 		if (!mapView.getLayerManager().getLayers().isEmpty()) {
-			mapView.getLayerManager().getLayers().add(myLocationOverlay);
-			loadPlaces();
-			callPath(); // test routes
+			if (isOnline()) {
+				// loadPlaces();
+			}
+			//callPath(); // test routes
 		}
 	}
 
@@ -185,7 +186,6 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		FourSquareQuery fq = new FourSquareQuery();
 		String url = fq.createQuery(crit);
 		Log.d("Main", "Main: " + url);
-
 		downloadJson(url);
 	}
 
@@ -198,7 +198,6 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		FourSquareQuery fq = new FourSquareQuery();
 		String url = fq.createQuery(criteria);
 		Log.d("Main", "Main: " + url);
-
 		downloadJson(url);
 	}
 
@@ -284,7 +283,8 @@ public class TravistMapViewAdapter implements AsyncFinished {
 						bubbleView.setMaxEms(50);
 						bubbleView.setTextSize(30);
 						bubbleView.setText(place.getCategoryName());
-						Bitmap bubble = Utils.viewToBitmap(activity, bubbleView);
+						Bitmap bubble = Utils
+								.viewToBitmap(activity, bubbleView);
 						bubble.incrementRefCount();
 						DanielMarker marker = new DanielMarker(latLong, bubble,
 								0, -bubble.getHeight() / 2, place);
@@ -307,6 +307,17 @@ public class TravistMapViewAdapter implements AsyncFinished {
 				activity.openContextMenu(mapView);
 				return true;
 			}
+
+			// TODO test if this was causing trouble
+			/*
+			 * @Override public boolean onLongPress(LatLong tapLatLong, Point
+			 * thisXY, Point tapXY) { logD("long press clicked " +
+			 * tapLatLong.toString(), this);
+			 * 
+			 * // save coordinates and open menu for to choose from or to
+			 * tempLatLong = tapLatLong; activity.openContextMenu(mapView);
+			 * return true; }
+			 */
 		};
 	}
 
@@ -387,15 +398,34 @@ public class TravistMapViewAdapter implements AsyncFinished {
 
 	@Override
 	public void downloadFinish(ArrayList<Place> places) {
-		for (int i = 0; i < places.size(); i++) {
-			Layers layers = mapView.getLayerManager().getLayers();
+		Layers layers = mapView.getLayerManager().getLayers();
+		Log.d("LOG", "places: " + places.size());
+		Log.d("LOG", "placez: " + danielMarkers.size());
+		Log.d("LOG", "Item Amount: " +  layers.size());
+		
+		if (danielMarkers.size() >= 10) {
+			deletePoisFromMap();
+		}
 
-			Marker marker1 = addMarker(
+		for (int i = 0; i < places.size(); i++) {
+
+			DanielMarker marker1 = addMarker(
 					new LatLong(
 							Double.parseDouble(places.get(i).getLatitude()),
 							Double.parseDouble(places.get(i).getLongitude())),
-					places.get(i));
+							places.get(i));
 			layers.add(marker1);
+			
+			danielMarkers.add(marker1);
+		}
+	}
+
+	public void deletePoisFromMap() {
+		Layers layers = mapView.getLayerManager().getLayers();
+		Log.d("LOG", "deletePlacez size: " + danielMarkers.size());
+		
+		for (int i = 0; i < danielMarkers.size(); i++) {
+			layers.remove(danielMarkers.get(i));
 		}
 	}
 }

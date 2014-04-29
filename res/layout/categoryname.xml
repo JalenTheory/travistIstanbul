@@ -1,6 +1,14 @@
-
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/categoryname"
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"  >
+    <TableRow>
+        <ImageView
+            android:id="@+id/imageViewCategoryIcon"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"/>
+      <TextView 
+    android:id="@+id/categorynametextView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:textAppearance="?android:attr/textAppearanceListItemSmall"
@@ -10,3 +18,5 @@
     android:textColor="#fff"
     android:background="?android:attr/activatedBackgroundIndicator"
     android:minHeight="?android:attr/listPreferredItemHeightSmall"/>
+</TableRow>
+</TableLayout>
