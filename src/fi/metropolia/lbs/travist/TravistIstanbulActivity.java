@@ -27,6 +27,7 @@ import fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity;
 import fi.metropolia.lbs.travist.offline_map.TravistMapFragment;
 import fi.metropolia.lbs.travist.offline_map.TravistMapActivity;
 import fi.metropolia.lbs.travist.register.RegisterActivity;
+import fi.metropolia.lbs.travist.routes.TestRoutesActivity;
 import fi.metropolia.lbs.travist.savedlist.SavedlistActivity;
 import fi.metropolia.lbs.travist.todo.TodoActivity;
 
@@ -63,7 +64,7 @@ public class TravistIstanbulActivity extends Activity {
 	}
 
 	public void openMap(View view) {
-		Intent intent = new Intent(this, TravistMapFragment.class);
+		Intent intent = new Intent(this, TestOfflineMapFragment.class);
 		startActivity(intent);
 	}
 
@@ -84,7 +85,8 @@ public class TravistIstanbulActivity extends Activity {
 			Log.d("Ei haeta mit‰‰", "Tekstin‰ pit‰is olla jo tiedot");
 		}
 		
-        /*SharedPreferences shaPre = getSharedPreferences("MAP", MODE_PRIVATE);
+		
+        SharedPreferences shaPre = getSharedPreferences("MAP", MODE_PRIVATE);
         SharedPreferences.Editor editor = shaPre.edit();
 
         if(shaPre.getBoolean("dirStatus", false)) {
@@ -99,7 +101,7 @@ public class TravistIstanbulActivity extends Activity {
         // TODO clean up
         /*
 		// Make buttons according to Activities of test cases
-        /*LinearLayout linearLayout = (LinearLayout) findViewById(R.id.main_view_layout);
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.main_view_layout);
 		linearLayout.addView(createButton(fi.metropolia.lbs.travist.emergency.EmergencyActivity.class));
 		linearLayout.addView(createButton(fi.metropolia.lbs.travist.exchange.ExchangeActivity.class));
 		
@@ -117,7 +119,7 @@ public class TravistIstanbulActivity extends Activity {
 		emergencyIntent = new Intent(this, EmergencyActivity.class);
 		exchangeIntent = new Intent(this, ExchangeActivity.class);
 		//This should open the maps activity(?)
-		browseIntent = new Intent(this, BrowseMenu.class);
+		browseIntent = new Intent(this, TestRoutesActivity.class);
 		registerIntent = new Intent(this, RegisterActivity.class);
         
         todoButton = (LinearLayout) findViewById (R.id.main_todo);
@@ -193,7 +195,7 @@ public class TravistIstanbulActivity extends Activity {
         });
 	}
 	
-	/*private class prepareMapFiles extends AsyncTask<String, Void, String> {
+	private class prepareMapFiles extends AsyncTask<String, Void, String> {
 
 		@Override
 		protected String doInBackground(String... params) {
@@ -210,5 +212,5 @@ public class TravistIstanbulActivity extends Activity {
 			//This is done only once per installation
 			
 		}	
-	}*/
+	}
 }

@@ -94,4 +94,19 @@ public class TestTravistMapViewAdapterFragment extends Fragment{
 			return super.onContextItemSelected(item);
 		}
 	}
+	
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		mTravistMapViewAdapter.getLocOverLay().enableMyLocation(true);
+		mTravistMapViewAdapter.getLocOverLay().setSnapToLocationEnabled(true);
+	}
+
+	@Override
+	public void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		mTravistMapViewAdapter.getLocOverLay().disableMyLocation();
+	}
 }
