@@ -11,6 +11,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.AsyncTask;
@@ -22,13 +23,16 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupExpandListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import fi.metropolia.lbs.travist.CheckInternetConnectivity;
 import fi.metropolia.lbs.travist.TravistIstanbulActivity;
 import fi.metropolia.lbs.travist.database.LBSContentProvider;
 import fi.metropolia.lbs.travist.database.PlaceTableClass;
+import fi.metropolia.lbs.travist.userprofile.RegisterActivity;
 
 public class TodoActivity extends Activity {
 
@@ -55,6 +59,8 @@ public class TodoActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.todo);
+		
+		
 		
 		ContentValues cv = new ContentValues();
 		cv.put(PlaceTableClass.PLACE_ID, "123");
@@ -208,15 +214,19 @@ public class TodoActivity extends Activity {
 			public void onGroupExpand(int gpos) {
 				childList = (List<String>) ((ExpandableAdapter) adapter).getChildList(gpos);
 				
-				if(childList.get(0).equals("")){
-					groupPosition = gpos;
-					download="matches";				
-					cursor.moveToPosition(groupPosition);
-					int index = cursor.getColumnIndex(PlaceTableClass.PLACE_ID);
-					String pid = cursor.getString(index);
-					url = "http://users.metropolia.fi/~eetupa/Turkki/getUsersByPid.php?pid="+pid;
-					Log.d(tag,"onexpand url: "+url);
-					new Dl().execute();
+				if(new CheckInternetConnectivity().isInternetAvailable(TodoActivity.this)){
+					if(childList.get(0).equals("")){
+						groupPosition = gpos;
+						download="matches";				
+						cursor.moveToPosition(groupPosition);
+						int index = cursor.getColumnIndex(PlaceTableClass.PLACE_ID);
+						String pid = cursor.getString(index);
+						url = "http://users.metropolia.fi/~eetupa/Turkki/getUsersByPid.php?pid="+pid;
+						Log.d(tag,"onexpand url: "+url);
+						new Dl().execute();
+					}
+				}else{
+					Toast.makeText(TodoActivity.this, "Registering failed.", Toast.LENGTH_LONG).show();
 				}
 			}
 		});

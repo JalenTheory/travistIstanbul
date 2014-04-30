@@ -80,7 +80,7 @@ public class RegisterActivity extends Activity {
 				String pw = etpw.getText().toString();
 				String gsm = etgsm.getText().toString();
 				
-				int matchmaking;
+				int matchmaking = -1;
 				if(yes.isChecked()){
 					matchmaking = 1;
 				}else{
@@ -102,14 +102,12 @@ public class RegisterActivity extends Activity {
 						"&match="+matchmaking+
 						"&pw="+pw;
 				Log.d("moi","url: "+url);
+
 				new Dl().execute(url);
 				SharedPreferences settings = getSharedPreferences("user", 0);
-			    SharedPreferences.Editor editor = settings.edit();
-			    editor.putString("signed_in", email);
+				SharedPreferences.Editor editor = settings.edit();
+				editor.putString("signed_in", email);
 			    editor.commit();
-			    
-			    Intent i = new Intent(RegisterActivity.this, TravistIstanbulActivity.class);
-			    startActivity(i);
 			}
 		});
 		
@@ -160,13 +158,16 @@ public class RegisterActivity extends Activity {
 		@Override
 		protected void onPostExecute(String result) {
 			pd.cancel();
-			if(result.equals("false")){
+			Log.d("moi","result: "+result+"'");
+			if(result.contains("failed")){
 				Toast.makeText(RegisterActivity.this, "Registering failed.", Toast.LENGTH_LONG).show();
-			}else if(result.equals("Bad input")){
+			}else if(result.contains("input")){
 				Toast.makeText(RegisterActivity.this, "Check your input", Toast.LENGTH_LONG).show();
-			}else{
+			}else if (result.contains("success")){
 				Toast.makeText(RegisterActivity.this, "Success! Welcome to Travist!", Toast.LENGTH_LONG).show();
-				finish();
+				Intent i = new Intent(RegisterActivity.this, TravistIstanbulActivity.class);
+				startActivity(i);
+				//finish();
 			}
 		}
 	}

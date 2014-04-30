@@ -4,7 +4,7 @@
     android:versionCode="1"
     android:versionName="1.0" >
 	<uses-sdk
-        android:minSdkVersion="12"
+        android:minSdkVersion="14"
         android:targetSdkVersion="17" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -46,7 +46,7 @@
         <activity android:name="fi.metropolia.lbs.travist.savedlist.SavedlistActivity" />
         <activity android:name="fi.metropolia.lbs.travist.emergency.EmergencyActivity" />
         <activity android:name="fi.metropolia.lbs.travist.exchange.ExchangeActivity" />
-        <activity android:name="fi.metropolia.lbs.travist.register.RegisterActivity" />
+        <activity android:name="fi.metropolia.lbs.travist.userprofile.RegisterActivity" />
         <activity android:name="fi.metropolia.lbs.travist.browsemenu.BrowseMenu" />
         <!-- Content provider permission -->
         <!-- Name is the directory of the class, authority is the AUTHORITY defined in CP -->

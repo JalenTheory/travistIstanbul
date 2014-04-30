@@ -3,6 +3,7 @@ package fi.metropolia.lbs.travist.browsemenu;
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
 
 import travist.pack.R;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -22,6 +23,7 @@ import fi.metropolia.lbs.travist.foursquare_api.Criteria;
 import fi.metropolia.lbs.travist.offline_map.TestTravistMapViewAdapterFragment;
 import fi.metropolia.lbs.travist.offline_map.TravistMapViewAdapter;
 
+@SuppressLint("NewApi")
 public class BrowseMenu extends Activity {
 
 	private DrawerLayout mDrawerLayout;

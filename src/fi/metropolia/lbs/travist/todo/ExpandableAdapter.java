@@ -6,9 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import travist.pack.R;
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -16,12 +14,10 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.WindowManager;
+import android.view.View.OnClickListener;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -218,9 +214,19 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
         holder.saveButton = (Button) convertView.findViewById(R.id.saveButton);
         holder.saveButton.setFocusable(false);
         
+        LinearLayout todo_map_icon = (LinearLayout) convertView.findViewById(R.id.todo_map);
+		
+		todo_map_icon.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				//START MAP ACTIVITY WITH POI
+				Log.d("Eeetu","ASDAD");
+			}
+		});
+        /*
         LinearLayout todoShowOnMap = (LinearLayout) convertView.findViewById(R.id.todo_matchmake);
-        todoShowOnMap.setOnClickListener(new View.OnClickListener() {
-			
+        todoShowOnMap.setOnClickListener(new View.OnClickListener() {	
 			@Override
 			public void onClick(View v) {
 				//Open map and show todo-item on map
@@ -230,7 +236,7 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
 				context.startActivity(intent);
 			}
 		});
-        
+        */
         holder.saveButton.setOnClickListener(new View.OnClickListener(){
         	//dialog gets prompted to verify users decision
 			@Override

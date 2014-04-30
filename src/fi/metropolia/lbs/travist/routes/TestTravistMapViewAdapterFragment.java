@@ -14,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import fi.metropolia.lbs.travist.offline_map.TravistMapViewAdapter;
+import fi.metropolia.lbs.travist.offline_map.routes.Route;
 
 @SuppressLint("NewApi")
 public class TestTravistMapViewAdapterFragment extends Fragment{
@@ -41,7 +43,7 @@ public class TestTravistMapViewAdapterFragment extends Fragment{
 
 		View rootView = inflater.inflate(R.layout.routes_map_frag, container,
 				false);
-		MapView mapView = (MapView) rootView.findViewById(R.id.routes_mapview);
+		MapView mapView = (MapView) rootView.findViewById(R.id.the_mapview);
 		mTravistMapViewAdapter.set(mapView);
 		
 		// get first instance. For performance, let's show mapView first before

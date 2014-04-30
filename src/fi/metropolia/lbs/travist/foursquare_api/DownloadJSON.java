@@ -13,10 +13,11 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import android.os.AsyncTask;
+
 import com.graphhopper.routing.Path;
 
 import fi.metropolia.lbs.travist.offline_map.GHAsyncTask;
-import android.os.AsyncTask;
 
 public class DownloadJSON extends ParseJSON{
 	private AsyncFinished asyncFin;

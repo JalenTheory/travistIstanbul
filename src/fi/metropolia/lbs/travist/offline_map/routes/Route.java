@@ -12,7 +12,6 @@ import org.mapsforge.map.android.view.MapView;
 import org.mapsforge.map.layer.Layers;
 import org.mapsforge.map.layer.overlay.Polyline;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 

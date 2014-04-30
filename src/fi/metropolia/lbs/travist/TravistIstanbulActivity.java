@@ -1,12 +1,11 @@
 package fi.metropolia.lbs.travist;
 
-import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
-
 import travist.pack.R;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -20,23 +19,14 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-<<<<<<< HEAD
-import fi.metropolia.lbs.travist.browsemenu.BrowseMenu;
-=======
 import android.widget.TextView;
 import android.widget.Toast;
->>>>>>> user_profile
+import fi.metropolia.lbs.travist.browsemenu.BrowseMenu;
 import fi.metropolia.lbs.travist.emergency.EmergencyActivity;
 import fi.metropolia.lbs.travist.exchange.ExchangeActivity;
 import fi.metropolia.lbs.travist.exchange.ExchangeFetchXML;
 import fi.metropolia.lbs.travist.offline_map.AssetAdapter;
-<<<<<<< HEAD
 import fi.metropolia.lbs.travist.offline_map.TestTravistMapViewAdapterFragment;
-import fi.metropolia.lbs.travist.register.RegisterActivity;
-=======
-import fi.metropolia.lbs.travist.offline_map.TestOfflineMapFragment;
-import fi.metropolia.lbs.travist.offline_map.routes.TestRoutesActivity;
->>>>>>> user_profile
 import fi.metropolia.lbs.travist.savedlist.SavedlistActivity;
 import fi.metropolia.lbs.travist.todo.TodoActivity;
 import fi.metropolia.lbs.travist.userprofile.RegisterActivity;
@@ -92,8 +82,8 @@ public class TravistIstanbulActivity extends Activity implements SigninListener{
 		super.onCreate(savedInstanceState);
 		//setContentView(R.layout.main);
 		//Use layout below to enable demo-version
-<<<<<<< HEAD
-		setContentView(R.layout.main_menu_locked);
+
+		//setContentView(R.layout.main_menu_locked);
 		
 		//This bypasses the policy that doesn't allow users to run network operations in main thread
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -120,14 +110,14 @@ public class TravistIstanbulActivity extends Activity implements SigninListener{
 			Log.d("Haetaan tiedot xml:st� ja tallennetaan tiedostoon", "Jihuu");
 			
 		}
-=======
->>>>>>> user_profile
+		*/
 		
 		//check if a user is logged in, if yes set the unlocked menu
 		
-		//setThisContentView();
-		//signedIn();
+		//setCView sets the layout for this activity
 		setCView();
+		
+		/*
         SharedPreferences shaPre = getSharedPreferences("MAP", MODE_PRIVATE);
         SharedPreferences.Editor editor = shaPre.edit();
 
@@ -139,7 +129,7 @@ public class TravistIstanbulActivity extends Activity implements SigninListener{
     		editor.apply();
         	Log.d("LOG", "Files werent in app folder");
         }
-        
+        */
         // TODO clean up
         /*
 		// Make buttons according to Activities of test cases
@@ -203,18 +193,20 @@ public class TravistIstanbulActivity extends Activity implements SigninListener{
 	    	setContentView(R.layout.main_menu_unlocked);
 	    	UserHelper tmp = UserHelper.getInstance( );
 	    	TextView tv = (TextView) findViewById(R.id.welcome_username);
-	    	tv.setText(tmp.getName(this, email)+"'s Travist");
+	    	String name = tmp.getName(this, email);
+	    	if(name.equals("Your")){
+	    		tv.setText(name+" Travist");
+	    	}else{
+	    		tv.setText(name+"'s Travist");
+	    	}
 	    }
 	    todoIntent = new Intent(this, TodoActivity.class);
 		savedIntent = new Intent(this, SavedlistActivity.class);
 		emergencyIntent = new Intent(this, EmergencyActivity.class);
 		exchangeIntent = new Intent(this, ExchangeActivity.class);
 		//This should open the maps activity(?)
-<<<<<<< HEAD
 		browseIntent = new Intent(this, BrowseMenu.class);
-=======
-		browseIntent = new Intent(this, TestRoutesActivity.class);
->>>>>>> user_profile
+
 		registerIntent = new Intent(this, RegisterActivity.class);
         
         todoButton = (LinearLayout) findViewById (R.id.main_todo);
@@ -292,29 +284,42 @@ public class TravistIstanbulActivity extends Activity implements SigninListener{
 				browseButton.setAlpha(1f);
 			}
         });
-<<<<<<< HEAD
+        /*
         browseButton.setOnTouchListener(new OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
 				browseButton.setAlpha(0.30f);
 				return false;
 			}
 		});
-=======
-        /* UNCOMMENT TO ENABLE LOGIN/LOGOFF
-        if(login!=null){
->>>>>>> user_profile
-        login.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				UserDialog ud = new UserDialog();
-				ud.show(getFragmentManager(), "mainact");
-			}
-<<<<<<< HEAD
-        });
-        
+        */
+        // UNCOMMENT TO ENABLE LOGIN/LOGOFF 
+	    if(login!=null){
+	        login.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					UserDialog ud = new UserDialog();
+					ud.show(getFragmentManager(), "mainact");
+				}
+	        });
+        }
+        if(logoff!=null){
+        	logoff.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					Log.d("moi","logoff");
+					Toast.makeText(TravistIstanbulActivity.this, "Logged out.", Toast.LENGTH_LONG).show();
+					SharedPreferences settings = getSharedPreferences("user", 0);
+				    SharedPreferences.Editor editor = settings.edit();
+				    editor.remove("signed_in");
+				    editor.commit();
+				    setCView();
+				}     		
+        	});
+        }
+        /*
 		if (savedInstanceState == null) {
 			AndroidGraphicFactory.createInstance(getApplication());			
-		}
+		}*/
 	}
 	
 	class ActivityStartAsync extends AsyncTask<String, String, String> {
@@ -367,8 +372,8 @@ public class TravistIstanbulActivity extends Activity implements SigninListener{
 		protected void onProgressUpdate(String... text) {
 		}
 	}
-	
-private class prepareMapFiles extends AsyncTask<String, Void, String> {
+	/*
+	class prepareMapFiles extends AsyncTask<String, Void, String> {
 
 		@Override
 		protected String doInBackground(String... params) {
@@ -383,26 +388,7 @@ private class prepareMapFiles extends AsyncTask<String, Void, String> {
 			super.onPostExecute(result);
 			//Enable map-related buttons here soon as dl is done or use a splash activity to load maps to internal storage
 			//This is done only once per installation
-			
-		}	
-=======
-        	});
-        }
-		
-        if(logoff!=null){
-        	logoff.setOnClickListener(new OnClickListener(){
-				@Override
-				public void onClick(View v) {
-					Log.d("moi","logoff");
-					Toast.makeText(TravistIstanbulActivity.this, "Logged out.", Toast.LENGTH_LONG).show();
-					SharedPreferences settings = getSharedPreferences("user", 0);
-				    SharedPreferences.Editor editor = settings.edit();
-				    editor.remove("signed_in");
-				    editor.commit();
-				    setCView();
-				}     		
-        	});
-        }*/
->>>>>>> user_profile
-	}
+
+		}
+	}*/
 }

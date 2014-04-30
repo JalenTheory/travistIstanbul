@@ -25,8 +25,12 @@ public class UserHelper {
 	public String getName(Context c, String email) {
 		projection = new String[]{UserTableClass.NAME};
 		cursor = c.getContentResolver().query(LBSContentProvider.USERS_URI, projection, UserTableClass.EMAIL+" = '"+email+"'", null, null);
-		cursor.moveToFirst();
-		return cursor.getString(cursor.getColumnIndex(PlaceTableClass.PLACE_NAME));
+		if(cursor.getCount()!=0){
+			cursor.moveToFirst();
+			return cursor.getString(cursor.getColumnIndex(PlaceTableClass.PLACE_NAME));
+		}else{
+			return "Your";
+		}
 	}
 /*
 	public static String getCountry(Context c, String email) {
