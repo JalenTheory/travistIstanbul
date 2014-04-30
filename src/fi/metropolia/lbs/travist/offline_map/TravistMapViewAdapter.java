@@ -38,9 +38,9 @@ import fi.metropolia.lbs.travist.offline_map.routes.Route;
 /**
  * Handles the map view. To be used from an activity or a fragment.
  * 
- * 1. Get instance ( TravistMapViewAdapter.getInstance(); )
- * 2. Attach to activity / fragment ( attachTo(this); )
- * 3. Declare map view for activity / fragment and set ( set( MapView ..); )
+ * 1. Get instance ( TravistMapViewAdapter.getInstance(); ) 2. Attach to
+ * activity / fragment ( attachTo(this); ) 3. Declare map view for activity /
+ * fragment and set ( set( MapView ..); )
  * 
  * @author Joni Turunen, Daniel Sanchez
  * 
@@ -61,16 +61,18 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	private LatLong to;
 	private ArrayList<DanielMarker> danielMarkers = new ArrayList<DanielMarker>();
 	private MyLocationOverlay myLocationOverlay;
+	DownloadJSON dlJSON = new DownloadJSON(TravistMapViewAdapter.this);
 
 	// TODO methods to work as a mediator for integration
 
 	private boolean check = false;
 
 	// singleton design pattern
-	private TravistMapViewAdapter() {}
-	
+	private TravistMapViewAdapter() {
+	}
+
 	public static TravistMapViewAdapter getInstance() {
-		
+
 		if (uniqueInstance == null) {
 			uniqueInstance = new TravistMapViewAdapter();
 		}
@@ -123,11 +125,13 @@ public class TravistMapViewAdapter implements AsyncFinished {
 
 		// initializes position and zoom level
 		mapViewPosition = initializePosition(mapView.getModel().mapViewPosition);
-		
+
 		// add location tracking to the map
-		myLocationOverlay = new MyLocationOverlay(context, mapViewPosition, null);
+		myLocationOverlay = new MyLocationOverlay(context, mapViewPosition,
+				null);
 		myLocationOverlay.enableMyLocation(true);
-		//myLocationOverlay.setSnapToLocationEnabled(true);
+
+		// myLocationOverlay.setSnapToLocationEnabled(true);
 
 		tileCache = AndroidUtil.createTileCache(context, getClass()
 				.getSimpleName(),
@@ -140,10 +144,8 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		fragment.registerForContextMenu(mapView);
 
 		if (!mapView.getLayerManager().getLayers().isEmpty()) {
-			if (isOnline()) {
-				// loadPlaces();
-			}
-			//callPath(); // test routes
+			mapView.getLayerManager().getLayers().add(myLocationOverlay);
+			// callPath(); // test routes
 		}
 	}
 
@@ -172,38 +174,22 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		return mvp;
 	}
 
-	private void loadPlaces() {
-		// TODO Do this in drawernavigation
-		// This is for testing purposes / hardcoded criteria
-		LatLong lng = myLocationOverlay.getPosition();
-		
-		Criteria crit = new Criteria();
-		crit.setNear("istanbul");
-		crit.setLimit("30");
-		crit.setCategoryId(Criteria.ARTS_AND_ENTERTAIMENT);
-		Log.d("LOG", "LatLong, " + lng);
-
-		FourSquareQuery fq = new FourSquareQuery();
-		String url = fq.createQuery(crit);
-		Log.d("Main", "Main: " + url);
-		downloadJson(url);
-	}
-
 	/**
 	 * Loads places depending on its given type (Criteria)
 	 * 
 	 * @param criteria
 	 */
 	public void loadPlaces(Criteria criteria) {
-		FourSquareQuery fq = new FourSquareQuery();
-		String url = fq.createQuery(criteria);
-		Log.d("Main", "Main: " + url);
-		downloadJson(url);
+		if (isOnline()) {
+			FourSquareQuery fq = new FourSquareQuery();
+			String url = fq.createQuery(criteria);
+			Log.d("Main", "Main: " + url);
+			downloadJson(url);
+		}
 	}
 
 	private void downloadJson(String url) {
 		// fragment needs to implement AsyncFinished
-		DownloadJSON dlJSON = new DownloadJSON(TravistMapViewAdapter.this);
 		dlJSON.startDownload(url);
 	}
 
@@ -296,7 +282,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 				}
 				return false;
 			}
-			
+
 			@Override
 			public boolean onLongPress(LatLong tapLatLong, Point thisXY,
 					Point tapXY) {
@@ -360,21 +346,21 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		logD("route to..", this);
 		if (from != null) {
 			Route.getInstance().calcPath(from.latitude, from.longitude,
-					tempLatLong.latitude, tempLatLong.longitude);
+										tempLatLong.latitude, tempLatLong.longitude);
 		}
 	}
-	
+
 	public void enableGps() {
 		logD("gps pressed..", this);
 		if (!myLocationOverlay.isMyLocationEnabled()) {
 			myLocationOverlay.enableMyLocation(true);
 			myLocationOverlay.setSnapToLocationEnabled(true);
 		} else {
-			myLocationOverlay.enableMyLocation(false);
+			myLocationOverlay.enableMyLocation(true);
 			myLocationOverlay.setSnapToLocationEnabled(false);
 		}
 	}
-	
+
 	public Context getContext() {
 		return context != null ? context : null;
 	}
@@ -382,11 +368,11 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	public MapView getMapView() {
 		return mapView;
 	}
-	
+
 	protected MyLocationOverlay getLocOverLay() {
 		return myLocationOverlay;
 	}
-	
+
 	// for quick and dirty logging
 	protected void logD(String logText) {
 		Log.d("Testing", logText);
@@ -398,14 +384,11 @@ public class TravistMapViewAdapter implements AsyncFinished {
 
 	@Override
 	public void downloadFinish(ArrayList<Place> places) {
+		deletePoisFromMap();
 		Layers layers = mapView.getLayerManager().getLayers();
 		Log.d("LOG", "places: " + places.size());
 		Log.d("LOG", "placez: " + danielMarkers.size());
-		Log.d("LOG", "Item Amount: " +  layers.size());
-		
-		if (danielMarkers.size() >= 10) {
-			deletePoisFromMap();
-		}
+		Log.d("LOG", "Item Amount: " + layers.size());
 
 		for (int i = 0; i < places.size(); i++) {
 
@@ -413,9 +396,9 @@ public class TravistMapViewAdapter implements AsyncFinished {
 					new LatLong(
 							Double.parseDouble(places.get(i).getLatitude()),
 							Double.parseDouble(places.get(i).getLongitude())),
-							places.get(i));
+					places.get(i));
 			layers.add(marker1);
-			
+
 			danielMarkers.add(marker1);
 		}
 	}
@@ -423,9 +406,11 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	public void deletePoisFromMap() {
 		Layers layers = mapView.getLayerManager().getLayers();
 		Log.d("LOG", "deletePlacez size: " + danielMarkers.size());
-		
-		for (int i = 0; i < danielMarkers.size(); i++) {
-			layers.remove(danielMarkers.get(i));
+		if (danielMarkers.size() > 15) {
+			for (int i = 0; i < danielMarkers.size(); i++) {
+				layers.remove(danielMarkers.get(i));
+			}
+			danielMarkers.clear();
 		}
 	}
 }

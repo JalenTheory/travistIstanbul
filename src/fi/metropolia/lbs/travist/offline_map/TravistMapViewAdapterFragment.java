@@ -6,7 +6,6 @@ import travist.pack.R;
 import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -41,10 +40,6 @@ public class TravistMapViewAdapterFragment extends Fragment{
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.map_frag, container, false);
 		MapView mapView = (MapView) rootView.findViewById(R.id.mapView);
-		
-		if (mapView == null) {
-			Log.d("LOG", "VITTU");
-		}
 		mTravistMapViewAdapter.set(mapView);
 		// get first instance. For performance, let's show mapView first before
 		// initializing route
@@ -76,6 +71,9 @@ public class TravistMapViewAdapterFragment extends Fragment{
 			return true;
 		case R.id.route_menu_to:
 			mTravistMapViewAdapter.routeTo();
+			return true;
+		case R.id.enable_gps:
+			mTravistMapViewAdapter.enableGps();
 			return true;
 		default:
 			return super.onContextItemSelected(item);

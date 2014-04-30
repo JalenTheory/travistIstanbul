@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="travist.pack"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0" 
+    android:largeHeap="true">
 	<uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="17" />
@@ -28,26 +29,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
 		<activity android:name="fi.metropolia.lbs.travist.TravistIstanbulActivity" />
-        <!-- OfflineMap -->
-        <activity android:name="fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity"
-            android:screenOrientation="portrait" />
-
+		
         <!-- Leppävaara -->
         <activity android:name="fi.metropolia.lbs.travist.offline_gps.TravistLeppavaaraActivity" 
-            android:screenOrientation="portrait" />
+           		  android:screenOrientation="portrait" />
         
         <!-- Routes testing Tapiola -->
-        <activity android:name="fi.metropolia.lbs.travist.offline_map.TravistMapActivity" android:screenOrientation="portrait"/>
+        <activity android:name="fi.metropolia.lbs.travist.offline_map.TravistMapActivity" 
+            	  android:screenOrientation="portrait"/>
 
-        <!-- <activity android:name="fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity" />  -->
         <activity android:name="fi.metropolia.lbs.travist.foursquare_api.FoursquareActivity" />
         <activity android:name="fi.metropolia.lbs.travist.todo.TodoActivity" />
         <activity android:name="fi.metropolia.lbs.travist.savedlist.SavedlistActivity" />
         <activity android:name="fi.metropolia.lbs.travist.emergency.EmergencyActivity" />
         <activity android:name="fi.metropolia.lbs.travist.exchange.ExchangeActivity" />
         <activity android:name="fi.metropolia.lbs.travist.register.RegisterActivity" />
-        <activity android:name="fi.metropolia.lbs.travist.browsemenu.BrowseMenuActivity" />
+        <activity android:name="fi.metropolia.lbs.travist.browsemenu.BrowseMenuActivity" 
+            	  android:screenOrientation="portrait"/>
         <!-- Content provider permission -->
         <!-- Name is the directory of the class, authority is the AUTHORITY defined in CP -->
         <provider
