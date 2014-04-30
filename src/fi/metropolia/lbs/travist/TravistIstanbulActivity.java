@@ -214,9 +214,10 @@ public class TravistIstanbulActivity extends Activity {
         browseButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				new ActivityStartAsync(BrowseMenuActivity.class).execute();
 				v.startAnimation(animScale);
 				browseButton.setAlpha(1f);
+				Intent i = new Intent(TravistIstanbulActivity.this, BrowseMenuActivity.class);
+				startActivity(i);
 			}
         });
         browseButton.setOnTouchListener(new OnTouchListener() {
@@ -283,7 +284,6 @@ public class TravistIstanbulActivity extends Activity {
 		protected void onPostExecute(String result) {
 
 		}
-		
 		
 		@Override
 		protected void onPreExecute() {

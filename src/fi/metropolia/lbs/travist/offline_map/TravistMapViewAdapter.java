@@ -11,10 +11,13 @@ import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
 import org.mapsforge.map.android.layer.MyLocationOverlay;
 import org.mapsforge.map.android.util.AndroidUtil;
 import org.mapsforge.map.android.view.MapView;
+import org.mapsforge.map.layer.Layer;
+import org.mapsforge.map.layer.LayerManager;
 import org.mapsforge.map.layer.Layers;
 import org.mapsforge.map.layer.cache.TileCache;
 import org.mapsforge.map.layer.renderer.TileRendererLayer;
 import org.mapsforge.map.model.MapViewPosition;
+import org.mapsforge.map.model.common.PreferencesFacade;
 import org.mapsforge.map.rendertheme.InternalRenderTheme;
 
 import travist.pack.R;
@@ -61,6 +64,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	private LatLong to;
 	private ArrayList<DanielMarker> danielMarkers = new ArrayList<DanielMarker>();
 	private MyLocationOverlay myLocationOverlay;
+	private LayerManager layerManager;
 	DownloadJSON dlJSON = new DownloadJSON(TravistMapViewAdapter.this);
 
 	// TODO methods to work as a mediator for integration
@@ -113,7 +117,23 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		// references would be nulls at first. This is possible to check at
 		// building the
 		// object.
+		setupMapControls();
+		setupMapViewPosition();
+		addLocOverLayToMap();
+		createTileCacheForMap();
+		loadMap();
+		setupFragmentMenuThingy();
+	}
+	
+	protected void reInitMapView() {
+		setupMapControls();
+		setupMapViewPosition();
+		addLocOverLayToMap();
+		loadMap();
+		setupFragmentMenuThingy();
+	}
 
+	protected void setupMapControls() {
 		mapView.setClickable(true);
 		// makes a nifty ruler
 		mapView.getMapScaleBar().setVisible(true);
@@ -122,31 +142,34 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		// don't know.
 		mapView.getMapZoomControls().setZoomLevelMin((byte) 10);
 		mapView.getMapZoomControls().setZoomLevelMax((byte) 20);
+	}
 
-		// initializes position and zoom level
-		mapViewPosition = initializePosition(mapView.getModel().mapViewPosition);
-
-		// add location tracking to the map
-		myLocationOverlay = new MyLocationOverlay(context, mapViewPosition,
-				null);
-		myLocationOverlay.enableMyLocation(true);
-
-		// myLocationOverlay.setSnapToLocationEnabled(true);
-
+	protected void createTileCacheForMap() {
 		tileCache = AndroidUtil.createTileCache(context, getClass()
 				.getSimpleName(),
 				mapView.getModel().displayModel.getTileSize(), 1f, mapView
 						.getModel().frameBufferModel.getOverdrawFactor());
+	}
 
-		loadMap();
+	protected void addLocOverLayToMap() {
+		// add location tracking to the map
+		myLocationOverlay = new MyLocationOverlay(context, mapViewPosition,
+				null);
+		myLocationOverlay.enableMyLocation(true);
+		if (!mapView.getLayerManager().getLayers().isEmpty()) {
+			layerManager = mapView.getLayerManager();
+			mapView.getLayerManager().getLayers().add(myLocationOverlay);
+		}
+	}
 
+	protected void setupMapViewPosition() {
+		// initializes position and zoom level
+		mapViewPosition = initializePosition(mapView.getModel().mapViewPosition);
+	}
+
+	protected void setupFragmentMenuThingy() {
 		// on long click brings up contextual menu
 		fragment.registerForContextMenu(mapView);
-
-		if (!mapView.getLayerManager().getLayers().isEmpty()) {
-			mapView.getLayerManager().getLayers().add(myLocationOverlay);
-			// callPath(); // test routes
-		}
 	}
 
 	// Center of drawn map at first
@@ -194,7 +217,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	}
 
 	// From graphhopper example
-	private void loadMap() {
+	protected void loadMap() {
 		logD("Loading Map");
 
 		// TODO next refactoring iteration validate if map is in mem already
@@ -334,7 +357,6 @@ public class TravistMapViewAdapter implements AsyncFinished {
 
 	public void set(MapView newMapView) {
 		mapView = newMapView;
-		initMapView();
 	}
 
 	public void routeFrom() {
@@ -346,7 +368,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		logD("route to..", this);
 		if (from != null) {
 			Route.getInstance().calcPath(from.latitude, from.longitude,
-										tempLatLong.latitude, tempLatLong.longitude);
+					tempLatLong.latitude, tempLatLong.longitude);
 		}
 	}
 
@@ -412,5 +434,25 @@ public class TravistMapViewAdapter implements AsyncFinished {
 			}
 			danielMarkers.clear();
 		}
+	}
+
+	// MapsForge examples
+	protected void destroyLayers() {
+		for (Layer layer : layerManager.getLayers()) {
+			layerManager.getLayers().remove(layer);
+			layer.onDestroy();
+		}
+	}
+
+	protected void destroyMapViewPositions() {
+		mapViewPosition.destroy();
+	}
+
+	protected void destroyMapViews() {
+		mapView.destroy();
+	}
+
+	protected void destroyTileCaches() {
+		this.tileCache.destroy();
 	}
 }

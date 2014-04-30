@@ -40,7 +40,15 @@ public class TravistMapViewAdapterFragment extends Fragment{
 			Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.map_frag, container, false);
 		MapView mapView = (MapView) rootView.findViewById(R.id.mapView);
-		mTravistMapViewAdapter.set(mapView);
+		
+		if (mTravistMapViewAdapter.getMapView() == null) {
+			mTravistMapViewAdapter.set(mapView);
+			mTravistMapViewAdapter.initMapView();
+		} else {
+			mTravistMapViewAdapter.set(mapView);
+			mTravistMapViewAdapter.reInitMapView();
+			mTravistMapViewAdapter.loadMap();
+		}
 		// get first instance. For performance, let's show mapView first before
 		// initializing route
 		route = Route.getInstance();
@@ -84,14 +92,19 @@ public class TravistMapViewAdapterFragment extends Fragment{
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		mTravistMapViewAdapter.getLocOverLay().enableMyLocation(true);
-		mTravistMapViewAdapter.getLocOverLay().setSnapToLocationEnabled(true);
+		mTravistMapViewAdapter.getLocOverLay().enableMyLocation(false);
 	}
 
 	@Override
 	public void onStop() {
 		// TODO Auto-generated method stub
 		super.onStop();
+		/*
 		mTravistMapViewAdapter.getLocOverLay().disableMyLocation();
+		mTravistMapViewAdapter.destroyLayers();
+		mTravistMapViewAdapter.destroyMapViewPositions();
+		mTravistMapViewAdapter.destroyMapViews();
+		mTravistMapViewAdapter.destroyTileCaches();
+		*/
 	}
 }
