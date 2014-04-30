@@ -29,13 +29,14 @@
         android:orientation="vertical" >
 
         <EditText
-            android:id="@+id/register_username"
+            android:id="@+id/register_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your Username"
+            android:hint="Your Email"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_gravity="center"
             android:singleLine="true"
+            android:inputType="textEmailAddress"
             android:background="@null" />
     </LinearLayout>
 
@@ -50,10 +51,11 @@
             android:id="@+id/register_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your Name"
+            android:hint="Your Name"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_gravity="center"
             android:singleLine="true"
+             android:inputType="textPersonName"
             android:background="@null" />
     </LinearLayout>
 
@@ -68,30 +70,15 @@
             android:id="@+id/register_country"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your Country"
+            android:hint="Your Country"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_gravity="center"
             android:singleLine="true"
-            android:background="@null" />
+            android:background="@null"
+             android:inputType="text" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@drawable/info_background"
-        android:orientation="vertical" >
-
-        <EditText
-            android:id="@+id/register_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Your Email"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_gravity="center"
-            android:singleLine="true"
-            android:background="@null" />
-    </LinearLayout>
+   
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -104,11 +91,12 @@
             android:id="@+id/register_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your Password"
+            android:hint="Your Password"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_gravity="center"
             android:singleLine="true"
-            android:background="@null" />
+            android:background="@null"
+             android:inputType="textVisiblePassword" />
     </LinearLayout>
 
     <LinearLayout
@@ -122,11 +110,12 @@
             android:id="@+id/register_GSM"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your Phone Number"
+            android:hint="Your Phone Number"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_gravity="center"
             android:singleLine="true"
-            android:background="@null" />
+            android:background="@null"
+             android:inputType="number" />
     </LinearLayout>
 
     <LinearLayout
@@ -142,7 +131,6 @@
             android:layout_weight="1"
             android:orientation="horizontal" >
             
-
 	        <LinearLayout
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"

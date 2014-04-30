@@ -11,7 +11,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -66,6 +66,7 @@ public class TodoActivity extends Activity {
 		cv.put(PlaceTableClass.CATEGORY_NAME, "Spa");
 		cv.put(PlaceTableClass.IS_IN_TODO, "1");
 		cv.put(PlaceTableClass.IS_IN_SAVED, "0");
+		cv.put(PlaceTableClass.EMAIL, "RAM.RAM@RAM.FI");
 		this.getContentResolver().insert(LBSContentProvider.PLACES_URI, cv);
 		
 		ContentValues cv1 = new ContentValues();
@@ -78,7 +79,21 @@ public class TodoActivity extends Activity {
 		cv1.put(PlaceTableClass.CATEGORY_NAME, "Ice cream");
 		cv1.put(PlaceTableClass.IS_IN_TODO, "1");
 		cv1.put(PlaceTableClass.IS_IN_SAVED, "0");
+		cv1.put(PlaceTableClass.EMAIL, "RAM.RAM@RAM.FI");
 		this.getContentResolver().insert(LBSContentProvider.PLACES_URI, cv1);
+		
+		ContentValues cv2 = new ContentValues();
+		cv2.put(PlaceTableClass.PLACE_ID, "789");
+		cv2.put(PlaceTableClass.PLACE_NAME, "Döner");
+		cv2.put(PlaceTableClass.LATITUDE, "11");
+		cv2.put(PlaceTableClass.LONGITUDE, "12");
+		cv2.put(PlaceTableClass.ADDRESS, "Kebabroad");
+		cv2.put(PlaceTableClass.CATEGORY_ID, "112");
+		cv2.put(PlaceTableClass.CATEGORY_NAME, "Restaurant");
+		cv2.put(PlaceTableClass.IS_IN_TODO, "1");
+		cv2.put(PlaceTableClass.IS_IN_SAVED, "0");
+		cv2.put(PlaceTableClass.EMAIL, "");
+		this.getContentResolver().insert(LBSContentProvider.PLACES_URI, cv2);
 
 		String[] projection = new String[]{
 				PlaceTableClass.ID,
@@ -88,9 +103,12 @@ public class TodoActivity extends Activity {
 				PlaceTableClass.LONGITUDE,
 				PlaceTableClass.ADDRESS,
 				PlaceTableClass.CATEGORY_ID,
-				PlaceTableClass.CATEGORY_NAME};
-		cursor = this.getContentResolver().query(LBSContentProvider.PLACES_URI, projection, "IS_IN_TODO = '1'", null, null);
-		
+				PlaceTableClass.CATEGORY_NAME,
+				PlaceTableClass.EMAIL};
+	
+		SharedPreferences settings = getSharedPreferences("user", 0);
+		String email = settings.getString("signed_in", "");
+		cursor = this.getContentResolver().query(LBSContentProvider.PLACES_URI, projection, "IS_IN_TODO = '1' AND EMAIL = '"+email+"'", null, null);
 		createList();
 	}
 	

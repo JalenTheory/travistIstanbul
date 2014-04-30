@@ -8,9 +8,7 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
-
-
-import fi.metropolia.lbs.travist.TravistIstanbulActivity;
+import fi.metropolia.lbs.travist.routes.TestTravistMapViewAdapterFragment;
 
 public class TestOfflineMapActivity extends Activity {
 	private static final int CONTENT_VIEW_ID = 10101010;
