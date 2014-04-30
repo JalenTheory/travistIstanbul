@@ -297,8 +297,12 @@ public class TravistIstanbulActivity extends Activity implements SigninListener{
 	        login.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					UserDialog ud = new UserDialog();
-					ud.show(getFragmentManager(), "mainact");
+					if(new CheckInternetConnectivity().isInternetAvailable(TodoActivity.this)){
+						UserDialog ud = new UserDialog();
+						ud.show(getFragmentManager(), "mainact");
+					}else{
+						Toast.makeText(TodoActivity.this, "No connection.", Toast.LENGTH_LONG).show();
+					}
 				}
 	        });
         }

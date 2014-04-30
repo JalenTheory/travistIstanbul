@@ -226,7 +226,7 @@ public class TodoActivity extends Activity {
 						new Dl().execute();
 					}
 				}else{
-					Toast.makeText(TodoActivity.this, "Registering failed.", Toast.LENGTH_LONG).show();
+					Toast.makeText(TodoActivity.this, "No connection.", Toast.LENGTH_LONG).show();
 				}
 			}
 		});
