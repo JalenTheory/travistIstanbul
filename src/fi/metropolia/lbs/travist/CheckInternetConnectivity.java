@@ -6,7 +6,7 @@ import android.net.NetworkInfo;
 
 public class CheckInternetConnectivity {
 
-	public Boolean isInternetAvailable(Context context) {
+	public static Boolean isInternetAvailable(Context context) {
 	    ConnectivityManager connectivityManager 
 	          = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 	    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
@@ -25,4 +25,5 @@ public class CheckInternetConnectivity {
 	    return false;
 	}
     */
+	}
 }

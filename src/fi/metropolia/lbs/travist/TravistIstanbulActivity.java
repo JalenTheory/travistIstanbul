@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,18 +19,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-import fi.metropolia.lbs.travist.browsemenu.BrowseMenu;
+import fi.metropolia.lbs.travist.browsemenu.BrowseMenuActivity;
 import fi.metropolia.lbs.travist.emergency.EmergencyActivity;
 import fi.metropolia.lbs.travist.exchange.ExchangeActivity;
 import fi.metropolia.lbs.travist.exchange.ExchangeFetchXML;
 import fi.metropolia.lbs.travist.offline_map.AssetAdapter;
-import fi.metropolia.lbs.travist.offline_map.TestTravistMapViewAdapterFragment;
+import fi.metropolia.lbs.travist.offline_map.TravistMapViewAdapterFragment;
 import fi.metropolia.lbs.travist.savedlist.SavedlistActivity;
 import fi.metropolia.lbs.travist.todo.TodoActivity;
 import fi.metropolia.lbs.travist.userprofile.RegisterActivity;
 import fi.metropolia.lbs.travist.userprofile.SigninListener;
-import fi.metropolia.lbs.travist.userprofile.UserDialog;
 import fi.metropolia.lbs.travist.userprofile.UserHelper;
 
 public class TravistIstanbulActivity extends Activity implements SigninListener{

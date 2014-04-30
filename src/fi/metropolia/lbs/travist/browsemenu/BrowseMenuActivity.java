@@ -22,11 +22,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 import fi.metropolia.lbs.travist.CheckInternetConnectivity;
 import fi.metropolia.lbs.travist.foursquare_api.Criteria;
-import fi.metropolia.lbs.travist.offline_map.TravistMapViewAdapterFragment;
 import fi.metropolia.lbs.travist.offline_map.TravistMapViewAdapter;
+import fi.metropolia.lbs.travist.offline_map.TravistMapViewAdapterFragment;
 
 @SuppressLint("NewApi")
-public class BrowseMenu extends Activity {
+public class BrowseMenuActivity extends Activity {
 
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
@@ -67,7 +67,7 @@ public class BrowseMenu extends Activity {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
 		
-		if (!CheckInternetConnectivity.isInternetAvailable()){// if no internet then dont fuck with drawer navigation--with love--->ram
+		if (!CheckInternetConnectivity.isInternetAvailable(this)){// if no internet then dont fuck with drawer navigation--with love--->ram
 			
 			getActionBar().setDisplayHomeAsUpEnabled(false);
 			getActionBar().setHomeButtonEnabled(false);
