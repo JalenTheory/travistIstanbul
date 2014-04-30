@@ -28,6 +28,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 import fi.metropolia.lbs.travist.foursquare_api.AsyncFinished;
 import fi.metropolia.lbs.travist.foursquare_api.Criteria;
 import fi.metropolia.lbs.travist.foursquare_api.DownloadJSON;
@@ -61,6 +62,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	private LatLong to;
 	private ArrayList<DanielMarker> danielMarkers = new ArrayList<DanielMarker>();
 	private MyLocationOverlay myLocationOverlay;
+	private LayerOnTapController layerOnTapController;
 
 	// TODO methods to work as a mediator for integration
 
@@ -217,6 +219,9 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		logD(mapFile.getAbsolutePath().toString());
 		mapView.getLayerManager().getLayers().clear();
 
+		// performs the onTap depending on the state of the map
+		layerOnTapController = new LayerOnTapController();
+		
 		TileRendererLayer tileRendererLayer = new TileRendererLayer(tileCache,
 				mapViewPosition, true, AndroidGraphicFactory.INSTANCE) {
 			// room for code.
@@ -226,10 +231,22 @@ public class TravistMapViewAdapter implements AsyncFinished {
 			// markers
 			// - Joni
 			@Override
+			public boolean onTap(LatLong geoPoint, Point viewPosition,
+					Point tapPoint) {
+				
+				logD("onTap clicked on TileRendererLayer");
+				setLayerMode(layerOnTapController.SELECT_ROUTE);
+				layerOnTapController.execute();		
+				
+				return true;
+			}
+			
+			
+			@Override
 			public boolean onLongPress(LatLong tapLatLong, Point thisXY,
 					Point tapXY) {
 				logD("long press clicked " + tapLatLong.toString(), this);
-
+				
 				// save coordinates and open menu for to choose from or to
 				tempLatLong = tapLatLong;
 				activity.openContextMenu(mapView);
@@ -252,6 +269,19 @@ public class TravistMapViewAdapter implements AsyncFinished {
 
 		mapView.getLayerManager().getLayers().add(tileRendererLayer);
 	}
+	
+	// TileRendererLayer onTap controller. It'll change behaviour according to changes
+	public void setLayerMode(int state) {
+		logD("set layer mode: " + state, this);
+		layerOnTapController.changeState(state);
+	}
+	
+	public void changeViewToSelectOrigin() {
+		// some text view for testing
+		logD("change view: select origin", this);
+		Toast.makeText(context, "select origin point", Toast.LENGTH_LONG);
+	}
+	
 
 	private DanielMarker addMarker(final LatLong latLong, final Place place) {
 		logD("Adding marker");
@@ -361,6 +391,18 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		if (from != null) {
 			Route.getInstance().calcPath(from.latitude, from.longitude,
 					tempLatLong.latitude, tempLatLong.longitude);
+		}
+	}
+	public void routeFrom(LatLong latLong) {
+		logD("route from..", this);
+		from = latLong;
+	}
+	
+	public void routeTo(LatLong latLong) {
+		logD("route to..", this);
+		if (from != null) {
+			Route.getInstance().calcPath(from.latitude, from.longitude,
+					latLong.latitude, latLong.longitude);
 		}
 	}
 	
