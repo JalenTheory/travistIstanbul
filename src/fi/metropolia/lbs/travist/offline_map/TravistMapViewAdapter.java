@@ -441,7 +441,8 @@ public class TravistMapViewAdapter implements AsyncFinished {
 			}
 		};
 	}
-
+	
+		
 	private void makeBubbleView() {
 		// From mapsforge examples
 		bubbleView = new TextView(activity);
