@@ -139,8 +139,10 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		*/
 		
 		todoButton= (Button) rootView.findViewById(R.id.todoButton);
-		todoButton= (Button) rootView.findViewById(R.id.saveButton);
+		saveButton= (Button) rootView.findViewById(R.id.saveButton);
 		
+		todoButton.setVisibility(View.INVISIBLE);
+		saveButton.setVisibility(View.INVISIBLE);
 		
 		return rootView;
 	}
@@ -251,7 +253,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		return mvp;
 	}
 
-	private void loadPlaces() {
+	/*private void loadPlaces() {
 		// TODO Do this in drawernavigation
 		// This is for testing purposes / hardcoded criteria
 		LatLong lng = myLocationOverlay.getPosition();
@@ -266,14 +268,16 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		String url = fq.createQuery(crit);
 		Log.d("Main", "Main: " + url);
 		downloadJson(url);
-	}
+	}*/
 
 	/**
 	 * Loads places depending on its given type (Criteria)
 	 * 
 	 * @param criteria
 	 */
+	private Criteria c;
 	public void loadPlaces(Criteria criteria) {
+		c = criteria;
 		FourSquareQuery fq = new FourSquareQuery();
 		String url = fq.createQuery(criteria);
 		Log.d("Main", "Main: " + url);
@@ -335,48 +339,36 @@ public class TravistMapViewAdapter implements AsyncFinished {
 //			URL url = new URL(place.getIconUrl());
 //			android.graphics.Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
 //			markerIcon = new BitmapDrawable(getResources(), bmp);
-//		} catch (IOException e) {
 //			// TODO Auto-generated catch block
 //			 markerIcon = getResources().getDrawable(R.drawable.flag_green);
 //			e.printStackTrace();
 //		}
 		 
-	 	
-		 if(place.getCategoryName().equals("Cafe"))
+	 	if(place.getIconUrl().contains("entertainment"))
 		{
-				markerIcon = fragment.getResources().getDrawable(R.drawable.cafe);
+				markerIcon = fragment.getResources().getDrawable(R.drawable.gimp_art);
+				Log.i("raaam","I am entertainment");
 		}
-		else if(place.getCategoryName().equals("History Museum"))
+		else if(place.getIconUrl().contains("food"))
 		{
-			 markerIcon = fragment.getResources().getDrawable(R.drawable.historymuseum);
+				markerIcon = fragment.getResources().getDrawable(R.drawable.gimp_food);
+				
 		}
-		else if(place.getCategoryName().equals("Museum"))
+		else if(place.getIconUrl().contains("medical"))
 		{
-				markerIcon = fragment.getResources().getDrawable(R.drawable.museum);
+				markerIcon = fragment.getResources().getDrawable(R.drawable.medical);
 		}
-		else if(place.getCategoryName().equals("Art Museum"))
+		else if(place.getIconUrl().contains("nightlife"))
 		{
-				markerIcon = fragment.getResources().getDrawable(R.drawable.artmuseum);
+				markerIcon = fragment.getResources().getDrawable(R.drawable.gimp_nightlife);
 		}
-		else if(place.getCategoryName().equals("Science Museum"))
+		else if(place.getIconUrl().contains("shopping"))
 		{
-				markerIcon = fragment.getResources().getDrawable(R.drawable.sciencemuseum);
+				markerIcon = fragment.getResources().getDrawable(R.drawable.gimp_shopping);
 		}
-		else if(place.getCategoryName().contains("Site"))
+		else if(place.getCategoryName().contains("travel"))
 		{
-				markerIcon = fragment.getResources().getDrawable(R.drawable.historicsite);
-		}
-		else if(place.getCategoryName().equals("Library"))
-		{
-			markerIcon = fragment.getResources().getDrawable(R.drawable.library);
-		}
-		else if(place.getCategoryName().contains("Event"))
-		{
-				markerIcon = fragment.getResources().getDrawable(R.drawable.eventspace);
-		}
-		else if(place.getCategoryName().contains("Residential"))
-		{
-				markerIcon = fragment.getResources().getDrawable(R.drawable.apartment);
+				markerIcon = fragment.getResources().getDrawable(R.drawable.gimp_travel);
 		}
 		else{
 			markerIcon = fragment.getResources().getDrawable(R.drawable.flag_green);
@@ -390,9 +382,14 @@ public class TravistMapViewAdapter implements AsyncFinished {
 			public boolean onTap(LatLong geoPoint, Point viewPosition,
 					Point tapPoint) {
 				if (contains(viewPosition, tapPoint)) {
+					 Log.i("tag","#it works here00");
 					if (!check) {
 						check = true;
 
+						todoButton.setVisibility(View.VISIBLE);
+						saveButton.setVisibility(View.VISIBLE);
+						
+						
 						Layers layers = mapView.getLayerManager().getLayers();
 						Log.d("LOG", "Here's tapPoint and viewPosition: " + viewPosition + ", " + tapPoint);
 						Log.w("Tapp", "The Marker was touched with onTap: " + this.getLatLong().toString());
@@ -401,13 +398,17 @@ public class TravistMapViewAdapter implements AsyncFinished {
 						TextView bubbleView = new TextView(fragment.getActivity());
 //						LinearLayout.LayoutParams Params1 = new LinearLayout.LayoutParams(15,50);
 //						bubbleView.setLayoutParams(Params1); 
+					
+						  Log.i("tag","#it works here00");
+							
+						  
 						setBackground(bubbleView,fragment.getResources().getDrawable(R.drawable.infowin_marker));
 						bubbleView.setGravity(Gravity.CENTER);
 						bubbleView.setMaxEms(10);
 						bubbleView.setTextSize(20);
 						bubbleView.setMaxWidth(40);
 						 
-						  
+						  Log.i("tag","#it works here");
 						//bind foursquare data to bubbleview
 						bubbleView.setText(place.getPlaceName()+"\n"+place.getCategoryName()+"\n"+place.getAddress());
 						
