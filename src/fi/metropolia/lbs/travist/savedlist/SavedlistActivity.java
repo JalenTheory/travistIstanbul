@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import fi.metropolia.lbs.travist.TravistIstanbulActivity;
+import fi.metropolia.lbs.travist.browsemenu.BrowseMenuActivity;
 import fi.metropolia.lbs.travist.database.LBSContentProvider;
 import fi.metropolia.lbs.travist.database.PlaceTableClass;
 import fi.metropolia.lbs.travist.savedlist.ListAdapter.ViewHolder;
@@ -23,6 +24,8 @@ public class SavedlistActivity extends Activity{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.saved);
+		
+		getActionBar().hide();
 		
 		String[] projection = new String[]{
 				PlaceTableClass.ID,
@@ -44,8 +47,18 @@ public class SavedlistActivity extends Activity{
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				//Open saved-item on map
-				Intent newintent = new Intent(SavedlistActivity.this, SavedlistActivity.class);
-				SavedlistActivity.this.startActivity(newintent);
+				//Open map and show todo-item on map
+				Log.d("MAPPIA", "PAINETTU");
+				Intent intent = new Intent();
+				
+				cursor.moveToPosition(position);
+				String lati = cursor.getString(cursor.getColumnIndex(PlaceTableClass.LATITUDE));
+				String Long = cursor.getString(cursor.getColumnIndex(PlaceTableClass.LONGITUDE));
+				
+				intent.setClass(view.getContext(), BrowseMenuActivity.class);
+				intent.putExtra("lati", lati);
+				intent.putExtra("longi", Long);
+				view.getContext().startActivity(intent);
 			}
 		});
 	}

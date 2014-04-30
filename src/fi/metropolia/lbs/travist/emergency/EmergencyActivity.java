@@ -24,6 +24,8 @@ public class EmergencyActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.emergency);
 		
+		getActionBar().hide();
+		
 		ambulance = (LinearLayout) findViewById (R.id.emergency_ambulance);
 		fire = (LinearLayout) findViewById (R.id.emergency_fire);
 		police = (LinearLayout) findViewById (R.id.emergency_police);

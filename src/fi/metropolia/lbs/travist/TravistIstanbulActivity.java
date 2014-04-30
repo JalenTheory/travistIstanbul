@@ -81,6 +81,8 @@ public class TravistIstanbulActivity extends Activity {
 		//Use layout below to enable demo-version
 		setContentView(R.layout.main_menu_locked);
 		
+		getActionBar().hide();
+		
 		//This bypasses the policy that doesn't allow users to run network operations in main thread
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 	    StrictMode.setThreadPolicy(policy);

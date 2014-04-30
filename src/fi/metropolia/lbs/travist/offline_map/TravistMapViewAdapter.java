@@ -124,9 +124,14 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		setupMapViewPosition();
 		addLocOverLayToMap();
 		createTileCacheForMap();
+		
+		Log.d("MAPPI LUOTII", "MOFO");
+		
+		
 		loadMap();
 		
 		Bundle bundle = fragment.getArguments();
+		//Retarded way of showing the list-marker on the map
 		if (bundle != null) {
 			Log.d("ARGUMENTTEJÄ!", "hiarz");
 			Layers layersz = mapView.getLayerManager().getLayers();
@@ -136,12 +141,12 @@ public class TravistMapViewAdapter implements AsyncFinished {
 			
 			Bitmap bmz = AndroidGraphicFactory.convertToBitmap(markerIconz);
 			
-			DanielMarker marker = new DanielMarker ((new LatLong(Double.parseDouble(fragment.getArguments().getString("todoLat")), Double.parseDouble(fragment.getArguments().getString("todoLong")))), bmz, 0, 0);
+			DanielMarker marker = new DanielMarker ((new LatLong(Double.parseDouble(fragment.getArguments().getString("lati")), Double.parseDouble(fragment.getArguments().getString("longi")))), bmz, 0, 0);
 			layersz.add(marker);
-			Log.d("Markerin coords", fragment.getArguments().getString("todoLat") + "--" + fragment.getArguments().getString("todoLong"));
+			Log.d("Markerin coords", fragment.getArguments().getString("lati") + "--" + fragment.getArguments().getString("longi"));
 		}
 		else {
-			Log.d("Vittu", "tääl mitää oo");
+			//Do nothing 'cos no list-markers to add
 		}
 		
 		setupFragmentMenuThingy();
@@ -152,6 +157,25 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		setupMapViewPosition();
 		addLocOverLayToMap();
 		loadMap();
+		Bundle bundle = fragment.getArguments();
+		//Retarded way of showing the list-marker on the map on reinit(Not working?!)
+		if (bundle != null) {
+			Log.d("ARGUMENTTEJÄ!", "hiarz");
+			Layers layersz = mapView.getLayerManager().getLayers();
+			
+			Drawable markerIconz = activity.getResources().getDrawable(
+					R.drawable.flag_green);
+			
+			Bitmap bmz = AndroidGraphicFactory.convertToBitmap(markerIconz);
+			DanielMarker marker = new DanielMarker ((new LatLong(Double.parseDouble(fragment.getArguments().getString("lati")), Double.parseDouble(fragment.getArguments().getString("longi")))), bmz, 0, 0);
+			layersz.remove(marker);
+			layersz.add(marker);
+			Log.d("Markerin coords", fragment.getArguments().getString("lati") + "--" + fragment.getArguments().getString("longi"));
+			//TODO Not showing on the map for some fucking reason
+		}
+		else {
+			//Do nothing 'cos no list-markers to add
+		}
 		setupFragmentMenuThingy();
 	}
 
@@ -516,5 +540,9 @@ public class TravistMapViewAdapter implements AsyncFinished {
 
 	protected void destroyTileCaches() {
 		this.tileCache.destroy();
+	}
+	
+	public Fragment getFragment() {
+		return this.fragment;
 	}
 }

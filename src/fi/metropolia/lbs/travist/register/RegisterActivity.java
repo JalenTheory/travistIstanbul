@@ -14,6 +14,8 @@ public class RegisterActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.register);
 		
+		getActionBar().hide();
+		
 		LinearLayout register_button = (LinearLayout) findViewById (R.id.register_register);
 		LinearLayout cancel_button = (LinearLayout) findViewById (R.id.register_cancel);
 		register_button.setOnClickListener(new OnClickListener() {
