@@ -18,6 +18,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
+import fi.metropolia.lbs.travist.CheckInternetConnectivity;
 import fi.metropolia.lbs.travist.foursquare_api.Criteria;
 import fi.metropolia.lbs.travist.offline_map.TravistMapViewAdapterFragment;
 import fi.metropolia.lbs.travist.offline_map.TravistMapViewAdapter;
@@ -59,9 +61,27 @@ public class BrowseMenuActivity extends Activity {
 
 		mDrawerList.setAdapter(new ListViewAdapter(this, categoriesItem, drawableIcons));
 		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-
+		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
+		
+		if (!CheckInternetConnectivity.isInternetAvailable()){// if no internet then dont fuck with drawer navigation--with love--->ram
+			
+			getActionBar().setDisplayHomeAsUpEnabled(false);
+			getActionBar().setHomeButtonEnabled(false);
+			setTitle("Travist-Offline Mode");
+			mDrawerTitle=mTitle;
+			Toast.makeText(this, mTitle, Toast.LENGTH_SHORT);
+			
+			mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+			for (int i=0; i<3; i++){
+				
+				Toast.makeText(this, "No Internet connection", Toast.LENGTH_LONG).show();
+			}
+			
+		}
+
+		
 
 		mDrawerToggle = new ActionBarDrawerToggle(this, /* host Activity */
 		mDrawerLayout, /* DrawerLayout object */
@@ -73,6 +93,8 @@ public class BrowseMenuActivity extends Activity {
 				getActionBar().setTitle(mTitle);
 				invalidateOptionsMenu(); // creates call to
 											// onPrepareOptionsMenu()
+				
+				//Log.i("title",mTitle);
 			}
 
 			public void onDrawerOpened(View drawerView) {

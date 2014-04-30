@@ -44,7 +44,7 @@
         android:layout_alignBottom="@+id/dialog_name_background"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="17dp"
-        android:text="Name"
+        android:hint="Name"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -54,7 +54,7 @@
         android:layout_alignBottom="@+id/dialog_nationality_background"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="18dp"
-        android:text="Nationality"
+        android:hint="Nationality"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView

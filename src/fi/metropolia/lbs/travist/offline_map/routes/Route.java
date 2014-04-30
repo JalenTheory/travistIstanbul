@@ -47,11 +47,17 @@ public class Route {
 	// singleton design pattern / only one route
 	private Route() {
 		TravistMapViewAdapter tmvadapter = TravistMapViewAdapter.getInstance();
+		
 		if ((mapView = tmvadapter.getMapView()) != null) {
 			loadGraphStorage();
 		} else {
 			 Toast.makeText(tmvadapter.getContext(), "Couldn't load graph storage for the route", Toast.LENGTH_SHORT).show();
 		}
+	}
+
+	private void setContext(TravistMapViewAdapter tmvadapter) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	public static Route getInstance() {
@@ -67,7 +73,7 @@ public class Route {
 	public void calcPath(final double fromLat, final double fromLon,
 			final double toLat, final double toLon) {
 
-		(TravistMapViewAdapter.getInstance()).logD("Calculating", this);
+		 Toast.makeText(TravistMapViewAdapter.getInstance().getContext(), "Calculating...", Toast.LENGTH_SHORT).show();
 		new AsyncTask<Void, Void, GHResponse>() {
 			float time;
 
@@ -95,6 +101,10 @@ public class Route {
 							+ (int) (resp.getDistance() / 100) / 10f
 							+ "km long, time:" + resp.getMillis() / 60000f
 							+ "min, debug:" + time, this);
+					
+					
+					
+					Toast.makeText(TravistMapViewAdapter.getInstance().getContext(), "Route is found. Route is"+resp.getDistance() / 10f+" km from your current location", Toast.LENGTH_SHORT).show();
 
 					addToLayers(createPolyline(resp));
 					
