@@ -20,6 +20,8 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import android.os.AsyncTask;
+
 import com.graphhopper.routing.Path;
 
 import fi.metropolia.lbs.travist.offline_map.GHAsyncTask;

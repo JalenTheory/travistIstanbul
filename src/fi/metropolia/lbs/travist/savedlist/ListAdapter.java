@@ -4,7 +4,6 @@ import travist.pack.R;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

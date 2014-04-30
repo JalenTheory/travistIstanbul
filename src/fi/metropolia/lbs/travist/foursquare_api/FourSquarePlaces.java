@@ -2,6 +2,7 @@ package fi.metropolia.lbs.travist.foursquare_api;
 
 import java.io.IOException;
 import java.util.List;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -12,7 +13,7 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import travist.pack.R;
+
 import android.annotation.SuppressLint;
 import android.app.ListActivity;
 import android.content.Context;

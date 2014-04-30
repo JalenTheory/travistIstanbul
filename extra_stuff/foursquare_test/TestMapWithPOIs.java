@@ -5,7 +5,6 @@ import org.mapsforge.core.model.LatLong;
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
 import org.mapsforge.map.layer.overlay.Marker;
 
-import travist.pack.R;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import fi.metropolia.lbs.travist.offline_map.TestOfflineMapActivity;
