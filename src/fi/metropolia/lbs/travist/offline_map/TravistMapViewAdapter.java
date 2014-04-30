@@ -344,12 +344,12 @@ public class TravistMapViewAdapter implements AsyncFinished {
 //			e.printStackTrace();
 //		}
 		 
-	 	if(place.getIconUrl().contains("entertainment"))
+	 	if(place.getIconUrl().contains("entertainment") || place.getIconUrl().contains("art"))
 		{
 				markerIcon = fragment.getResources().getDrawable(R.drawable.gimp_art);
 				Log.i("raaam","I am entertainment");
 		}
-		else if(place.getIconUrl().contains("food"))
+		else if(place.getIconUrl().contains("food") || place.getIconUrl().contains("drink"))
 		{
 				markerIcon = fragment.getResources().getDrawable(R.drawable.gimp_food);
 				
@@ -362,11 +362,11 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		{
 				markerIcon = fragment.getResources().getDrawable(R.drawable.gimp_nightlife);
 		}
-		else if(place.getIconUrl().contains("shopping"))
+		else if(place.getIconUrl().contains("shop") || place.getIconUrl().contains("service"))
 		{
 				markerIcon = fragment.getResources().getDrawable(R.drawable.gimp_shopping);
 		}
-		else if(place.getCategoryName().contains("travel"))
+		else if(place.getCategoryName().contains("transport") || place.getIconUrl().contains("travel"))
 		{
 				markerIcon = fragment.getResources().getDrawable(R.drawable.gimp_travel);
 		}
@@ -382,13 +382,11 @@ public class TravistMapViewAdapter implements AsyncFinished {
 			public boolean onTap(LatLong geoPoint, Point viewPosition,
 					Point tapPoint) {
 				if (contains(viewPosition, tapPoint)) {
-					 Log.i("tag","#it works here00");
 					if (!check) {
 						check = true;
 
 						todoButton.setVisibility(View.VISIBLE);
 						saveButton.setVisibility(View.VISIBLE);
-						
 						
 						Layers layers = mapView.getLayerManager().getLayers();
 						Log.d("LOG", "Here's tapPoint and viewPosition: " + viewPosition + ", " + tapPoint);
@@ -421,41 +419,8 @@ public class TravistMapViewAdapter implements AsyncFinished {
 						
 						
 						layers.add(marker);
-						tempMarker = marker;
-						// DSA
-						
-						todoButton.setOnClickListener(new View.OnClickListener() {
-						    @Override
-						    public void onClick(View v) {
-						        
-						    }
-						});
-						
-						saveButton.setOnClickListener(new View.OnClickListener() {
-						    @Override
-						    public void onClick(View v) {
-						    /*	AlertDialog.Builder builder = new AlertDialog.Builder(context);
-								builder.setMessage("Add item to saved list?")
-								.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-									@Override
-									public void onClick(DialogInterface dialog, int which) {*/
-								    	 
-										String url = "http://users.metropolia.fi/~eetupa/Turkki/setSaved.php?pid="+place.getPlaceId()+"&uid="+uid;
-										 
-										UpSaved up = new UpSaved(url);
-										up.upload();
-										
-										ContentValues cv = new ContentValues();
-										cv.put(PlaceTableClass.IS_IN_SAVED, 1);
-										cv.put(PlaceTableClass.IS_IN_TODO, 0);
-										//context.getContentResolver().update(LBSContentProvider.PLACES_URI, cv, PlaceTableClass.PLACE_NAME+" = '"+pname+"'", null);
-										/*todoList.remove(groupPosition);
-										notifyDataSetChanged();
-				       					notifyDataSetInvalidated();*/
-									}
-								
-						    
-						});
+					 
+						 
 						return true;
 					}
 				}
