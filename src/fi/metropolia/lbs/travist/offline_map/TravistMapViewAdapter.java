@@ -73,7 +73,7 @@ import fi.metropolia.lbs.travist.todo.UpSaved;
  * @author Joni Turunen, Daniel Sanchez
  * 
  */
-public class TravistMapViewAdapter implements AsyncFinished {
+public class TravistMapViewAdapter implements AsyncFinished{
 
 	private static TravistMapViewAdapter uniqueInstance = null;
 
@@ -141,8 +141,6 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		todoButton= (Button) rootView.findViewById(R.id.todoButton);
 		saveButton= (Button) rootView.findViewById(R.id.saveButton);
 		
-		todoButton.setVisibility(View.INVISIBLE);
-		saveButton.setVisibility(View.INVISIBLE);
 		
 		return rootView;
 	}
@@ -299,7 +297,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 
 		TileRendererLayer tileRendererLayer = new TileRendererLayer(tileCache,
 				mapViewPosition, true, AndroidGraphicFactory.INSTANCE) {
-/*
+
 			@Override
 			public boolean onTap(LatLong tapLatLong, Point layerXY, Point tapXY) {
 				// TODO Auto-generated method stub
@@ -307,12 +305,13 @@ public class TravistMapViewAdapter implements AsyncFinished {
 					mapView.getLayerManager().getLayers().remove(tempMarker);
 					DanielMarker marker = addMarker(tempMarker.getLatLong(), tempMarker.getPlace());
 					mapView.getLayerManager().getLayers().add(marker);
-					tableLayout.setVisibility(View.INVISIBLE);
+					todoButton.setVisibility(View.VISIBLE);
+					saveButton.setVisibility(View.VISIBLE);
 					check = false;
 				}
 
 				return super.onTap(tapLatLong, layerXY, tapXY);
-			}*/
+			}
 
 		};
 
@@ -371,7 +370,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 				markerIcon = fragment.getResources().getDrawable(R.drawable.gimp_travel);
 		}
 		else{
-			markerIcon = fragment.getResources().getDrawable(R.drawable.flag_green);
+			markerIcon = fragment.getResources().getDrawable(R.drawable.alpha_transparent);
 	 	 }
 		 
 		//hello
@@ -385,9 +384,12 @@ public class TravistMapViewAdapter implements AsyncFinished {
 					if (!check) {
 						check = true;
 
+						
+						Log.i("tag","came to make the button visible");
 						todoButton.setVisibility(View.VISIBLE);
 						saveButton.setVisibility(View.VISIBLE);
 						
+						/*
 						Layers layers = mapView.getLayerManager().getLayers();
 						Log.d("LOG", "Here's tapPoint and viewPosition: " + viewPosition + ", " + tapPoint);
 						Log.w("Tapp", "The Marker was touched with onTap: " + this.getLatLong().toString());
@@ -396,9 +398,6 @@ public class TravistMapViewAdapter implements AsyncFinished {
 						TextView bubbleView = new TextView(fragment.getActivity());
 //						LinearLayout.LayoutParams Params1 = new LinearLayout.LayoutParams(15,50);
 //						bubbleView.setLayoutParams(Params1); 
-					
-						  Log.i("tag","#it works here00");
-							
 						  
 						setBackground(bubbleView,fragment.getResources().getDrawable(R.drawable.infowin_marker));
 						bubbleView.setGravity(Gravity.CENTER);
@@ -406,7 +405,6 @@ public class TravistMapViewAdapter implements AsyncFinished {
 						bubbleView.setTextSize(20);
 						bubbleView.setMaxWidth(40);
 						 
-						  Log.i("tag","#it works here");
 						//bind foursquare data to bubbleview
 						bubbleView.setText(place.getPlaceName()+"\n"+place.getCategoryName()+"\n"+place.getAddress());
 						
@@ -419,6 +417,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 						
 						
 						layers.add(marker);
+						*/
 					 
 						 
 						return true;

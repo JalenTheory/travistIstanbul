@@ -29,7 +29,8 @@
                 android:layout_height="30dp"
                 android:layout_column="1"
                 android:text="+ todo list"
-                android:textSize="10dp" />
+                android:textSize="10dp" 
+                android:visibility="invisible"/>
 
             <Button
                 android:id="@+id/savelistButton"
@@ -37,7 +38,8 @@
                 android:layout_height="30dp"
                 android:layout_column="1"
                 android:text="+ save in list"
-                android:textSize="10dp" />
+                android:textSize="10dp" 
+                android:visibility="invisible"/>
         </TableRow>
     </TableLayout>
 </RelativeLayout>
