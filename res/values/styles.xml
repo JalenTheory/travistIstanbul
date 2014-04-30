@@ -10,6 +10,11 @@
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
         -->
+        
+    
+         <item name="android:divider">@drawable/divider</item>
+    <item name="android:dividerHeight">1px</item>
+        
     </style>
 
     <!-- Application theme. -->
@@ -17,4 +22,6 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+    
+    
 </resources>
