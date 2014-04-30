@@ -391,7 +391,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		return mapView;
 	}
 
-	protected MyLocationOverlay getLocOverLay() {
+	public MyLocationOverlay getLocOverLay() {
 		return myLocationOverlay;
 	}
 

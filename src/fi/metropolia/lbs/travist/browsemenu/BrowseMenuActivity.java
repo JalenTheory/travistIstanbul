@@ -126,6 +126,23 @@ private class DrawerItemClickListener implements ListView.OnItemClickListener {
 			crit.setLimit("30");
 			
 			//ADD HERE GPS LOC / CRIT.SETLATLONG
+			double lat = 0;
+			double lng = 0;
+			
+			if (TravistMapViewAdapter.getInstance().getLocOverLay().getPosition() != null) {
+				lat = TravistMapViewAdapter.getInstance().getLocOverLay().getPosition().latitude;
+				lng = TravistMapViewAdapter.getInstance().getLocOverLay().getPosition().longitude;
+			}/*else {
+				if (TravistMapViewAdapter.getInstance().getLocOverLay() != null) {
+					lat = TravistMapViewAdapter.getInstance().getLocOverLay().getLastLocation().getLatitude();
+					lng = TravistMapViewAdapter.getInstance().getLocOverLay().getLastLocation().getLongitude();
+				}
+			}*/
+			
+			Log.d("LOG", "LatLng:" + lat + ", " + lng);
+			if (lat != 0 && lng != 0) {
+				crit.setLatLon(lat, lng);
+			}
 			
 			switch(position) {
 			case 0:

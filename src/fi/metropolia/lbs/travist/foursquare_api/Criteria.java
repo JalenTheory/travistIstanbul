@@ -79,4 +79,8 @@ public class Criteria {
 	public void setLatLon(String latitude, String longitude) {
 		latlon = latitude + "," + longitude;
 	}
+	
+	public void setLatLon(double latitude, double longitude) {
+		latlon = latitude + "," + longitude;
+	}
 }

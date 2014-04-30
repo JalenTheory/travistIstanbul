@@ -99,8 +99,8 @@ public class TravistMapViewAdapterFragment extends Fragment{
 	public void onStop() {
 		// TODO Auto-generated method stub
 		super.onStop();
-		/*
 		mTravistMapViewAdapter.getLocOverLay().disableMyLocation();
+		/*
 		mTravistMapViewAdapter.destroyLayers();
 		mTravistMapViewAdapter.destroyMapViewPositions();
 		mTravistMapViewAdapter.destroyMapViews();
