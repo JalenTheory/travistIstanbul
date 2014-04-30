@@ -48,7 +48,7 @@ public class BrowseMenuActivity extends Activity {
 		}
 	
 		
-		Integer[] drawableIcons ={R.drawable.arts,R.drawable.food,R.drawable.nightlife,R.drawable.medical,R.drawable.shopping,R.drawable.travel};
+		Integer[] drawableIcons ={R.drawable.gimp_art,R.drawable.gimp_food,R.drawable.gimp_nightlife,R.drawable.gimp_medical,R.drawable.gimp_shopping,R.drawable.gimp_travel};
 
 		mTitle = mDrawerTitle = getTitle();
 		categoriesItem = getResources().getStringArray(R.array.categories);
