@@ -292,7 +292,7 @@ public class TravistIstanbulActivity extends Activity implements SigninListener{
 			}
 		});
         */
-        // UNCOMMENT TO ENABLE LOGIN/LOGOFF 
+        /* UNCOMMENT TO ENABLE LOGIN/LOGOFF 
 	    if(login!=null){
 	        login.setOnClickListener(new OnClickListener() {
 				@Override
@@ -315,7 +315,7 @@ public class TravistIstanbulActivity extends Activity implements SigninListener{
 				    setCView();
 				}     		
         	});
-        }
+        }*/
         /*
 		if (savedInstanceState == null) {
 			AndroidGraphicFactory.createInstance(getApplication());			
