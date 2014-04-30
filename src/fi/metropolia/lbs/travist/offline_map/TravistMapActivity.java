@@ -19,7 +19,7 @@ import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
 public class TravistMapActivity extends Activity {
-	private final Fragment mRoutesFragment = new TestTravistMapViewAdapterFragment();
+	private final Fragment mRoutesFragment = new TravistMapViewAdapterFragment();
 
 	@SuppressLint("NewApi")
 	protected void onCreate(Bundle savedInstanceState) {

@@ -21,12 +21,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import fi.metropolia.lbs.travist.browsemenu.BrowseMenu;
+import fi.metropolia.lbs.travist.browsemenu.BrowseMenuActivity;
 import fi.metropolia.lbs.travist.emergency.EmergencyActivity;
 import fi.metropolia.lbs.travist.exchange.ExchangeActivity;
 import fi.metropolia.lbs.travist.exchange.ExchangeFetchXML;
 import fi.metropolia.lbs.travist.offline_map.AssetAdapter;
-import fi.metropolia.lbs.travist.offline_map.TestTravistMapViewAdapterFragment;
+import fi.metropolia.lbs.travist.offline_map.TravistMapViewAdapterFragment;
 import fi.metropolia.lbs.travist.register.RegisterActivity;
 import fi.metropolia.lbs.travist.savedlist.SavedlistActivity;
 import fi.metropolia.lbs.travist.todo.TodoActivity;
@@ -68,7 +68,7 @@ public class TravistIstanbulActivity extends Activity {
 	}
 
 	public void openMap(View view) {
-		Intent intent = new Intent(this, TestTravistMapViewAdapterFragment.class);
+		Intent intent = new Intent(this, TravistMapViewAdapterFragment.class);
 		startActivity(intent);
 	}
 
@@ -141,7 +141,7 @@ public class TravistIstanbulActivity extends Activity {
 		emergencyIntent = new Intent(this, EmergencyActivity.class);
 		exchangeIntent = new Intent(this, ExchangeActivity.class);
 		//This should open the maps activity(?)
-		browseIntent = new Intent(this, BrowseMenu.class);
+		browseIntent = new Intent(this, BrowseMenuActivity.class);
 		registerIntent = new Intent(this, RegisterActivity.class);
         
         todoButton = (LinearLayout) findViewById (R.id.main_todo);
@@ -214,7 +214,7 @@ public class TravistIstanbulActivity extends Activity {
         browseButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				new ActivityStartAsync(BrowseMenu.class).execute();
+				new ActivityStartAsync(BrowseMenuActivity.class).execute();
 				v.startAnimation(animScale);
 				browseButton.setAlpha(1f);
 			}

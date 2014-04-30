@@ -18,9 +18,9 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import fi.metropolia.lbs.travist.offline_map.routes.Route;
 
 @SuppressLint("NewApi")
-public class TestTravistMapViewAdapterFragment extends Fragment{
+public class TravistMapViewAdapterFragment extends Fragment{
 
-	public TestTravistMapViewAdapterFragment(){}
+	public TravistMapViewAdapterFragment(){}
 	
 	private TravistMapViewAdapter mTravistMapViewAdapter;
 	private Route route;

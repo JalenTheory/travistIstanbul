@@ -19,10 +19,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import fi.metropolia.lbs.travist.foursquare_api.Criteria;
-import fi.metropolia.lbs.travist.offline_map.TestTravistMapViewAdapterFragment;
+import fi.metropolia.lbs.travist.offline_map.TravistMapViewAdapterFragment;
 import fi.metropolia.lbs.travist.offline_map.TravistMapViewAdapter;
 
-public class BrowseMenu extends Activity {
+public class BrowseMenuActivity extends Activity {
 
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
@@ -42,7 +42,7 @@ public class BrowseMenu extends Activity {
 		if (savedInstanceState == null) {
 			AndroidGraphicFactory.createInstance(getApplication());
 			
-			Fragment fragment = new TestTravistMapViewAdapterFragment();
+			Fragment fragment = new TravistMapViewAdapterFragment();
 			FragmentManager fragmentManager = getFragmentManager();
 			fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 		}

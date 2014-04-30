@@ -47,7 +47,7 @@
         <activity android:name="fi.metropolia.lbs.travist.emergency.EmergencyActivity" />
         <activity android:name="fi.metropolia.lbs.travist.exchange.ExchangeActivity" />
         <activity android:name="fi.metropolia.lbs.travist.register.RegisterActivity" />
-        <activity android:name="fi.metropolia.lbs.travist.browsemenu.BrowseMenu" />
+        <activity android:name="fi.metropolia.lbs.travist.browsemenu.BrowseMenuActivity" />
         <!-- Content provider permission -->
         <!-- Name is the directory of the class, authority is the AUTHORITY defined in CP -->
         <provider
