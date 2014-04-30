@@ -14,7 +14,8 @@
         android:id="@+id/categoriesButton"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:text="categories" />
+        android:text="categories" 
+        android:visibility="gone"/>
 
     <TableLayout
         android:id="@+id/tableMarker"
@@ -33,7 +34,10 @@
                 android:layout_width="10dp"
                 android:layout_height="30dp"
                 android:layout_column="1"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/custom_button"
                 android:text="+ todo list"
+                android:textColor="#ffffff"
                 android:textSize="10dp" />
 
             <Button
@@ -41,8 +45,10 @@
                 android:layout_width="10dp"
                 android:layout_height="30dp"
                 android:layout_column="1"
+                android:textColor="#ffffff"
                 android:text="+ save in list"
-                android:textSize="10dp" />
+                android:textSize="10dp" 
+                android:background="@drawable/custom_button"/>
         </TableRow>
     </TableLayout>
 </RelativeLayout>

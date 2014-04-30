@@ -2,7 +2,7 @@ package fi.metropolia.lbs.travist;
 
 public class CheckInternetConnectivity {
 
-	public Boolean isInternetAvailable() {
+	public static Boolean isInternetAvailable() {
 	    try {
 	        Process p1 = java.lang.Runtime.getRuntime().exec("ping -c 1 www.google.com");
 	        int returnVal = p1.waitFor();

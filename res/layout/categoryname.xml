@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"  >
-    <TableRow>
+    android:layout_height="match_parent"
+    android:background="@drawable/list_selector" >
+
+    <TableRow android:layout_weight="1" >
+
         <ImageView
             android:id="@+id/imageViewCategoryIcon"
             android:layout_width="50dp"
-            android:layout_height="match_parent"/>
-      <TextView 
-    android:id="@+id/categorynametextView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textAppearance="?android:attr/textAppearanceListItemSmall"
-    android:gravity="center_vertical"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:textColor="#fff"
-    android:background="?android:attr/activatedBackgroundIndicator"
-    android:minHeight="?android:attr/listPreferredItemHeightSmall"/>
-</TableRow>
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/categorynametextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minHeight="?android:attr/listPreferredItemHeightSmall"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:textColor="#fff" />
+    </TableRow>
+
 </TableLayout>
