@@ -62,13 +62,12 @@ import fi.metropolia.lbs.travist.foursquare_api.Place;
 import fi.metropolia.lbs.travist.offline_map.routes.Route;
 import fi.metropolia.lbs.travist.todo.UpSaved;
 
-
 /**
  * Handles the map view. To be used from an activity or a fragment.
  * 
- * 1. Get instance ( TravistMapViewAdapter.getInstance(); )
- * 2. Attach to activity / fragment ( attachTo(this); )
- * 3. Declare map view for activity / fragment and set ( set( MapView ..); )
+ * 1. Get instance ( TravistMapViewAdapter.getInstance(); ) 2. Attach to
+ * activity / fragment ( attachTo(this); ) 3. Declare map view for activity /
+ * fragment and set ( set( MapView ..); )
  * 
  * @author Joni Turunen, Daniel Sanchez
  * 
@@ -89,7 +88,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	private LatLong to;
 	private ArrayList<DanielMarker> danielMarkers = new ArrayList<DanielMarker>();
 	private MyLocationOverlay myLocationOverlay;
-	private TableLayout tableLayout;  
+	private TableLayout tableLayout;
 	private GraphHopperAPI hopper;
 	String client_id = "GWA2NRBNDFBENJIZIGFF2IFX5JTDTOUYUPLHCOCOTXMF34LU";
 	String client_secret = "JSI4CFI3HSMK1FPCIE4DLEDBXL321CM1SGENAX4HLXYTSCHG";
@@ -97,18 +96,18 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	public static final String TEST_CATEGORY = "category_numero";
 	private Button todoButton;
 	private Button saveButton;
-    private String uid;
-     
+	private String uid;
+	private TextView bubbleView;
+
 	// TODO methods to work as a mediator for integration
 
 	private boolean check = false;
 
-	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		 
+
 		// TODO Auto-generated method stub
-		this.uid="1";
+		this.uid = "1";
 		int i = 0;
 		View rootView = inflater.inflate(R.layout.map_frag, container, false);
 		mapView = (MapView) rootView.findViewById(R.id.mapView);
@@ -123,10 +122,10 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		// initializes position and zoom level
 		mapViewPosition = initializePosition(mapView.getModel().mapViewPosition);
 		Log.d("LOG", "FUCK" + i++);
-		tileCache = AndroidUtil.createTileCache(fragment.getActivity(), getClass()
-					.getSimpleName(),
-					mapView.getModel().displayModel.getTileSize(), 1f, 
-					mapView.getModel().frameBufferModel.getOverdrawFactor());
+		tileCache = AndroidUtil.createTileCache(fragment.getActivity(),
+				getClass().getSimpleName(),
+				mapView.getModel().displayModel.getTileSize(), 1f,
+				mapView.getModel().frameBufferModel.getOverdrawFactor());
 		Log.d("LOG", "FUCK" + i++);
 		loadMap();
 		if (!mapView.getLayerManager().getLayers().isEmpty()) {
@@ -134,23 +133,18 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		}
 		// testInitialZoom();
 		/*
-		tableLayout= (TableLayout) rootView.findViewById(R.id.tableMarker);
-		tableLayout.setVisibility(View.INVISIBLE);
-		*/
-		
-		todoButton= (Button) rootView.findViewById(R.id.todoButton);
-		todoButton= (Button) rootView.findViewById(R.id.saveButton);
-		
-		
+		 * tableLayout= (TableLayout) rootView.findViewById(R.id.tableMarker);
+		 * tableLayout.setVisibility(View.INVISIBLE);
+		 */
+
+		todoButton = (Button) rootView.findViewById(R.id.todoButton);
+		todoButton = (Button) rootView.findViewById(R.id.saveButton);
+
 		return rootView;
 	}
 
-
-	
-	 
 	public static TravistMapViewAdapter getInstance() {
-		
-		
+
 		if (uniqueInstance == null) {
 			uniqueInstance = new TravistMapViewAdapter();
 		}
@@ -203,11 +197,12 @@ public class TravistMapViewAdapter implements AsyncFinished {
 
 		// initializes position and zoom level
 		mapViewPosition = initializePosition(mapView.getModel().mapViewPosition);
-		
+
 		// add location tracking to the map
-		myLocationOverlay = new MyLocationOverlay(context, mapViewPosition, null);
+		myLocationOverlay = new MyLocationOverlay(context, mapViewPosition,
+				null);
 		myLocationOverlay.enableMyLocation(true);
-		//myLocationOverlay.setSnapToLocationEnabled(true);
+		// myLocationOverlay.setSnapToLocationEnabled(true);
 
 		tileCache = AndroidUtil.createTileCache(context, getClass()
 				.getSimpleName(),
@@ -223,7 +218,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 			if (isOnline()) {
 				// loadPlaces();
 			}
-			//callPath(); // test routes
+			// callPath(); // test routes
 		}
 	}
 
@@ -236,7 +231,6 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	protected MapPosition getInitialPosition(LatLong initPos) {
 		return new MapPosition(initPos, (byte) 7);
 	}
-
 
 	protected MapViewPosition initializePosition(MapViewPosition mvp) {
 		LatLong center = mvp.getCenter();
@@ -255,7 +249,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		// TODO Do this in drawernavigation
 		// This is for testing purposes / hardcoded criteria
 		LatLong lng = myLocationOverlay.getPosition();
-		
+
 		Criteria crit = new Criteria();
 		crit.setNear("istanbul");
 		crit.setLimit("30");
@@ -288,27 +282,26 @@ public class TravistMapViewAdapter implements AsyncFinished {
 
 	private void loadMap() {
 		logD("Loading Map");
-		//File mapFile = new File("/sdcard/graphhopper/maps/istanbul-gh/istanbul.map");
-		File mapFile = new File(fragment.getActivity().getFilesDir(), "istanbul-gh/istanbul.map");
+		// File mapFile = new
+		// File("/sdcard/graphhopper/maps/istanbul-gh/istanbul.map");
+		File mapFile = new File(fragment.getActivity().getFilesDir(),
+				"istanbul-gh/istanbul.map");
 		logD(mapFile.getAbsolutePath().toString());
 		mapView.getLayerManager().getLayers().clear();
 
 		TileRendererLayer tileRendererLayer = new TileRendererLayer(tileCache,
 				mapViewPosition, true, AndroidGraphicFactory.INSTANCE) {
-/*
-			@Override
-			public boolean onTap(LatLong tapLatLong, Point layerXY, Point tapXY) {
-				// TODO Auto-generated method stub
-				if (check) {
-					mapView.getLayerManager().getLayers().remove(tempMarker);
-					DanielMarker marker = addMarker(tempMarker.getLatLong(), tempMarker.getPlace());
-					mapView.getLayerManager().getLayers().add(marker);
-					tableLayout.setVisibility(View.INVISIBLE);
-					check = false;
-				}
-
-				return super.onTap(tapLatLong, layerXY, tapXY);
-			}*/
+			/*
+			 * @Override public boolean onTap(LatLong tapLatLong, Point layerXY,
+			 * Point tapXY) { // TODO Auto-generated method stub if (check) {
+			 * mapView.getLayerManager().getLayers().remove(tempMarker);
+			 * DanielMarker marker = addMarker(tempMarker.getLatLong(),
+			 * tempMarker.getPlace());
+			 * mapView.getLayerManager().getLayers().add(marker);
+			 * tableLayout.setVisibility(View.INVISIBLE); check = false; }
+			 * 
+			 * return super.onTap(tapLatLong, layerXY, tapXY); }
+			 */
 
 		};
 
@@ -326,7 +319,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 
 		mapView.getLayerManager().getLayers().add(tileRendererLayer);
 	}
-	
+
 	private DanielMarker addMarker(final LatLong latLong, final Place place) {
 		logD("Adding marker");
 		  
@@ -341,7 +334,10 @@ public class TravistMapViewAdapter implements AsyncFinished {
 //			e.printStackTrace();
 //		}
 		 
-	 	
+		if (bubbleView == null) {
+			makeBubbleView();
+		}
+		
 		 if(place.getCategoryName().equals("Cafe"))
 		{
 				markerIcon = fragment.getResources().getDrawable(R.drawable.cafe);
@@ -395,66 +391,49 @@ public class TravistMapViewAdapter implements AsyncFinished {
 
 						Layers layers = mapView.getLayerManager().getLayers();
 						Log.d("LOG", "Here's tapPoint and viewPosition: " + viewPosition + ", " + tapPoint);
-						Log.w("Tapp", "The Marker was touched with onTap: " + this.getLatLong().toString());
-
-						// From mapsforge examples
-						TextView bubbleView = new TextView(fragment.getActivity());
-//						LinearLayout.LayoutParams Params1 = new LinearLayout.LayoutParams(15,50);
-//						bubbleView.setLayoutParams(Params1); 
-						setBackground(bubbleView,fragment.getResources().getDrawable(R.drawable.infowin_marker));
-						bubbleView.setGravity(Gravity.CENTER);
-						bubbleView.setMaxEms(10);
-						bubbleView.setTextSize(20);
-						bubbleView.setMaxWidth(40);
 						 
-						  
-						//bind foursquare data to bubbleview
-						bubbleView.setText(place.getPlaceName()+"\n"+place.getCategoryName()+"\n"+place.getAddress());
-						
-						Bitmap bubble = viewToBitmap(fragment.getActivity(), bubbleView);
+						setTextToBubbleView(place);
+						Bitmap bubble = Utils.viewToBitmap(fragment.getActivity(), bubbleView);
 						bubble.incrementRefCount();
-						
 						
 						DanielMarker marker = new DanielMarker(latLong, bubble,
 												0, -bubble.getHeight() / 2, place);
 						
-						
 						layers.add(marker);
 						tempMarker = marker;
-						// DSA
 						
-						todoButton.setOnClickListener(new View.OnClickListener() {
-						    @Override
-						    public void onClick(View v) {
-						        
-						    }
-						});
+//						todoButton.setOnClickListener(new View.OnClickListener() {
+//						    @Override
+//						    public void onClick(View v) {
+//						        
+//						    }
+//						});
+//						
+//						saveButton.setOnClickListener(new View.OnClickListener() {
+//						    @Override
+//						    public void onClick(View v) {
+//						    /*	AlertDialog.Builder builder = new AlertDialog.Builder(context);
+//								builder.setMessage("Add item to saved list?")
+//								.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//									@Override
+//									public void onClick(DialogInterface dialog, int which) {*/
+//								    	 
+//										String url = "http://users.metropolia.fi/~eetupa/Turkki/setSaved.php?pid="+place.getPlaceId()+"&uid="+uid;
+//										 
+//										UpSaved up = new UpSaved(url);
+//										up.upload();
+//										
+//										ContentValues cv = new ContentValues();
+//										cv.put(PlaceTableClass.IS_IN_SAVED, 1);
+//										cv.put(PlaceTableClass.IS_IN_TODO, 0);
+//										//context.getContentResolver().update(LBSContentProvider.PLACES_URI, cv, PlaceTableClass.PLACE_NAME+" = '"+pname+"'", null);
+//										/*todoList.remove(groupPosition);
+//										notifyDataSetChanged();
+//				       					notifyDataSetInvalidated();*/
+//									}
+//						});
+				
 						
-						saveButton.setOnClickListener(new View.OnClickListener() {
-						    @Override
-						    public void onClick(View v) {
-						    /*	AlertDialog.Builder builder = new AlertDialog.Builder(context);
-								builder.setMessage("Add item to saved list?")
-								.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-									@Override
-									public void onClick(DialogInterface dialog, int which) {*/
-								    	 
-										String url = "http://users.metropolia.fi/~eetupa/Turkki/setSaved.php?pid="+place.getPlaceId()+"&uid="+uid;
-										 
-										UpSaved up = new UpSaved(url);
-										up.upload();
-										
-										ContentValues cv = new ContentValues();
-										cv.put(PlaceTableClass.IS_IN_SAVED, 1);
-										cv.put(PlaceTableClass.IS_IN_TODO, 0);
-										//context.getContentResolver().update(LBSContentProvider.PLACES_URI, cv, PlaceTableClass.PLACE_NAME+" = '"+pname+"'", null);
-										/*todoList.remove(groupPosition);
-										notifyDataSetChanged();
-				       					notifyDataSetInvalidated();*/
-									}
-								
-						    
-						});
 						return true;
 					}
 				}
@@ -463,6 +442,25 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		};
 	}
 
+	private void makeBubbleView() {
+		// From mapsforge examples
+		bubbleView = new TextView(activity);
+		// LinearLayout.LayoutParams Params1 = new
+		// LinearLayout.LayoutParams(15,50);
+		// bubbleView.setLayoutParams(Params1);
+		setBackground(bubbleView,
+				fragment.getResources().getDrawable(R.drawable.infowin_marker));
+		bubbleView.setGravity(Gravity.CENTER);
+		bubbleView.setMaxEms(10);
+		bubbleView.setTextSize(20);
+		bubbleView.setMaxWidth(40);
+	}
+
+	private void setTextToBubbleView(Place place) {
+		// bind foursquare data to bubbleview
+		bubbleView.setText(place.getPlaceName() + "\n"
+				+ place.getCategoryName() + "\n" + place.getAddress());
+	}
 
 	private boolean isOnline() {
 		try {
@@ -506,7 +504,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 					tempLatLong.latitude, tempLatLong.longitude);
 		}
 	}
-	
+
 	public void enableGps() {
 		logD("gps pressed..", this);
 		if (!myLocationOverlay.isMyLocationEnabled()) {
@@ -517,7 +515,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 			myLocationOverlay.setSnapToLocationEnabled(false);
 		}
 	}
-	
+
 	public Context getContext() {
 		return context != null ? context : null;
 	}
@@ -525,11 +523,11 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	public MapView getMapView() {
 		return mapView;
 	}
-	
+
 	protected MyLocationOverlay getLocOverLay() {
 		return myLocationOverlay;
 	}
-	
+
 	// for quick and dirty logging
 	protected void logD(String logText) {
 		Log.d("Testing", logText);
@@ -544,8 +542,8 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		Layers layers = mapView.getLayerManager().getLayers();
 		Log.d("LOG", "places: " + places.size());
 		Log.d("LOG", "placez: " + danielMarkers.size());
-		Log.d("LOG", "Item Amount: " +  layers.size());
-		
+		Log.d("LOG", "Item Amount: " + layers.size());
+
 		if (danielMarkers.size() >= 10) {
 			deletePoisFromMap();
 		}
@@ -556,9 +554,9 @@ public class TravistMapViewAdapter implements AsyncFinished {
 					new LatLong(
 							Double.parseDouble(places.get(i).getLatitude()),
 							Double.parseDouble(places.get(i).getLongitude())),
-							places.get(i));
+					places.get(i));
 			layers.add(marker1);
-			
+
 			danielMarkers.add(marker1);
 		}
 	}
@@ -566,14 +564,13 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	public void deletePoisFromMap() {
 		Layers layers = mapView.getLayerManager().getLayers();
 		Log.d("LOG", "deletePlacez size: " + danielMarkers.size());
-		
+
 		for (int i = 0; i < danielMarkers.size(); i++) {
 			layers.remove(danielMarkers.get(i));
 		}
 	}
-	
 
-	//From graphhopper examples
+	// From graphhopper examples
 	private void calcPath(final double fromLat, final double fromLon,
 			final double toLat, final double toLon) {
 
@@ -612,7 +609,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		}.execute();
 	}
 
-	//From graphhopper example
+	// From graphhopper example
 	private Polyline createPolyline(GHResponse response) {
 		logD("Polyline");
 		Paint paintStroke = AndroidGraphicFactory.INSTANCE.createPaint();
@@ -632,60 +629,59 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		return line;
 	}
 
-	//From graphhopper example
-		private void loadGraphStorage() {
-			logD("loading graph (" + Constants.VERSION + ") ... ");
-			new GHAsyncTask<Void, Void, Path>() {
-				protected Path saveDoInBackground(Void... v) throws Exception {
-					GraphHopper tmpHopp = new GraphHopper().forMobile();
-					tmpHopp.setCHShortcuts("fastest");
-					//File temp = new File("/sdcard/graphhopper/maps/istanbul");
-					File temp = new File(fragment.getActivity().getFilesDir(), "istanbul");
-					tmpHopp.load(temp.getAbsolutePath());
-					logD("found graph " + tmpHopp.getGraph().toString()
-							+ ", nodes:" + tmpHopp.getGraph().getNodes());
-					hopper = tmpHopp;
-					return null;
+	// From graphhopper example
+	private void loadGraphStorage() {
+		logD("loading graph (" + Constants.VERSION + ") ... ");
+		new GHAsyncTask<Void, Void, Path>() {
+			protected Path saveDoInBackground(Void... v) throws Exception {
+				GraphHopper tmpHopp = new GraphHopper().forMobile();
+				tmpHopp.setCHShortcuts("fastest");
+				// File temp = new File("/sdcard/graphhopper/maps/istanbul");
+				File temp = new File(fragment.getActivity().getFilesDir(),
+						"istanbul");
+				tmpHopp.load(temp.getAbsolutePath());
+				logD("found graph " + tmpHopp.getGraph().toString()
+						+ ", nodes:" + tmpHopp.getGraph().getNodes());
+				hopper = tmpHopp;
+				return null;
+			}
+
+			protected void onPostExecute(Path o) {
+				if (hasError()) {
+					logD("An error happend while creating graph:"
+							+ getErrorMessage());
+				} else {
+					logD("Finished loading graph. Touch to route.");
+					// callPath(); //Calc distance between to locations
+
+					// Do this in drawer navigation
+					Criteria crit = new Criteria();
+					crit.setNear("istanbul");
+					crit.setLimit("30");
+					crit.setCategoryId(Criteria.FOOD);
+
+					FourSquareQuery fq = new FourSquareQuery();
+					String url = fq.createQuery(crit);
+					Log.d("Main", "Main: " + url);
+
+					// DownloadJSON dlJSON = new
+					// DownloadJSON(TravistMapFragment.this);
+					// dlJSON.startDownload(url);
 				}
+			}
+		}.execute();
+	}
 
-				protected void onPostExecute(Path o) {
-					if (hasError()) {
-						logD("An error happend while creating graph:"
-								+ getErrorMessage());
-					} else {
-						logD("Finished loading graph. Touch to route.");
-						// callPath(); //Calc distance between to locations
-			
-						//Do this in drawer navigation
-						Criteria crit = new Criteria();
-						crit.setNear("istanbul");
-						crit.setLimit("30");
-						crit.setCategoryId(Criteria.FOOD);
+	// From mapsforge 0.4 examples
+	static Bitmap viewToBitmap(Context c, View view) {
+		view.measure(MeasureSpec.getSize(view.getMeasuredWidth()),
+				MeasureSpec.getSize(view.getMeasuredHeight()));
+		view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+		view.setDrawingCacheEnabled(true);
+		Drawable drawable = new BitmapDrawable(c.getResources(),
+				android.graphics.Bitmap.createBitmap(view.getDrawingCache()));
+		view.setDrawingCacheEnabled(false);
+		return AndroidGraphicFactory.convertToBitmap(drawable);
+	}
 
-						FourSquareQuery fq = new FourSquareQuery();
-						String url = fq.createQuery(crit);
-						Log.d("Main", "Main: " + url);
-
-						//DownloadJSON dlJSON = new DownloadJSON(TravistMapFragment.this);
-						//dlJSON.startDownload(url);
-					}
-				}
-			}.execute();
-		}
-
-	 
-		 
-
-		//From mapsforge 0.4 examples
-		static Bitmap viewToBitmap(Context c, View view) {
-			view.measure(MeasureSpec.getSize(view.getMeasuredWidth()),
-					MeasureSpec.getSize(view.getMeasuredHeight()));
-			view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
-			view.setDrawingCacheEnabled(true);
-			Drawable drawable = new BitmapDrawable(c.getResources(),
-					android.graphics.Bitmap.createBitmap(view.getDrawingCache()));
-			view.setDrawingCacheEnabled(false);
-			return AndroidGraphicFactory.convertToBitmap(drawable);
-		}
- 
 }
