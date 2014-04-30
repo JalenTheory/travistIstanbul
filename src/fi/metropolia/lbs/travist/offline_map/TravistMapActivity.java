@@ -2,7 +2,7 @@ package fi.metropolia.lbs.travist.offline_map;
 
 import org.mapsforge.map.android.graphics.AndroidGraphicFactory;
 
-import fi.metropolia.lbs.travist.offline_map.routes.RouteNavFragment;
+//import fi.metropolia.lbs.travist.offline_map.routes.RouteNavFragment;
 import fi.metropolia.lbs.travist.testing.QuickLog;
 import travist.pack.R;
 import android.annotation.SuppressLint;

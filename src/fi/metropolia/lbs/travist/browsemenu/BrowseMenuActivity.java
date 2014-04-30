@@ -153,9 +153,7 @@ private class DrawerItemClickListener implements ListView.OnItemClickListener {
 
 
 
-	private void selectItem(int position) {		
-		
-		
+	private void selectItem(int position) {		 
 		mDrawerList.setItemChecked(position, true);
 		setTitle(categoriesItem[position]);
 		mDrawerLayout.closeDrawer(mDrawerList);
