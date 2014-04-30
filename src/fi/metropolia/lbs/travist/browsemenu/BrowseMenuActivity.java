@@ -43,6 +43,17 @@ public class BrowseMenuActivity extends Activity {
 			AndroidGraphicFactory.createInstance(getApplication());
 			
 			Fragment fragment = new TravistMapViewAdapterFragment();
+			
+			Bundle bundle = this.getIntent().getExtras();
+			
+			if (bundle == null) {
+				Log.d("Ei pistet‰ mit‰‰", "Koska ei oo");
+			}
+			
+			else {
+				fragment.setArguments(this.getIntent().getExtras());
+			}
+			
 			FragmentManager fragmentManager = getFragmentManager();
 			fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 		}

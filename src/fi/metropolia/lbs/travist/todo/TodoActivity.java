@@ -59,8 +59,8 @@ public class TodoActivity extends Activity {
 		ContentValues cv = new ContentValues();
 		cv.put(PlaceTableClass.PLACE_ID, "123");
 		cv.put(PlaceTableClass.PLACE_NAME, "Manly Spa");
-		cv.put(PlaceTableClass.LATITUDE, "10");
-		cv.put(PlaceTableClass.LONGITUDE, "10");
+		cv.put(PlaceTableClass.LATITUDE, "40.9767204");
+		cv.put(PlaceTableClass.LONGITUDE, "29.1456406");
 		cv.put(PlaceTableClass.ADDRESS, "Sparoad");
 		cv.put(PlaceTableClass.CATEGORY_ID, "111");
 		cv.put(PlaceTableClass.CATEGORY_NAME, "Spa");

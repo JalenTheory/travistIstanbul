@@ -26,6 +26,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import fi.metropolia.lbs.travist.browsemenu.BrowseMenuActivity;
 import fi.metropolia.lbs.travist.database.LBSContentProvider;
 import fi.metropolia.lbs.travist.database.PlaceTableClass;
  
@@ -218,15 +219,22 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
         holder.saveButton = (Button) convertView.findViewById(R.id.saveButton);
         holder.saveButton.setFocusable(false);
         
-        LinearLayout todoShowOnMap = (LinearLayout) convertView.findViewById(R.id.todo_matchmake);
+        LinearLayout todoShowOnMap = (LinearLayout) convertView.findViewById(R.id.todo_map);
         todoShowOnMap.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				//Open map and show todo-item on map
+				Log.d("MAPPIA", "PAINETTU");
 				Intent intent = new Intent();
-				intent.setClass(context, TodoActivity.class);
-				//TODO: put the json object into the intent
+				
+				cursor.moveToPosition(groupPosition);
+				String Lat = cursor.getString(cursor.getColumnIndex(PlaceTableClass.LATITUDE));
+				String Long = cursor.getString(cursor.getColumnIndex(PlaceTableClass.LONGITUDE));
+				
+				intent.setClass(context, BrowseMenuActivity.class);
+				intent.putExtra("todoLat", Lat);
+				intent.putExtra("todoLong", Long);
 				context.startActivity(intent);
 			}
 		});
