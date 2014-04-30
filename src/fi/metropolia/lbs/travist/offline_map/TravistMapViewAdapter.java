@@ -65,7 +65,6 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	private LatLong to;
 	private ArrayList<DanielMarker> danielMarkers = new ArrayList<DanielMarker>();
 	private MyLocationOverlay myLocationOverlay;
-
 	private LayerManager layerManager;
 	DownloadJSON dlJSON = new DownloadJSON(TravistMapViewAdapter.this);
 
