@@ -138,7 +138,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		 */
 
 		todoButton = (Button) rootView.findViewById(R.id.todoButton);
-		todoButton = (Button) rootView.findViewById(R.id.saveButton);
+		saveButton = (Button) rootView.findViewById(R.id.saveButton);
 
 		return rootView;
 	}
@@ -302,6 +302,12 @@ public class TravistMapViewAdapter implements AsyncFinished {
 			 * 
 			 * return super.onTap(tapLatLong, layerXY, tapXY); }
 			 */
+			@Override 
+			public boolean onTap(LatLong geoPoint, Point viewPosition,
+					Point tapPoint) {
+				return false;
+				
+			}
 
 		};
 
@@ -396,43 +402,13 @@ public class TravistMapViewAdapter implements AsyncFinished {
 						Bitmap bubble = Utils.viewToBitmap(fragment.getActivity(), bubbleView);
 						bubble.incrementRefCount();
 						
-						DanielMarker marker = new DanielMarker(latLong, bubble,
+						DanielMarker bm = new DanielMarker(latLong, bubble,
 												0, -bubble.getHeight() / 2, place);
 						
-						layers.add(marker);
-						tempMarker = marker;
+						layers.add(bm);
+						tempMarker = bm;
 						
-//						todoButton.setOnClickListener(new View.OnClickListener() {
-//						    @Override
-//						    public void onClick(View v) {
-//						        
-//						    }
-//						});
-//						
-//						saveButton.setOnClickListener(new View.OnClickListener() {
-//						    @Override
-//						    public void onClick(View v) {
-//						    /*	AlertDialog.Builder builder = new AlertDialog.Builder(context);
-//								builder.setMessage("Add item to saved list?")
-//								.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//									@Override
-//									public void onClick(DialogInterface dialog, int which) {*/
-//								    	 
-//										String url = "http://users.metropolia.fi/~eetupa/Turkki/setSaved.php?pid="+place.getPlaceId()+"&uid="+uid;
-//										 
-//										UpSaved up = new UpSaved(url);
-//										up.upload();
-//										
-//										ContentValues cv = new ContentValues();
-//										cv.put(PlaceTableClass.IS_IN_SAVED, 1);
-//										cv.put(PlaceTableClass.IS_IN_TODO, 0);
-//										//context.getContentResolver().update(LBSContentProvider.PLACES_URI, cv, PlaceTableClass.PLACE_NAME+" = '"+pname+"'", null);
-//										/*todoList.remove(groupPosition);
-//										notifyDataSetChanged();
-//				       					notifyDataSetInvalidated();*/
-//									}
-//						});
-				
+						setSavingButtonsVisible(true);
 						
 						return true;
 					}
@@ -440,6 +416,10 @@ public class TravistMapViewAdapter implements AsyncFinished {
 				return false;
 			}
 		};
+	}
+	
+	private void setSavingButtonsVisible(Boolean visible) {
+		// TODO set buttons visible
 	}
 
 	private void makeBubbleView() {
