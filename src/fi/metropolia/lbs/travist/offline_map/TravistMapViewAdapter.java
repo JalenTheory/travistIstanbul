@@ -27,6 +27,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -67,7 +68,6 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	private MyLocationOverlay myLocationOverlay;
 	private LayerManager layerManager;
 	DownloadJSON dlJSON = new DownloadJSON(TravistMapViewAdapter.this);
-
 	private LayerOnTapController layerOnTapController;
 
 	// TODO methods to work as a mediator for integration
@@ -125,6 +125,25 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		addLocOverLayToMap();
 		createTileCacheForMap();
 		loadMap();
+		
+		Bundle bundle = fragment.getArguments();
+		if (bundle != null) {
+			Log.d("ARGUMENTTEJÄ!", "hiarz");
+			Layers layersz = mapView.getLayerManager().getLayers();
+			
+			Drawable markerIconz = activity.getResources().getDrawable(
+					R.drawable.flag_green);
+			
+			Bitmap bmz = AndroidGraphicFactory.convertToBitmap(markerIconz);
+			
+			DanielMarker marker = new DanielMarker ((new LatLong(Double.parseDouble(fragment.getArguments().getString("todoLat")), Double.parseDouble(fragment.getArguments().getString("todoLong")))), bmz, 0, 0);
+			layersz.add(marker);
+			Log.d("Markerin coords", fragment.getArguments().getString("todoLat") + "--" + fragment.getArguments().getString("todoLong"));
+		}
+		else {
+			Log.d("Vittu", "tääl mitää oo");
+		}
+		
 		setupFragmentMenuThingy();
 	}
 	
