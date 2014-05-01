@@ -30,6 +30,24 @@ public class TravistActionProvider extends ActionProvider {
 	    });
 	    return view;
 	}
+	/*
+	@Override
+	public View onCreateActionView(){
+	  View view = View.inflate(context, R.layout.action_layout, null);
+
+	  final PopupMenu menu = new PopupMenu(mContext, view);
+	  menu.inflate(R.menu.submenu);
+	  menu.setOnMenuItemClickListener(this);
+
+	  view.setOnClickListener(new OnClickListener() {
+
+	    @Override
+	    public void onClick(View v){
+	        menu.show();
+	    }
+	});
+	*/
+	return view;
 	@Override
 	public View onCreateActionView() {
 		// TODO Auto-generated method stub
