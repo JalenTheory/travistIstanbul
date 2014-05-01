@@ -1,5 +1,7 @@
 package fi.metropolia.lbs.travist.offline_map;
 
+import android.widget.Toast;
+
 public class SelectRouteState implements MapState {
 	private LayerOnTapController mStateContext;
 	
@@ -11,6 +13,7 @@ public class SelectRouteState implements MapState {
 	@Override
 	public void execute() {		
 		TravistMapViewAdapter tmva = TravistMapViewAdapter.getInstance();
+		Toast.makeText(tmva.getContext(), "Select point of origin", Toast.LENGTH_LONG);
 		tmva.logD("routing.. ", this);
 		tmva.routeFrom(tmva.getLastLayerTapPos());
 		tmva.routeTo();

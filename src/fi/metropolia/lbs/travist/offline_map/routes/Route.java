@@ -79,7 +79,7 @@ public class Route {
 			protected GHResponse doInBackground(Void... v) {
 				StopWatch sw = new StopWatch().start();
 				GHRequest req = new GHRequest(fromLat, fromLon, toLat, toLon)
-						.setAlgorithm("dijkstrabi").setVehicle("car")
+						.setAlgorithm("dijkstrabi").setVehicle("foot")
 						.putHint("instructions", false)
 						.putHint("douglas.minprecision", 1);
 				GHResponse resp = hopperApi.route(req);

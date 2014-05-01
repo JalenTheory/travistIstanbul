@@ -24,6 +24,7 @@ import fi.metropolia.lbs.travist.emergency.EmergencyActivity;
 import fi.metropolia.lbs.travist.exchange.ExchangeActivity;
 import fi.metropolia.lbs.travist.exchange.ExchangeFetchXML;
 import fi.metropolia.lbs.travist.offline_map.AssetAdapter;
+import fi.metropolia.lbs.travist.offline_map.TravistMapViewAdapter;
 import fi.metropolia.lbs.travist.offline_map.TravistMapViewAdapterFragment;
 import fi.metropolia.lbs.travist.savedlist.SavedlistActivity;
 import fi.metropolia.lbs.travist.todo.TodoActivity;
@@ -279,6 +280,7 @@ public class TravistIstanbulActivity extends Activity implements SigninListener{
 			public void onClick(View v) {
 				v.startAnimation(animScale);
 				browseButton.setAlpha(1f);
+				TravistMapViewAdapter.getInstance().destroy();
 				Intent i = new Intent(TravistIstanbulActivity.this, BrowseMenuActivity.class);
 				startActivity(i);
 			}
@@ -352,7 +354,7 @@ public class TravistIstanbulActivity extends Activity implements SigninListener{
 			        @Override
 			        public void run() {
 			            try {
-			                t.sleep(200);
+			                t.sleep(700);
 			                runOnUiThread(new Runnable() {
 			                    public void run() {
 			                        setContentView(R.layout.splash_screen);

@@ -160,7 +160,7 @@ private class DrawerItemClickListener implements ListView.OnItemClickListener {
 			Criteria crit = new Criteria();
 			crit.setNear("istanbul");
 			crit.setLimit("30");
-			
+				
 			//ADD HERE GPS LOC / CRIT.SETLATLONG
 			double lat = 0;
 			double lng = 0;

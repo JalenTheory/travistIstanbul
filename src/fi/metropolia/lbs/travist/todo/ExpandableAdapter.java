@@ -24,6 +24,7 @@ import android.widget.TextView;
 import fi.metropolia.lbs.travist.browsemenu.BrowseMenuActivity;
 import fi.metropolia.lbs.travist.database.LBSContentProvider;
 import fi.metropolia.lbs.travist.database.PlaceTableClass;
+import fi.metropolia.lbs.travist.offline_map.TravistMapViewAdapter;
  
 public class ExpandableAdapter extends BaseExpandableListAdapter{
  
@@ -220,16 +221,29 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
 			@Override
 			public void onClick(View v) {
 				//Open map and show todo-item on map
-				Log.d("MAPPIA", "PAINETTU");
 				Intent intent = new Intent();
 				
 				cursor.moveToPosition(groupPosition);
+				String placeId = cursor.getString(cursor.getColumnIndex(PlaceTableClass.PLACE_ID));
+				String placeName = cursor.getString(cursor.getColumnIndex(PlaceTableClass.PLACE_NAME));
 				String lati = cursor.getString(cursor.getColumnIndex(PlaceTableClass.LATITUDE));
 				String Long = cursor.getString(cursor.getColumnIndex(PlaceTableClass.LONGITUDE));
+				String address = cursor.getString(cursor.getColumnIndex(PlaceTableClass.ADDRESS));
+				String categoryId = cursor.getString(cursor.getColumnIndex(PlaceTableClass.CATEGORY_ID));
+				String categoryName = cursor.getString(cursor.getColumnIndex(PlaceTableClass.CATEGORY_NAME));
 				
 				intent.setClass(context, BrowseMenuActivity.class);
+				intent.putExtra("placeId", placeId);
+				intent.putExtra("placeName", placeName);
 				intent.putExtra("lati", lati);
 				intent.putExtra("longi", Long);
+				intent.putExtra("address", address);
+				intent.putExtra("categoryId", categoryId);
+				intent.putExtra("categoryName", categoryName);
+				intent.putExtra("iconURL", "list");
+				
+				TravistMapViewAdapter.getInstance().destroy();
+				
 				context.startActivity(intent);
 				//TODO: put the json object into the intent
 			}

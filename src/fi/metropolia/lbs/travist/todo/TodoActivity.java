@@ -85,14 +85,14 @@ public class TodoActivity extends Activity {
 		cv1.put(PlaceTableClass.CATEGORY_NAME, "Ice cream");
 		cv1.put(PlaceTableClass.IS_IN_TODO, "1");
 		cv1.put(PlaceTableClass.IS_IN_SAVED, "0");
-		cv1.put(PlaceTableClass.EMAIL, "b");
+		cv1.put(PlaceTableClass.EMAIL, "");
 		this.getContentResolver().insert(LBSContentProvider.PLACES_URI, cv1);
 		
 		ContentValues cv2 = new ContentValues();
 		cv2.put(PlaceTableClass.PLACE_ID, "789");
-		cv2.put(PlaceTableClass.PLACE_NAME, "Döner");
-		cv2.put(PlaceTableClass.LATITUDE, "11");
-		cv2.put(PlaceTableClass.LONGITUDE, "12");
+		cv2.put(PlaceTableClass.PLACE_NAME, "Do");
+		cv2.put(PlaceTableClass.LATITUDE, "40.9767204");
+		cv2.put(PlaceTableClass.LONGITUDE, "29.1456406");
 		cv2.put(PlaceTableClass.ADDRESS, "Kebabroad");
 		cv2.put(PlaceTableClass.CATEGORY_ID, "112");
 		cv2.put(PlaceTableClass.CATEGORY_NAME, "Restaurant");
