@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import fi.metropolia.lbs.travist.CheckInternetConnectivity;
 import fi.metropolia.lbs.travist.foursquare_api.Criteria;
@@ -125,6 +126,8 @@ public class BrowseMenuActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main, menu);
+		View view = (View) menu.findItem(R.id.ap_test_button).getActionView();
+		final TextView actionTV = (TextView) view.findViewById(R.id.ap_test_button);
 		return super.onCreateOptionsMenu(menu);
 	}
 
