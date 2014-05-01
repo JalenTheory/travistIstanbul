@@ -36,6 +36,7 @@ public class BrowseMenuActivity extends Activity implements ActionMode.Callback 
 	private CharSequence mTitle;
 	private String[] categoriesItem;
 	private ActionMode mActionMode;
+	private TravistMapViewAdapter tmva;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class BrowseMenuActivity extends Activity implements ActionMode.Callback 
 			AndroidGraphicFactory.createInstance(getApplication());
 			
 			Fragment fragment = new TravistMapViewAdapterFragment();
-			
+			tmva = TravistMapViewAdapter.getInstance();
 			Bundle bundle = this.getIntent().getExtras();
 			
 			if (bundle == null) {
@@ -241,18 +242,18 @@ private class DrawerItemClickListener implements ListView.OnItemClickListener {
 	public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
         switch (item.getItemId()) {
         case R.id.actionmode_item_route:
-            Toast.makeText(this, "route!", Toast.LENGTH_SHORT).show();
+        	tmva.logD("routing", this);
             
             // handles the ontap of origin
-            TravistMapViewAdapter.getInstance().changeViewToSelectOrigin();
-            TravistMapViewAdapter.getInstance().closeBubble();
+            tmva.changeViewToSelectOrigin();
+            tmva.refreshPois();
             mode.finish(); // Action picked, so close the CAB
             return true;
         case R.id.actionmode_item_todolist:
-        	Toast.makeText(this, "todo!", Toast.LENGTH_SHORT).show();
+        	tmva.logD("todolist", this);
         	
-        	TravistMapViewAdapter.getInstance().addToTodolist();
-        	TravistMapViewAdapter.getInstance().closeBubble();
+        	tmva.addToTodolist();
+        	tmva.refreshPois();
         	mode.finish(); // Action picked, so close the CAB
         	return true;
         default:

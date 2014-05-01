@@ -11,6 +11,6 @@ public class NormalState implements MapState{
 	@Override
 	public void execute() {
 		TravistMapViewAdapter.getInstance().logD("NormalState execute");
-		TravistMapViewAdapter.getInstance().restoreMarkers();
+		TravistMapViewAdapter.getInstance().refreshPois();
 	}
 }

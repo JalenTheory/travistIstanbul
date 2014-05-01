@@ -271,10 +271,11 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	 * 
 	 * @param criteria
 	 */
-	public void loadPlaces(Criteria criteria) {
+	public void loadPlaces(Criteria criteria) {		
 		lastCriteria = criteria;
 		
 		if (isOnline()) {
+			Toast.makeText(context, "Loading attractions..", Toast.LENGTH_SHORT);
 			FourSquareQuery fq = new FourSquareQuery();
 			String url = fq.createQuery(criteria);
 			Log.d("Main", "Main: " + url);
@@ -365,7 +366,8 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	public void changeViewToSelectOrigin() {
 		// some text view for testing
 		logD("change view: select origin", this);
-		Toast.makeText(context, "select origin point", Toast.LENGTH_LONG);
+		Toast.makeText(context, "Please, select an origin point for your route", Toast.LENGTH_LONG);
+		layerOnTapController.changeState(layerOnTapController.SELECT_ROUTE);
 	}
 
 	private DanielMarker addMarker(final LatLong latLong, final Place place) {
@@ -487,11 +489,11 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		setSavingButtonsVisible(true);
 	}
 	
-	public void closeBubble() {
+	public void removeLastMarkerLayer() {
 		Layers layers = mapView.getLayerManager().getLayers();
+		if (layers.indexOf(tempMarker) > 0 && tempMarker != null)
+			layers.remove(layers.indexOf(tempMarker));
 		
-		layers.remove(layers.indexOf(tempMarker));
-		addMarker(tempLatLong, tempPlace);
 		//layers.add(addMarker(tempLatLong, tempPlace));
 	}
 	
@@ -615,10 +617,9 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		}
 	}
 	
-	public void restoreMarkers() {
-		if (bubbleView != null) {
-			loadPlaces(lastCriteria);
-		}
+	public void refreshPois() {
+		// deletePoisFromMap();
+		loadPlaces(lastCriteria);
 	}
 
 	public void enableGps() {
@@ -676,6 +677,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 
 	public void deletePoisFromMap() {
 		Layers layers = mapView.getLayerManager().getLayers();
+		removeLastMarkerLayer();
 		Log.d("LOG", "deletePlacez size: " + danielMarkers.size());
 		if (danielMarkers.size() > 15) {
 			for (int i = 0; i < danielMarkers.size(); i++) {
