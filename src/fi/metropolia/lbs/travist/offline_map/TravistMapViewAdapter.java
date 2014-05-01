@@ -26,12 +26,20 @@ import android.app.Fragment;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
+<<<<<<< HEAD
+=======
+import android.os.AsyncTask;
+>>>>>>> 3c41644321c2ddd978143f97fb50f105b93c7217
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
+<<<<<<< HEAD
 import android.widget.Toast;
+=======
+import fi.metropolia.lbs.travist.database.PlaceTableClass;
+>>>>>>> 3c41644321c2ddd978143f97fb50f105b93c7217
 import fi.metropolia.lbs.travist.foursquare_api.AsyncFinished;
 import fi.metropolia.lbs.travist.foursquare_api.Criteria;
 import fi.metropolia.lbs.travist.foursquare_api.DownloadJSON;
@@ -68,14 +76,58 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	private LayerManager layerManager;
 	DownloadJSON dlJSON = new DownloadJSON(TravistMapViewAdapter.this);
 	private LayerOnTapController layerOnTapController;
+<<<<<<< HEAD
 	private TextView bubbleView;
+=======
+>>>>>>> 3c41644321c2ddd978143f97fb50f105b93c7217
 
 	// TODO methods to work as a mediator for integration
 
 	private boolean check = false;
 
+<<<<<<< HEAD
 	// singleton design pattern
 	private TravistMapViewAdapter() {
+=======
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+
+		// TODO Auto-generated method stub
+		this.uid = "1";
+		int i = 0;
+		View rootView = inflater.inflate(R.layout.map_frag, container, false);
+		mapView = (MapView) rootView.findViewById(R.id.mapView);
+		mapView.setClickable(true);
+		// makes a nifty ruler
+		mapView.getMapScaleBar().setVisible(true);
+		mapView.setBuiltInZoomControls(true);
+		// don't know.
+		mapView.getMapZoomControls().setZoomLevelMin((byte) 10);
+		mapView.getMapZoomControls().setZoomLevelMax((byte) 20);
+		Log.d("LOG", "FUCK" + i++);
+		// initializes position and zoom level
+		mapViewPosition = initializePosition(mapView.getModel().mapViewPosition);
+		Log.d("LOG", "FUCK" + i++);
+		tileCache = AndroidUtil.createTileCache(fragment.getActivity(),
+				getClass().getSimpleName(),
+				mapView.getModel().displayModel.getTileSize(), 1f,
+				mapView.getModel().frameBufferModel.getOverdrawFactor());
+		Log.d("LOG", "FUCK" + i++);
+		loadMap();
+		if (!mapView.getLayerManager().getLayers().isEmpty()) {
+			loadGraphStorage();
+		}
+		// testInitialZoom();
+		/*
+		 * tableLayout= (TableLayout) rootView.findViewById(R.id.tableMarker);
+		 * tableLayout.setVisibility(View.INVISIBLE);
+		 */
+
+		todoButton = (Button) rootView.findViewById(R.id.todoButton);
+		saveButton = (Button) rootView.findViewById(R.id.saveButton);
+
+		return rootView;
+>>>>>>> 3c41644321c2ddd978143f97fb50f105b93c7217
 	}
 
 	public static TravistMapViewAdapter getInstance() {
@@ -304,7 +356,28 @@ public class TravistMapViewAdapter implements AsyncFinished {
 				tempLatLong = tapLatLong;
 				activity.openContextMenu(mapView);
 				return true;
+<<<<<<< HEAD
 
+=======
+=======
+			/*
+			 * @Override public boolean onTap(LatLong tapLatLong, Point layerXY,
+			 * Point tapXY) { // TODO Auto-generated method stub if (check) {
+			 * mapView.getLayerManager().getLayers().remove(tempMarker);
+			 * DanielMarker marker = addMarker(tempMarker.getLatLong(),
+			 * tempMarker.getPlace());
+			 * mapView.getLayerManager().getLayers().add(marker);
+			 * tableLayout.setVisibility(View.INVISIBLE); check = false; }
+			 * 
+			 * return super.onTap(tapLatLong, layerXY, tapXY); }
+			 */
+			@Override 
+			public boolean onTap(LatLong geoPoint, Point viewPosition,
+					Point tapPoint) {
+				return false;
+				
+>>>>>>> refactor_pnp
+>>>>>>> 3c41644321c2ddd978143f97fb50f105b93c7217
 			}
 
 		};
