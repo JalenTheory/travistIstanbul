@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,6 +20,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import fi.metropolia.lbs.travist.browsemenu.BrowseMenuActivity;
 import fi.metropolia.lbs.travist.emergency.EmergencyActivity;
 import fi.metropolia.lbs.travist.exchange.ExchangeActivity;
@@ -30,6 +32,7 @@ import fi.metropolia.lbs.travist.savedlist.SavedlistActivity;
 import fi.metropolia.lbs.travist.todo.TodoActivity;
 import fi.metropolia.lbs.travist.userprofile.RegisterActivity;
 import fi.metropolia.lbs.travist.userprofile.SigninListener;
+import fi.metropolia.lbs.travist.userprofile.UserDialog;
 import fi.metropolia.lbs.travist.userprofile.UserHelper;
 
 public class TravistIstanbulActivity extends Activity implements SigninListener{
@@ -293,16 +296,16 @@ public class TravistIstanbulActivity extends Activity implements SigninListener{
 			}
 		});
         */
-        /* UNCOMMENT TO ENABLE LOGIN/LOGOFF 
+        // UNCOMMENT TO ENABLE LOGIN/LOGOFF 
 	    if(login!=null){
 	        login.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					if(new CheckInternetConnectivity().isInternetAvailable(TodoActivity.this)){
+					if(new CheckInternetConnectivity().isInternetAvailable(TravistIstanbulActivity.this)){
 						UserDialog ud = new UserDialog();
 						ud.show(getFragmentManager(), "mainact");
 					}else{
-						Toast.makeText(TodoActivity.this, "No connection.", Toast.LENGTH_LONG).show();
+						Toast.makeText(TravistIstanbulActivity.this, "No connection.", Toast.LENGTH_LONG).show();
 					}
 				}
 	        });
@@ -320,7 +323,7 @@ public class TravistIstanbulActivity extends Activity implements SigninListener{
 				    setCView();
 				}     		
         	});
-        }*/
+        }
         /*
 		if (savedInstanceState == null) {
 			AndroidGraphicFactory.createInstance(getApplication());			

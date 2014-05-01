@@ -32,7 +32,8 @@
         </activity>
         
 		<activity android:name="fi.metropolia.lbs.travist.TravistIstanbulActivity"
-		    android:screenOrientation="portrait" />
+		    android:screenOrientation="portrait" 
+		    android:noHistory="true"/>
 		
         <!-- Leppävaara -->
         <activity android:name="fi.metropolia.lbs.travist.offline_gps.TravistLeppavaaraActivity"  />
@@ -49,7 +50,7 @@
             android:screenOrientation="portrait" />
         <activity android:name="fi.metropolia.lbs.travist.exchange.ExchangeActivity"
             android:screenOrientation="portrait" />
-        <activity android:name="fi.metropolia.lbs.travist.register.RegisterActivity"
+        <activity android:name="fi.metropolia.lbs.travist.userprofile.RegisterActivity"
             android:screenOrientation="portrait" />
         <activity android:name="fi.metropolia.lbs.travist.browsemenu.BrowseMenuActivity" 
             	  android:screenOrientation="portrait"/>

@@ -28,6 +28,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
@@ -538,6 +539,8 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	}
 	
 	public void addToTodolist() {
+		SharedPreferences settings = activity.getSharedPreferences("user", 0); 
+		String email = settings.getString("signed_in", "");
 		//add to todo to app db and server
 		ContentValues poi2 = new ContentValues();
 		poi2.put(PlaceTableClass.PLACE_ID, UUID.randomUUID().toString());		
@@ -549,7 +552,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		poi2.put(PlaceTableClass.CATEGORY_NAME, tempPlace.getCategoryName());
 		poi2.put(PlaceTableClass.IS_IN_TODO, "1");
 		poi2.put(PlaceTableClass.IS_IN_SAVED, "0");
-		poi2.put(PlaceTableClass.EMAIL, "");
+		poi2.put(PlaceTableClass.EMAIL, email);
 		activity.getContentResolver().insert(LBSContentProvider.PLACES_URI, poi2);
 		
 		Cursor c =activity.getContentResolver().query(LBSContentProvider.PLACES_URI, 
