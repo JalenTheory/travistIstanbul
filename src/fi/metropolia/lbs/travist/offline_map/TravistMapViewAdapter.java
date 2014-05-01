@@ -2,6 +2,9 @@ package fi.metropolia.lbs.travist.offline_map;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.mapsforge.core.graphics.Bitmap;
 import org.mapsforge.core.model.LatLong;
@@ -25,6 +28,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
@@ -56,7 +60,7 @@ import fi.metropolia.lbs.travist.todo.UpSaved;
  * 
  */
 public class TravistMapViewAdapter implements AsyncFinished {
-	ArrayList<Place> places;
+	
 	private static TravistMapViewAdapter uniqueInstance = null;
 	int lastPoiLayer;
 	int lastBubbleLayer;
@@ -79,17 +83,19 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	private Criteria lastCriteria;
 	private LatLong lastLayerTapLatLong;
 	private View rootView;
+	private Set<Integer> poiLayerSet;
+	private Place tempPlace;
 
 	// TODO methods to work as a mediator for integration
 
 	private boolean check = false;
 
-	private Place tempPlace;
 
 	private LatLong tempGeoPoint;
 
 	// singleton design pattern
 	private TravistMapViewAdapter() {
+		poiLayerSet = new TreeSet<Integer>();
 	}
 
 	public static TravistMapViewAdapter getInstance() {
@@ -346,12 +352,6 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		mapView.getLayerManager().getLayers().add(tileRendererLayer);
 	}
 	
-	public void hideButtons() {
-		fragment.hideButtons();
-	}
-	public void showButtons() {
-		fragment.showButtons();
-	}
 	
 	public LatLong getLastLayerTapPos() {
 		return lastLayerTapLatLong;
@@ -424,8 +424,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 
 		return new DanielMarker(latLong, bm, 0, -bm.getHeight(), place) {
 			private LatLong tempPoiLatLong;
-			private Place tempPlace;
-
+			
 			@Override
 			public boolean onTap(LatLong geoPoint, Point viewPosition,
 					Point tapPoint) {
@@ -472,7 +471,6 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	public void openBubble(Place place, LatLong geoPoint, LatLong latLong) {
 		Layers layers = mapView.getLayerManager().getLayers();
 		
-
 		setTextToBubbleView(place);
 		Bitmap bubble = Utils.viewToBitmap(
 				fragment.getActivity(), bubbleView);
@@ -480,15 +478,18 @@ public class TravistMapViewAdapter implements AsyncFinished {
 
 		DanielMarker bm = new DanielMarker(latLong, bubble, 0,
 				-bubble.getHeight() / 2, place);
-
+		
 		layers.add(bm);
-		lastBubbleLayer = layers.indexOf(bm);
+		
+		int i = layers.indexOf(bm);
+		logD("Addign to poilayerset " + i);
+		poiLayerSet.add(layers.indexOf(bm));
+		
 		tempMarker = bm;
 		tempGeoPoint = geoPoint;
 		tempLatLong = latLong;
 		tempPlace = place;					
 
-		setSavingButtonsVisible(true);
 	}
 	public void closeLastBubble() {
 		if (lastBubbleLayer > 0)
@@ -505,7 +506,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	public void addToTodolist() {
 		//add to todo to app db and server
 		ContentValues poi2 = new ContentValues();
-		poi2.put(PlaceTableClass.PLACE_ID, tempPlace.getPlaceId());
+		poi2.put(PlaceTableClass.PLACE_ID, tempPlace.getPlaceId());		
 		poi2.put(PlaceTableClass.PLACE_NAME, tempPlace.getPlaceName());
 		poi2.put(PlaceTableClass.LATITUDE, tempPlace.getLatitude());
 		poi2.put(PlaceTableClass.LONGITUDE, tempPlace.getLongitude());
@@ -514,8 +515,12 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		poi2.put(PlaceTableClass.CATEGORY_NAME, tempPlace.getCategoryName());
 		poi2.put(PlaceTableClass.IS_IN_TODO, "1");
 		poi2.put(PlaceTableClass.IS_IN_SAVED, "0");
-		poi2.put(PlaceTableClass.EMAIL, "test@test.fi");
+		poi2.put(PlaceTableClass.EMAIL, "");
 		activity.getContentResolver().insert(LBSContentProvider.PLACES_URI, poi2);
+		
+		Cursor c =activity.getContentResolver().query(LBSContentProvider.PLACES_URI, 
+				null, "PLACE_ID = " + tempPlace.getPlaceId(), null, null);
+		logD("query : " + tempPlace.getPlaceId() + " -> " + c.getCount());
 		
 		class Dl extends AsyncTask<String, Void, String> {
 			private String url;
@@ -661,7 +666,6 @@ public class TravistMapViewAdapter implements AsyncFinished {
 
 	@Override
 	public void downloadFinish(ArrayList<Place> places) {
-		this.places = places;
 		deletePoisFromMap();
 		Layers layers = mapView.getLayerManager().getLayers();
 		Log.d("LOG", "places: " + places.size());
@@ -676,28 +680,27 @@ public class TravistMapViewAdapter implements AsyncFinished {
 							Double.parseDouble(places.get(i).getLongitude())),
 					places.get(i));
 			layers.add(marker1);
+			
+			int poi_i= layers.indexOf(marker1);
+			logD("Addign to poilayerset " + poi_i);
+			poiLayerSet.add(layers.indexOf(marker1));
 
 			danielMarkers.add(marker1);
-			lastPoiLayer = layers.indexOf(marker1);
 		}
 	}
 
 	public void deletePoisFromMap() {
 		Layers layers = mapView.getLayerManager().getLayers();
 		
-		if (lastPoiLayer > 0) {
-			layers.remove(lastPoiLayer);
-		}
-		/*
-		//removeLastMarkerLayer();
+	
 		Log.d("LOG", "deletePlacez size: " + danielMarkers.size());
-		if (danielMarkers.size() > 15) {
-			for (int i = 0; i < danielMarkers.size(); i++) {
-				layers.remove(danielMarkers.get(i));
-			}
-			danielMarkers.clear();
-		}
-		*/
+		
+		Layer tempLayer = layers.get(0);
+		layers.clear();
+		layers.add(tempLayer);
+
+		danielMarkers.clear();
+		
 	}
 
 	// MapsForge examples

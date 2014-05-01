@@ -246,8 +246,8 @@ private class DrawerItemClickListener implements ListView.OnItemClickListener {
             
             // handles the ontap of origin
             tmva.changeViewToSelectOrigin();
-            tmva.closeLastBubble();
-            tmva.refreshPois();
+            //tmva.closeLastBubble();
+            //tmva.refreshPois();
             mode.finish(); // Action picked, so close the CAB
             return true;
         case R.id.actionmode_item_todolist:

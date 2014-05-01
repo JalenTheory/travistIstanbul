@@ -28,15 +28,7 @@ public class TravistMapViewAdapterFragment extends Fragment{
 	private Button tdlb;
 	private Button slb;
 	
-	public void hideButtons() {
-		tdlb.setVisibility(View.INVISIBLE);
-		slb.setVisibility(View.INVISIBLE);
-	}
-	public void showButtons() {
-		tdlb.setVisibility(View.VISIBLE);
-		slb.setVisibility(View.VISIBLE);
-	}
-	
+
 	@SuppressLint("NewApi")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -53,17 +45,16 @@ public class TravistMapViewAdapterFragment extends Fragment{
 			Bundle savedInstanceState) {
 		rootView = inflater.inflate(R.layout.map_frag, container, false);
 		MapView mapView = (MapView) rootView.findViewById(R.id.mapView);
-			
+		
+		mTravistMapViewAdapter.set(mapView);
+		mTravistMapViewAdapter.initMapView();
+		/*	
 		if (mTravistMapViewAdapter.getMapView() == null) {
-			mTravistMapViewAdapter.set(mapView);
-			mTravistMapViewAdapter.initMapView();
-			mTravistMapViewAdapter.set(rootView);
 		} else {
 			mTravistMapViewAdapter.set(mapView);
 			mTravistMapViewAdapter.reInitMapView();
 			mTravistMapViewAdapter.loadMap();
-			mTravistMapViewAdapter.set(rootView);
-		}
+		}*/
 		// get first instance. For performance, let's show mapView first before
 		// initializing route
 		route = Route.getInstance();
@@ -117,9 +108,9 @@ public class TravistMapViewAdapterFragment extends Fragment{
 		mTravistMapViewAdapter.getLocOverLay().disableMyLocation();
 		/*
 		mTravistMapViewAdapter.destroyLayers();
+		 */
 		mTravistMapViewAdapter.destroyMapViewPositions();
 		mTravistMapViewAdapter.destroyMapViews();
 		mTravistMapViewAdapter.destroyTileCaches();
-		*/
 	}
 }
