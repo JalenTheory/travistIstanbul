@@ -85,7 +85,7 @@ public class TodoActivity extends Activity {
 		cv1.put(PlaceTableClass.CATEGORY_NAME, "Ice cream");
 		cv1.put(PlaceTableClass.IS_IN_TODO, "1");
 		cv1.put(PlaceTableClass.IS_IN_SAVED, "0");
-		cv1.put(PlaceTableClass.EMAIL, "RAM.RAM@RAM.FI");
+		cv1.put(PlaceTableClass.EMAIL, "");
 		this.getContentResolver().insert(LBSContentProvider.PLACES_URI, cv1);
 		
 		ContentValues cv2 = new ContentValues();
@@ -98,7 +98,7 @@ public class TodoActivity extends Activity {
 		cv2.put(PlaceTableClass.CATEGORY_NAME, "Restaurant");
 		cv2.put(PlaceTableClass.IS_IN_TODO, "1");
 		cv2.put(PlaceTableClass.IS_IN_SAVED, "0");
-		cv2.put(PlaceTableClass.EMAIL, "asd@asd.asd");
+		cv2.put(PlaceTableClass.EMAIL, "");
 		this.getContentResolver().insert(LBSContentProvider.PLACES_URI, cv2);
 
 		String[] projection = new String[]{

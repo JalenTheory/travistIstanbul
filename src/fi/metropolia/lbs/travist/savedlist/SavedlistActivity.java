@@ -57,16 +57,26 @@ public class SavedlistActivity extends Activity{
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				//Open saved-item on map
 				//Open map and show todo-item on map
-				Log.d("MAPPIA", "PAINETTU");
-				Intent intent = new Intent();
+Intent intent = new Intent();
 				
 				cursor.moveToPosition(position);
+				String placeId = cursor.getString(cursor.getColumnIndex(PlaceTableClass.PLACE_ID));
+				String placeName = cursor.getString(cursor.getColumnIndex(PlaceTableClass.PLACE_NAME));
 				String lati = cursor.getString(cursor.getColumnIndex(PlaceTableClass.LATITUDE));
 				String Long = cursor.getString(cursor.getColumnIndex(PlaceTableClass.LONGITUDE));
+				String address = cursor.getString(cursor.getColumnIndex(PlaceTableClass.ADDRESS));
+				String categoryId = cursor.getString(cursor.getColumnIndex(PlaceTableClass.CATEGORY_ID));
+				String categoryName = cursor.getString(cursor.getColumnIndex(PlaceTableClass.CATEGORY_NAME));
 				
 				intent.setClass(view.getContext(), BrowseMenuActivity.class);
+				intent.putExtra("placeId", placeId);
+				intent.putExtra("placeName", placeName);
 				intent.putExtra("lati", lati);
 				intent.putExtra("longi", Long);
+				intent.putExtra("address", address);
+				intent.putExtra("categoryId", categoryId);
+				intent.putExtra("categoryName", categoryName);
+				intent.putExtra("iconURL", "list");
 				view.getContext().startActivity(intent);
 			}
 		});

@@ -220,7 +220,6 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
 			@Override
 			public void onClick(View v) {
 				//Open map and show todo-item on map
-				Log.d("MAPPIA", "PAINETTU");
 				Intent intent = new Intent();
 				
 				cursor.moveToPosition(groupPosition);
