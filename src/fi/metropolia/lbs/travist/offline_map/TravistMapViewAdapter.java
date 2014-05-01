@@ -428,44 +428,34 @@ public class TravistMapViewAdapter implements AsyncFinished {
 			makeBubbleView();
 		}
 		
-		 if(place.getCategoryName().equals("Cafe"))
+		if(place.getIconUrl().contains("entertainment") || place.getIconUrl().contains("art"))
 		{
-				markerIcon = fragment.getResources().getDrawable(R.drawable.cafe);
+				markerIcon = fragment.getResources().getDrawable(R.drawable.gimp_art);
+				Log.i("raaam","I am entertainment");
 		}
-		else if(place.getCategoryName().equals("History Museum"))
+		else if(place.getIconUrl().contains("food") || place.getIconUrl().contains("drink"))
 		{
-			 markerIcon = fragment.getResources().getDrawable(R.drawable.historymuseum);
+				markerIcon = fragment.getResources().getDrawable(R.drawable.gimp_food);
+
 		}
-		else if(place.getCategoryName().equals("Museum"))
+		else if(place.getIconUrl().contains("medical"))
 		{
-				markerIcon = fragment.getResources().getDrawable(R.drawable.museum);
+				markerIcon = fragment.getResources().getDrawable(R.drawable.medical);
 		}
-		else if(place.getCategoryName().equals("Art Museum"))
+		else if(place.getIconUrl().contains("nightlife"))
 		{
-				markerIcon = fragment.getResources().getDrawable(R.drawable.artmuseum);
+				markerIcon = fragment.getResources().getDrawable(R.drawable.gimp_nightlife);
 		}
-		else if(place.getCategoryName().equals("Science Museum"))
+		else if(place.getIconUrl().contains("shop") || place.getIconUrl().contains("service"))
 		{
-				markerIcon = fragment.getResources().getDrawable(R.drawable.sciencemuseum);
+				markerIcon = fragment.getResources().getDrawable(R.drawable.gimp_shopping);
 		}
-		else if(place.getCategoryName().contains("Site"))
+		else if(place.getCategoryName().contains("transport") || place.getIconUrl().contains("travel"))
 		{
-				markerIcon = fragment.getResources().getDrawable(R.drawable.historicsite);
-		}
-		else if(place.getCategoryName().equals("Library"))
-		{
-			markerIcon = fragment.getResources().getDrawable(R.drawable.library);
-		}
-		else if(place.getCategoryName().contains("Event"))
-		{
-				markerIcon = fragment.getResources().getDrawable(R.drawable.eventspace);
-		}
-		else if(place.getCategoryName().contains("Residential"))
-		{
-				markerIcon = fragment.getResources().getDrawable(R.drawable.apartment);
+				markerIcon = fragment.getResources().getDrawable(R.drawable.gimp_travel);
 		}
 		else{
-			markerIcon = fragment.getResources().getDrawable(R.drawable.flag_green);
+			markerIcon = fragment.getResources().getDrawable(R.drawable.alpha_transparent);
 	 	 }
 		 
 		//hello
