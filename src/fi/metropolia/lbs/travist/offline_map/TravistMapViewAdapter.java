@@ -23,9 +23,11 @@ import travist.pack.R;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ActionMode.Callback;
@@ -33,12 +35,15 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import fi.metropolia.lbs.travist.database.LBSContentProvider;
+import fi.metropolia.lbs.travist.database.PlaceTableClass;
 import fi.metropolia.lbs.travist.foursquare_api.AsyncFinished;
 import fi.metropolia.lbs.travist.foursquare_api.Criteria;
 import fi.metropolia.lbs.travist.foursquare_api.DownloadJSON;
 import fi.metropolia.lbs.travist.foursquare_api.FourSquareQuery;
 import fi.metropolia.lbs.travist.foursquare_api.Place;
 import fi.metropolia.lbs.travist.offline_map.routes.Route;
+import fi.metropolia.lbs.travist.todo.UpSaved;
 
 /**
  * Handles the map view. To be used from an activity or a fragment.
@@ -77,6 +82,10 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	// TODO methods to work as a mediator for integration
 
 	private boolean check = false;
+
+	private Place tempPlace;
+
+	private LatLong tempGeoPoint;
 
 	// singleton design pattern
 	private TravistMapViewAdapter() {
@@ -421,27 +430,13 @@ public class TravistMapViewAdapter implements AsyncFinished {
 					if (!check) {
 						check = true;
 						
-						openBubble();
-						Layers layers = mapView.getLayerManager().getLayers();
+						openBubble(place, geoPoint, latLong);
 						Log.d("LOG", "Here's tapPoint and viewPosition: "
 								+ viewPosition + ", " + tapPoint);
-
-						setTextToBubbleView(place);
-						Bitmap bubble = Utils.viewToBitmap(
-								fragment.getActivity(), bubbleView);
-						bubble.incrementRefCount();
-
-						DanielMarker bm = new DanielMarker(latLong, bubble, 0,
-								-bubble.getHeight() / 2, place);
-
-						layers.add(bm);
-						tempMarker = bm;
-						tempPoiLatLong = geoPoint;
-						tempLatLong = tempPoiLatLong;
-						tempPlace = place;					
-
-						setSavingButtonsVisible(true);
+						
+						// opens route and todolist add options
 						activity.startActionMode((Callback) activity);
+						
 						return true;
 					}
 				}
@@ -471,15 +466,73 @@ public class TravistMapViewAdapter implements AsyncFinished {
 			 */
 		};
 	}
-	public void openBubble() {
+	public void openBubble(Place place, LatLong geoPoint, LatLong latLong) {
+		Layers layers = mapView.getLayerManager().getLayers();
 		
+
+		setTextToBubbleView(place);
+		Bitmap bubble = Utils.viewToBitmap(
+				fragment.getActivity(), bubbleView);
+		bubble.incrementRefCount();
+
+		DanielMarker bm = new DanielMarker(latLong, bubble, 0,
+				-bubble.getHeight() / 2, place);
+
+		layers.add(bm);
+		tempMarker = bm;
+		tempGeoPoint = geoPoint;
+		tempLatLong = latLong;
+		tempPlace = place;					
+
+		setSavingButtonsVisible(true);
 	}
 	
 	public void closeBubble() {
+		Layers layers = mapView.getLayerManager().getLayers();
 		
+		layers.remove(layers.indexOf(tempMarker));
+		addMarker(tempLatLong, tempPlace);
+		//layers.add(addMarker(tempLatLong, tempPlace));
 	}
 	public void addToTodolist() {
-		// TODO code
+		//add to todo to app db and server
+		ContentValues poi2 = new ContentValues();
+		poi2.put(PlaceTableClass.PLACE_ID, tempPlace.getPlaceId());
+		poi2.put(PlaceTableClass.PLACE_NAME, tempPlace.getPlaceName());
+		poi2.put(PlaceTableClass.LATITUDE, tempPlace.getLatitude());
+		poi2.put(PlaceTableClass.LONGITUDE, tempPlace.getLongitude());
+		poi2.put(PlaceTableClass.ADDRESS, tempPlace.getAddress());
+		poi2.put(PlaceTableClass.CATEGORY_ID, tempPlace.getCategoryId());
+		poi2.put(PlaceTableClass.CATEGORY_NAME, tempPlace.getCategoryName());
+		poi2.put(PlaceTableClass.IS_IN_TODO, "1");
+		poi2.put(PlaceTableClass.IS_IN_SAVED, "0");
+		poi2.put(PlaceTableClass.EMAIL, "test@test.fi");
+		activity.getContentResolver().insert(LBSContentProvider.PLACES_URI, poi2);
+		
+		class Dl extends AsyncTask<String, Void, String> {
+			private String url;
+
+			@Override
+			protected void onPreExecute(){
+				url = "http://users.metropolia.fi/~eetupa/Turkki/setTodo.php" +
+						"?pid="/*place id here*/ +
+						"&email="/*user email here (can be empty)*/;
+			}
+			protected String doInBackground(String... urls) {
+				try {
+					new UpSaved(url).upload();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return null;
+			}
+
+			@Override
+			protected void onPostExecute(String result) {
+
+			}
+		}
+
 	}
 
 	private void setSavingButtonsVisible(Boolean visible) {
