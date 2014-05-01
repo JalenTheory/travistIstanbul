@@ -57,16 +57,17 @@ public class TravistMapViewAdapterFragment extends Fragment{
 		Button tdlb = (Button) rootView.findViewById(R.id.todolist_button);
 		Button slb = (Button) rootView.findViewById(R.id.savelist_button);	
 				
-		if (mTravistMapViewAdapter.getMapView() == null) {
-			mTravistMapViewAdapter.set(mapView);
-			mTravistMapViewAdapter.initMapView();
-			mTravistMapViewAdapter.set(rootView);
+		mTravistMapViewAdapter.set(mapView);
+		mTravistMapViewAdapter.initMapView();
+		mTravistMapViewAdapter.set(rootView);
+		/*if (mTravistMapViewAdapter.getMapView() == null) {
+			
 		} else {
 			mTravistMapViewAdapter.set(mapView);
 			mTravistMapViewAdapter.reInitMapView();
 			mTravistMapViewAdapter.loadMap();
 			mTravistMapViewAdapter.set(rootView);
-		}
+		}*/
 		// get first instance. For performance, let's show mapView first before
 		// initializing route
 		route = Route.getInstance();
@@ -110,7 +111,7 @@ public class TravistMapViewAdapterFragment extends Fragment{
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		mTravistMapViewAdapter.getLocOverLay().enableMyLocation(false);
+		mTravistMapViewAdapter.getLocOverLay().enableMyLocation(true);
 	}
 
 	@Override
@@ -118,11 +119,11 @@ public class TravistMapViewAdapterFragment extends Fragment{
 		// TODO Auto-generated method stub
 		super.onStop();
 		mTravistMapViewAdapter.getLocOverLay().disableMyLocation();
-		/*
-		mTravistMapViewAdapter.destroyLayers();
+		
+		//mTravistMapViewAdapter.destroyLayers();
 		mTravistMapViewAdapter.destroyMapViewPositions();
 		mTravistMapViewAdapter.destroyMapViews();
 		mTravistMapViewAdapter.destroyTileCaches();
-		*/
+		
 	}
 }

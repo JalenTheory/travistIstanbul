@@ -73,7 +73,6 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	private Criteria lastCriteria;
 	private LatLong lastLayerTapLatLong;
 	private View rootView;
-	public DanielMarker listMarker;
 	
 	public Place listPlace;
 
@@ -162,7 +161,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 			listPlace.setCategoryName(categoryName);
 			listPlace.setIconUrl(iconURL);
 			
-			listMarker = addMarker(new LatLong(Double.parseDouble(listPlace.getLatitude()), (Double.parseDouble(listPlace.getLongitude()))), listPlace);
+			DanielMarker listMarker = addMarker(new LatLong(Double.parseDouble(listPlace.getLatitude()), (Double.parseDouble(listPlace.getLongitude()))), listPlace);
 			
 			layersz.add(listMarker);			
 			
@@ -203,9 +202,14 @@ public class TravistMapViewAdapter implements AsyncFinished {
 			listPlace.setCategoryId(categoryId);
 			listPlace.setCategoryName(categoryName);
 			listPlace.setIconUrl(iconURL);
-			layersz.remove(listMarker);
-			listMarker = addMarker(new LatLong(Double.parseDouble(listPlace.getLatitude()), (Double.parseDouble(listPlace.getLongitude()))), listPlace);
+
+			DanielMarker listMarker = addMarker(new LatLong(Double.parseDouble(listPlace.getLatitude()), (Double.parseDouble(listPlace.getLongitude()))), listPlace);
+			Log.d("asd" + layersz.indexOf(listMarker), "ASDADASD");
+			
+			
+			
 			layersz.add(listMarker);	
+			
 		} else {
 			// Do nothing 'cos no list-markers to add
 		}
@@ -429,7 +433,6 @@ public class TravistMapViewAdapter implements AsyncFinished {
 			markerIcon = fragment.getResources().getDrawable((R.drawable.list_marker_icon));
 		}
 		else {
-			Log.d("Hola hola", "Daniel");
 			markerIcon = fragment.getResources().getDrawable(
 					R.drawable.alpha_transparent);
 		}
@@ -649,12 +652,12 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	}
 
 	// MapsForge examples
-	protected void destroyLayers() {
+	/*protected void destroyLayers() {
 		for (Layer layer : layerManager.getLayers()) {
 			layerManager.getLayers().remove(layer);
 			layer.onDestroy();
 		}
-	}
+	}*/
 
 	protected void destroyMapViewPositions() {
 		mapViewPosition.destroy();
