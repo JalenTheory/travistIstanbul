@@ -17,6 +17,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 import fi.metropolia.lbs.travist.TravistIstanbulActivity;
+import fi.metropolia.lbs.travist.browsemenu.BrowseMenuActivity;
 import fi.metropolia.lbs.travist.database.LBSContentProvider;
 import fi.metropolia.lbs.travist.database.PlaceTableClass;
 import fi.metropolia.lbs.travist.savedlist.ListAdapter.ViewHolder;
@@ -33,7 +34,9 @@ public class SavedlistActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.saved);
 		
-		projection = new String[]{
+		getActionBar().hide();
+		
+		String[] projection = new String[]{
 				PlaceTableClass.ID,
 				PlaceTableClass.PLACE_ID,
 				PlaceTableClass.PLACE_NAME,
@@ -53,45 +56,18 @@ public class SavedlistActivity extends Activity{
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				//Open saved-item on map
-				Intent newintent = new Intent(SavedlistActivity.this, SavedlistActivity.class);
-				///SavedlistActivity.this.startActivity(newintent);
-			}
-		});
-	
-		lv.setOnItemLongClickListener(new OnItemLongClickListener() {
-			@Override
-			public boolean onItemLongClick(AdapterView<?> arg0, View v,
-					final int pos, long id) {
-				final ViewGroup vg = (ViewGroup) v;
-				AlertDialog.Builder builder = new AlertDialog.Builder(SavedlistActivity.this);
-				builder.setMessage("Remove item from saved list?")
-				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-					
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						
-						ContentValues cv = new ContentValues();
-       					cv.put(PlaceTableClass.IS_IN_SAVED, 0);
-       					ViewHolder holder = (ViewHolder) vg.getTag();
-       					TextView tv = (TextView) vg.findViewById(R.id.saved_listname);
-       					Log.d("moi","vg tv: "+tv.getText());
-       					SavedlistActivity.this.getContentResolver().update(LBSContentProvider.PLACES_URI,
-       							cv, PlaceTableClass.PLACE_NAME+" = '"+holder.itemName+"'", null);
-       					
-       					cursor = SavedlistActivity.this.getContentResolver().query(LBSContentProvider.PLACES_URI, projection, "IS_IN_SAVED = '1'", null, null);
-       					adapter.changeCursor(cursor);
-					}
-				}).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.cancel();
-					}
-					
-				});
-				AlertDialog dialog = builder.create();
-				dialog.show();
-				return false;
+				//Open map and show todo-item on map
+				Log.d("MAPPIA", "PAINETTU");
+				Intent intent = new Intent();
+				
+				cursor.moveToPosition(position);
+				String lati = cursor.getString(cursor.getColumnIndex(PlaceTableClass.LATITUDE));
+				String Long = cursor.getString(cursor.getColumnIndex(PlaceTableClass.LONGITUDE));
+				
+				intent.setClass(view.getContext(), BrowseMenuActivity.class);
+				intent.putExtra("lati", lati);
+				intent.putExtra("longi", Long);
+				view.getContext().startActivity(intent);
 			}
 		});
 	

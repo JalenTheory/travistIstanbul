@@ -60,7 +60,7 @@ public class TodoActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.todo);
 		
-		
+		getActionBar().hide();
 		
 		ContentValues cv = new ContentValues();
 		cv.put(PlaceTableClass.PLACE_ID, "123");
@@ -78,8 +78,8 @@ public class TodoActivity extends Activity {
 		ContentValues cv1 = new ContentValues();
 		cv1.put(PlaceTableClass.PLACE_ID, "456");
 		cv1.put(PlaceTableClass.PLACE_NAME, "Creamed");
-		cv1.put(PlaceTableClass.LATITUDE, "10");
-		cv1.put(PlaceTableClass.LONGITUDE, "11");
+		cv1.put(PlaceTableClass.LATITUDE, "40.9796373");
+		cv1.put(PlaceTableClass.LONGITUDE, "29.1275322");
 		cv1.put(PlaceTableClass.ADDRESS, "Iceroad");
 		cv1.put(PlaceTableClass.CATEGORY_ID, "111");
 		cv1.put(PlaceTableClass.CATEGORY_NAME, "Ice cream");

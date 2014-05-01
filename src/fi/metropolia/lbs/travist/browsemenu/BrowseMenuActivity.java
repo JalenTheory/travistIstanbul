@@ -42,7 +42,6 @@ public class BrowseMenuActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.categorydrawer);
 		
-
 		if (savedInstanceState == null) {
 			AndroidGraphicFactory.createInstance(getApplication());
 			
@@ -51,7 +50,7 @@ public class BrowseMenuActivity extends Activity {
 			Bundle bundle = this.getIntent().getExtras();
 			
 			if (bundle == null) {
-				Log.d("Ei pistet‰ mit‰‰", "Koska ei oo");
+				//This is for the regular browse-intent, so nothing's added as arguments
 			}
 			
 			else {

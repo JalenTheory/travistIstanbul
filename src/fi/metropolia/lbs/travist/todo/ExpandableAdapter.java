@@ -224,13 +224,14 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
 				Intent intent = new Intent();
 				
 				cursor.moveToPosition(groupPosition);
-				String Lat = cursor.getString(cursor.getColumnIndex(PlaceTableClass.LATITUDE));
+				String lati = cursor.getString(cursor.getColumnIndex(PlaceTableClass.LATITUDE));
 				String Long = cursor.getString(cursor.getColumnIndex(PlaceTableClass.LONGITUDE));
 				
 				intent.setClass(context, BrowseMenuActivity.class);
-				intent.putExtra("todoLat", Lat);
-				intent.putExtra("todoLong", Long);
+				intent.putExtra("lati", lati);
+				intent.putExtra("longi", Long);
 				context.startActivity(intent);
+				//TODO: put the json object into the intent
 			}
 		});
         

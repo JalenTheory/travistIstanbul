@@ -16,7 +16,7 @@
         android:background="@drawable/todo_item_place" >
         <LinearLayout
 		    android:id="@+id/todo_matchmake"
-		    android:layout_width="wrap_content"
+		    android:layout_width="15dp"
 		    android:layout_height="30dp"
 		    android:background="@drawable/todo_item_button"
 		    android:orientation="horizontal"
@@ -66,15 +66,16 @@
 		    android:layout_width="match_parent"
 		    android:layout_height="30dp"
 		    android:layout_weight="4"
-		    android:orientation="horizontal" >
+		    android:orientation="horizontal"
+		    android:gravity="center" >
 		        <Button 
 		        android:id="@+id/saveButton"
 		        android:layout_width="match_parent"
-		        android:layout_marginTop="3dp"
 		        android:layout_height="30dp"
-		        android:paddingBottom="5dp"
+		        android:paddingBottom="7dip"
 		        android:text="Save"
-		        />
+		        android:textSize="15dip"
+		        android:layout_gravity="center" />
 		</LinearLayout>
 	</LinearLayout>
 
@@ -91,7 +92,8 @@
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent"
 	        android:src="@drawable/map_icon"
-	        android:layout_marginBottom="5dp" />
+	        android:layout_marginBottom="4dp"
+	        android:layout_marginTop="4dp" />
         
 
 	    
