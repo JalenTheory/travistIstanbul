@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 	<item
 	    android:id="@+id/actionmode_item_route"
-	    android:icon="@drawable/flag_green"
+	    android:icon="@drawable/routes"
 	    android:title="Route here"
 	    />
 	<item
