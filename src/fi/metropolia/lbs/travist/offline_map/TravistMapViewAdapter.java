@@ -73,6 +73,8 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	private Criteria lastCriteria;
 	private LatLong lastLayerTapLatLong;
 	private View rootView;
+	
+	public Place listPlace;
 
 	// TODO methods to work as a mediator for integration
 
@@ -140,7 +142,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		Bundle bundle = fragment.getArguments();
 		// Retarded way of showing the list-marker on the map
 		if (bundle != null) {
-			Log.d("ARGUMENTTEJï¿½!", "hiarz");
+			Log.d("ARGUMENTTEJ!", "hiarz");
 			Layers layersz = mapView.getLayerManager().getLayers();
 
 			Drawable markerIconz = activity.getResources().getDrawable(
@@ -148,18 +150,46 @@ public class TravistMapViewAdapter implements AsyncFinished {
 
 			Bitmap bmz = AndroidGraphicFactory.convertToBitmap(markerIconz);
 
-			DanielMarker marker = new DanielMarker((new LatLong(
+			/*DanielMarker marker = new DanielMarker((new LatLong(
 					Double.parseDouble(fragment.getArguments()
 							.getString("lati")), Double.parseDouble(fragment
 							.getArguments().getString("longi")))), bmz, 0, 0);
-			layersz.add(marker);
-			Log.d("Markerin coords", fragment.getArguments().getString("lati")
-					+ "--" + fragment.getArguments().getString("longi"));
+			layersz.add(marker);*/
+			
+			String placeId = fragment.getArguments().getString("placeId");
+			String placeName = fragment.getArguments().getString("placeName");
+			String longitude = fragment.getArguments().getString("longi");
+			String latitude = fragment.getArguments().getString("lati");
+			String address = fragment.getArguments().getString("address");
+			String categoryId = fragment.getArguments().getString("categoryId");
+			String categoryName = fragment.getArguments().getString("categoryName");
+			String iconURL = fragment.getArguments().getString("iconURL");
+			
+			Log.d(placeId, placeName);
+			Log.d(longitude, latitude);
+			Log.d(address, categoryId);
+			
+			listPlace = new Place();
+			listPlace.setPlaceId(placeId);
+			listPlace.setPlaceName(placeName);
+			listPlace.setLongitude(longitude);
+			listPlace.setLatitude(latitude);
+			listPlace.setAddress(address);
+			listPlace.setCategoryId(categoryId);
+			listPlace.setCategoryName(categoryName);
+			listPlace.setIconUrl(iconURL);
+			
+			//DanielMarker listMarker = new DanielMarker(new LatLong(Double.parseDouble(latitude), (Double.parseDouble(longitude))), bmz, 0, 0, listPlace);
+			
+			
 		} else {
 			// Do nothing 'cos no list-markers to add
 		}
 
 		setupFragmentMenuThingy();
+		Log.d("LISÄÄÄÄÄÄÄ", "LISÄÄÄÄ");
+		addMarker(new LatLong(Double.parseDouble(listPlace.getLatitude()), (Double.parseDouble(listPlace.getLongitude()))), listPlace);
+		Log.d("LISÄTTTYYY", "ASDASDAD");
 	}
 
 	protected void reInitMapView() {
@@ -402,7 +432,15 @@ public class TravistMapViewAdapter implements AsyncFinished {
 				|| place.getIconUrl().contains("travel")) {
 			markerIcon = fragment.getResources().getDrawable(
 					R.drawable.gimp_travel);
-		} else {
+		} 
+		else if (place.getIconUrl().contains("list")) {
+			Log.d("FROM LIST", "ASDASD");
+			Log.d("LATITUDEEEE", place.getLatitude());
+			Log.d("LONGITUDEEE", place.getLongitude());
+			markerIcon = fragment.getResources().getDrawable((R.drawable.flag_green));
+		}
+		else {
+			Log.d("Hola hola", "Daniel");
 			markerIcon = fragment.getResources().getDrawable(
 					R.drawable.alpha_transparent);
 		}
@@ -413,6 +451,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		return new DanielMarker(latLong, bm, 0, -bm.getHeight(), place) {
 			private LatLong tempPoiLatLong;
 			private Place tempPlace;
+			
 
 			@Override
 			public boolean onTap(LatLong geoPoint, Point viewPosition,

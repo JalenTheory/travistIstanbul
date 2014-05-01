@@ -224,12 +224,23 @@ public class ExpandableAdapter extends BaseExpandableListAdapter{
 				Intent intent = new Intent();
 				
 				cursor.moveToPosition(groupPosition);
+				String placeId = cursor.getString(cursor.getColumnIndex(PlaceTableClass.PLACE_ID));
+				String placeName = cursor.getString(cursor.getColumnIndex(PlaceTableClass.PLACE_NAME));
 				String lati = cursor.getString(cursor.getColumnIndex(PlaceTableClass.LATITUDE));
 				String Long = cursor.getString(cursor.getColumnIndex(PlaceTableClass.LONGITUDE));
+				String address = cursor.getString(cursor.getColumnIndex(PlaceTableClass.ADDRESS));
+				String categoryId = cursor.getString(cursor.getColumnIndex(PlaceTableClass.CATEGORY_ID));
+				String categoryName = cursor.getString(cursor.getColumnIndex(PlaceTableClass.CATEGORY_NAME));
 				
 				intent.setClass(context, BrowseMenuActivity.class);
+				intent.putExtra("placeId", placeId);
+				intent.putExtra("placeName", placeName);
 				intent.putExtra("lati", lati);
 				intent.putExtra("longi", Long);
+				intent.putExtra("address", address);
+				intent.putExtra("categoryId", categoryId);
+				intent.putExtra("categoryName", categoryName);
+				intent.putExtra("iconURL", "list");
 				context.startActivity(intent);
 				//TODO: put the json object into the intent
 			}
