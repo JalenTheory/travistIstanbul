@@ -204,7 +204,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 			listPlace.setCategoryName(categoryName);
 			listPlace.setIconUrl(iconURL);
 			layersz.remove(listMarker);
-			DanielMarker listMarker = addMarker(new LatLong(Double.parseDouble(listPlace.getLatitude()), (Double.parseDouble(listPlace.getLongitude()))), listPlace);
+			listMarker = addMarker(new LatLong(Double.parseDouble(listPlace.getLatitude()), (Double.parseDouble(listPlace.getLongitude()))), listPlace);
 			layersz.add(listMarker);	
 		} else {
 			// Do nothing 'cos no list-markers to add
