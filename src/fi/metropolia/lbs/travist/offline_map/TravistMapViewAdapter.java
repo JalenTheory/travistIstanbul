@@ -306,7 +306,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 				activity.openContextMenu(mapView);
 				return true;
 			}
-		}
+		};
 		
 
 		tileRendererLayer.setMapFile(mapFile);
