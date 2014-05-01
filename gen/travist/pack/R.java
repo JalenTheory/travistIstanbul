@@ -117,7 +117,10 @@ public final class R {
         public static final int welcome_button=0x7f02005e;
     }
     public static final class id {
-        public static final int action_textview=0x7f0a007c;
+        public static final int action_provider_item=0x7f0a007c;
+        public static final int action_textview=0x7f0a007d;
+        public static final int actionmode_item_route=0x7f0a008f;
+        public static final int actionmode_item_todolist=0x7f0a0090;
         public static final int ap_test_button=0x7f0a0000;
         public static final int browse_icon=0x7f0a0053;
         public static final int button1=0x7f0a0001;
@@ -172,22 +175,22 @@ public final class R {
         public static final int emergency_police_number=0x7f0a0031;
         public static final int emergency_police_text=0x7f0a0030;
         public static final int emergency_service_text=0x7f0a0027;
-        public static final int enable_gps=0x7f0a0090;
+        public static final int enable_gps=0x7f0a0093;
         public static final int exchange_icon=0x7f0a003c;
         public static final int exchange_rates=0x7f0a003b;
         public static final int exchange_rates_currency_name=0x7f0a0042;
         public static final int exchange_rates_currency_rate=0x7f0a0043;
         public static final int exchange_rates_currency_sign=0x7f0a0041;
         public static final int exchange_rates_list=0x7f0a0040;
-        public static final int expandableListView=0x7f0a0080;
+        public static final int expandableListView=0x7f0a0081;
         public static final int header=0x7f0a0005;
         public static final int imageView1=0x7f0a0044;
         public static final int imageViewCategoryIcon=0x7f0a000d;
         public static final int insert=0x7f0a0046;
         public static final int item_detail=0x7f0a0057;
         public static final int left_drawer=0x7f0a000c;
-        public static final int listHeader=0x7f0a008b;
-        public static final int listItem=0x7f0a008d;
+        public static final int listHeader=0x7f0a008c;
+        public static final int listItem=0x7f0a008e;
         public static final int logoff=0x7f0a0054;
         public static final int main_achievements=0x7f0a0055;
         public static final int main_browse=0x7f0a0052;
@@ -198,7 +201,7 @@ public final class R {
         public static final int main_saved=0x7f0a004e;
         public static final int main_todo=0x7f0a004c;
         public static final int main_view_layout=0x7f0a0045;
-        public static final int mapButton=0x7f0a008c;
+        public static final int mapButton=0x7f0a008d;
         public static final int mapView=0x7f0a0058;
         public static final int map_fragment_container=0x7f0a005e;
         public static final int map_icon=0x7f0a0076;
@@ -217,14 +220,14 @@ public final class R {
         public static final int route_button=0x7f0a005d;
         public static final int route_button2=0x7f0a006d;
         public static final int route_button3=0x7f0a006e;
-        public static final int route_menu_from=0x7f0a008e;
-        public static final int route_menu_to=0x7f0a008f;
+        public static final int route_menu_from=0x7f0a0091;
+        public static final int route_menu_to=0x7f0a0092;
         public static final int route_nav=0x7f0a0069;
         public static final int routes_mapview_fragment=0x7f0a006b;
         public static final int row_item_background=0x7f0a0007;
         public static final int row_item_category=0x7f0a0009;
         public static final int row_item_category_icon=0x7f0a0008;
-        public static final int saveButton=0x7f0a0089;
+        public static final int saveButton=0x7f0a008a;
         public static final int saved=0x7f0a006f;
         public static final int savedTitle=0x7f0a0077;
         public static final int saved_icon=0x7f0a004f;
@@ -245,19 +248,19 @@ public final class R {
         public static final int text_in_euros=0x7f0a003f;
         public static final int text_place=0x7f0a0070;
         public static final int the_mapview=0x7f0a006c;
-        public static final int title=0x7f0a007f;
-        public static final int todo=0x7f0a007d;
+        public static final int title=0x7f0a0080;
+        public static final int todo=0x7f0a007e;
         public static final int todo_icon=0x7f0a004d;
-        public static final int todo_item_address=0x7f0a0087;
-        public static final int todo_item_match_icon=0x7f0a0085;
-        public static final int todo_list=0x7f0a007e;
-        public static final int todo_list_address=0x7f0a0088;
-        public static final int todo_listname=0x7f0a0086;
-        public static final int todo_map=0x7f0a008a;
-        public static final int todo_match_name=0x7f0a0081;
-        public static final int todo_match_nationality=0x7f0a0082;
-        public static final int todo_matchmake=0x7f0a0084;
-        public static final int todo_show_map=0x7f0a0083;
+        public static final int todo_item_address=0x7f0a0088;
+        public static final int todo_item_match_icon=0x7f0a0086;
+        public static final int todo_list=0x7f0a007f;
+        public static final int todo_list_address=0x7f0a0089;
+        public static final int todo_listname=0x7f0a0087;
+        public static final int todo_map=0x7f0a008b;
+        public static final int todo_match_name=0x7f0a0082;
+        public static final int todo_match_nationality=0x7f0a0083;
+        public static final int todo_matchmake=0x7f0a0085;
+        public static final int todo_show_map=0x7f0a0084;
         public static final int todolist_button=0x7f0a005b;
         public static final int tv=0x7f0a0003;
         public static final int update=0x7f0a0049;
@@ -296,17 +299,19 @@ public final class R {
         public static final int savedlist_activity=0x7f03001a;
         public static final int savedlist_item=0x7f03001b;
         public static final int splash_screen=0x7f03001c;
-        public static final int text_action=0x7f03001d;
-        public static final int todo=0x7f03001e;
-        public static final int todo_activity=0x7f03001f;
-        public static final int todo_matchmaking=0x7f030020;
-        public static final int todo_row=0x7f030021;
-        public static final int todolist_group=0x7f030022;
-        public static final int todolist_item=0x7f030023;
+        public static final int test_actionprovider=0x7f03001d;
+        public static final int text_action=0x7f03001e;
+        public static final int todo=0x7f03001f;
+        public static final int todo_activity=0x7f030020;
+        public static final int todo_matchmaking=0x7f030021;
+        public static final int todo_row=0x7f030022;
+        public static final int todolist_group=0x7f030023;
+        public static final int todolist_item=0x7f030024;
     }
     public static final class menu {
-        public static final int main=0x7f090000;
-        public static final int route_frag_menu=0x7f090001;
+        public static final int action_mode=0x7f090000;
+        public static final int main=0x7f090001;
+        public static final int route_frag_menu=0x7f090002;
     }
     public static final class string {
         public static final int action_settings=0x7f060001;

@@ -28,6 +28,7 @@ import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ActionMode.Callback;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
@@ -419,7 +420,8 @@ public class TravistMapViewAdapter implements AsyncFinished {
 				if (contains(viewPosition, tapPoint)) {
 					if (!check) {
 						check = true;
-
+						
+						openBubble();
 						Layers layers = mapView.getLayerManager().getLayers();
 						Log.d("LOG", "Here's tapPoint and viewPosition: "
 								+ viewPosition + ", " + tapPoint);
@@ -439,7 +441,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 						tempPlace = place;					
 
 						setSavingButtonsVisible(true);
-
+						activity.startActionMode((Callback) activity);
 						return true;
 					}
 				}
@@ -468,6 +470,16 @@ public class TravistMapViewAdapter implements AsyncFinished {
 			 * return true; }
 			 */
 		};
+	}
+	public void openBubble() {
+		
+	}
+	
+	public void closeBubble() {
+		
+	}
+	public void addToTodolist() {
+		// TODO code
 	}
 
 	private void setSavingButtonsVisible(Boolean visible) {

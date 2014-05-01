@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item
+	    android:id="@+id/actionmode_item_route"
+	    android:icon="@drawable/flag_green"
+	    android:title="Route here"
+	    />
+	<item
+	    android:id="@+id/actionmode_item_todolist"
+	    android:icon="@drawable/todo_icon"
+	    android:title="Add to list"
+	    />
+
+</menu>

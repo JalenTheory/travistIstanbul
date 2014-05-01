@@ -19,15 +19,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 import fi.metropolia.lbs.travist.CheckInternetConnectivity;
 import fi.metropolia.lbs.travist.foursquare_api.Criteria;
 import fi.metropolia.lbs.travist.offline_map.TravistMapViewAdapter;
 import fi.metropolia.lbs.travist.offline_map.TravistMapViewAdapterFragment;
+import android.view.ActionMode;
 
 @SuppressLint("NewApi")
-public class BrowseMenuActivity extends Activity {
+public class BrowseMenuActivity extends Activity implements ActionMode.Callback {
 
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
@@ -35,8 +35,7 @@ public class BrowseMenuActivity extends Activity {
 	private CharSequence mDrawerTitle;
 	private CharSequence mTitle;
 	private String[] categoriesItem;
-
-	
+	private ActionMode mActionMode;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +90,6 @@ public class BrowseMenuActivity extends Activity {
 				
 				Toast.makeText(this, "No Internet connection", Toast.LENGTH_LONG).show();
 			}
-			
 		}
 
 		
@@ -126,8 +124,7 @@ public class BrowseMenuActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main, menu);
-		View view = (View) menu.findItem(R.id.ap_test_button).getActionView();
-		final TextView actionTV = (TextView) view.findViewById(R.id.ap_test_button);
+		
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -146,7 +143,8 @@ public class BrowseMenuActivity extends Activity {
 			return true;
 		}
 		switch (item.getItemId()) {
-
+		case R.id.action_textview:
+			Toast.makeText(this, "works", Toast.LENGTH_SHORT);
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -237,6 +235,50 @@ private class DrawerItemClickListener implements ListView.OnItemClickListener {
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
 		mDrawerToggle.onConfigurationChanged(newConfig);
+	}
+
+	@Override
+	public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.actionmode_item_route:
+            Toast.makeText(this, "route!", Toast.LENGTH_SHORT).show();
+            
+            // handles the ontap of origin
+            TravistMapViewAdapter.getInstance().changeViewToSelectOrigin();
+            TravistMapViewAdapter.getInstance().closeBubble();
+            mode.finish(); // Action picked, so close the CAB
+            return true;
+        case R.id.actionmode_item_todolist:
+        	Toast.makeText(this, "todo!", Toast.LENGTH_SHORT).show();
+        	
+        	TravistMapViewAdapter.getInstance().addToTodolist();
+        	TravistMapViewAdapter.getInstance().closeBubble();
+        	mode.finish(); // Action picked, so close the CAB
+        	return true;
+        default:
+            return false;
+        }
+	}
+
+	@Override
+	public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+		// Inflate a menu resource providing context menu items
+        MenuInflater inflater = mode.getMenuInflater();
+        inflater.inflate(R.menu.action_mode, menu);
+        return true;
+	}
+
+	@Override
+	public void onDestroyActionMode(ActionMode mode) {
+		// TODO Auto-generated method stub
+		mActionMode = null;
+		
+	}
+
+	@Override
+	public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
