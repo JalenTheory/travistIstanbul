@@ -26,20 +26,12 @@ import android.app.Fragment;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
-<<<<<<< HEAD
-=======
-import android.os.AsyncTask;
->>>>>>> 3c41644321c2ddd978143f97fb50f105b93c7217
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
-<<<<<<< HEAD
 import android.widget.Toast;
-=======
-import fi.metropolia.lbs.travist.database.PlaceTableClass;
->>>>>>> 3c41644321c2ddd978143f97fb50f105b93c7217
 import fi.metropolia.lbs.travist.foursquare_api.AsyncFinished;
 import fi.metropolia.lbs.travist.foursquare_api.Criteria;
 import fi.metropolia.lbs.travist.foursquare_api.DownloadJSON;
@@ -76,58 +68,14 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	private LayerManager layerManager;
 	DownloadJSON dlJSON = new DownloadJSON(TravistMapViewAdapter.this);
 	private LayerOnTapController layerOnTapController;
-<<<<<<< HEAD
 	private TextView bubbleView;
-=======
->>>>>>> 3c41644321c2ddd978143f97fb50f105b93c7217
 
 	// TODO methods to work as a mediator for integration
 
 	private boolean check = false;
 
-<<<<<<< HEAD
 	// singleton design pattern
 	private TravistMapViewAdapter() {
-=======
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-
-		// TODO Auto-generated method stub
-		this.uid = "1";
-		int i = 0;
-		View rootView = inflater.inflate(R.layout.map_frag, container, false);
-		mapView = (MapView) rootView.findViewById(R.id.mapView);
-		mapView.setClickable(true);
-		// makes a nifty ruler
-		mapView.getMapScaleBar().setVisible(true);
-		mapView.setBuiltInZoomControls(true);
-		// don't know.
-		mapView.getMapZoomControls().setZoomLevelMin((byte) 10);
-		mapView.getMapZoomControls().setZoomLevelMax((byte) 20);
-		Log.d("LOG", "FUCK" + i++);
-		// initializes position and zoom level
-		mapViewPosition = initializePosition(mapView.getModel().mapViewPosition);
-		Log.d("LOG", "FUCK" + i++);
-		tileCache = AndroidUtil.createTileCache(fragment.getActivity(),
-				getClass().getSimpleName(),
-				mapView.getModel().displayModel.getTileSize(), 1f,
-				mapView.getModel().frameBufferModel.getOverdrawFactor());
-		Log.d("LOG", "FUCK" + i++);
-		loadMap();
-		if (!mapView.getLayerManager().getLayers().isEmpty()) {
-			loadGraphStorage();
-		}
-		// testInitialZoom();
-		/*
-		 * tableLayout= (TableLayout) rootView.findViewById(R.id.tableMarker);
-		 * tableLayout.setVisibility(View.INVISIBLE);
-		 */
-
-		todoButton = (Button) rootView.findViewById(R.id.todoButton);
-		saveButton = (Button) rootView.findViewById(R.id.saveButton);
-
-		return rootView;
->>>>>>> 3c41644321c2ddd978143f97fb50f105b93c7217
 	}
 
 	public static TravistMapViewAdapter getInstance() {
@@ -176,57 +124,63 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		setupMapViewPosition();
 		addLocOverLayToMap();
 		createTileCacheForMap();
-		
+
 		Log.d("MAPPI LUOTII", "MOFO");
-		
-		
+
 		loadMap();
-		
+
 		Bundle bundle = fragment.getArguments();
-		//Retarded way of showing the list-marker on the map
+		// Retarded way of showing the list-marker on the map
 		if (bundle != null) {
-			Log.d("ARGUMENTTEJÄ!", "hiarz");
+			Log.d("ARGUMENTTEJï¿½!", "hiarz");
 			Layers layersz = mapView.getLayerManager().getLayers();
-			
+
 			Drawable markerIconz = activity.getResources().getDrawable(
 					R.drawable.flag_green);
-			
+
 			Bitmap bmz = AndroidGraphicFactory.convertToBitmap(markerIconz);
-			
-			DanielMarker marker = new DanielMarker ((new LatLong(Double.parseDouble(fragment.getArguments().getString("lati")), Double.parseDouble(fragment.getArguments().getString("longi")))), bmz, 0, 0);
+
+			DanielMarker marker = new DanielMarker((new LatLong(
+					Double.parseDouble(fragment.getArguments()
+							.getString("lati")), Double.parseDouble(fragment
+							.getArguments().getString("longi")))), bmz, 0, 0);
 			layersz.add(marker);
-			Log.d("Markerin coords", fragment.getArguments().getString("lati") + "--" + fragment.getArguments().getString("longi"));
+			Log.d("Markerin coords", fragment.getArguments().getString("lati")
+					+ "--" + fragment.getArguments().getString("longi"));
+		} else {
+			// Do nothing 'cos no list-markers to add
 		}
-		else {
-			//Do nothing 'cos no list-markers to add
-		}
-		
+
 		setupFragmentMenuThingy();
 	}
-	
+
 	protected void reInitMapView() {
 		setupMapControls();
 		setupMapViewPosition();
 		addLocOverLayToMap();
 		loadMap();
 		Bundle bundle = fragment.getArguments();
-		//Retarded way of showing the list-marker on the map on reinit(Not working?!)
+		// Retarded way of showing the list-marker on the map on reinit(Not
+		// working?!)
 		if (bundle != null) {
-			Log.d("ARGUMENTTEJÄ!", "hiarz");
+			Log.d("ARGUMENTTEJï¿½!", "hiarz");
 			Layers layersz = mapView.getLayerManager().getLayers();
-			
+
 			Drawable markerIconz = activity.getResources().getDrawable(
 					R.drawable.flag_green);
-			
+
 			Bitmap bmz = AndroidGraphicFactory.convertToBitmap(markerIconz);
-			DanielMarker marker = new DanielMarker ((new LatLong(Double.parseDouble(fragment.getArguments().getString("lati")), Double.parseDouble(fragment.getArguments().getString("longi")))), bmz, 0, 0);
+			DanielMarker marker = new DanielMarker((new LatLong(
+					Double.parseDouble(fragment.getArguments()
+							.getString("lati")), Double.parseDouble(fragment
+							.getArguments().getString("longi")))), bmz, 0, 0);
 			layersz.remove(marker);
 			layersz.add(marker);
-			Log.d("Markerin coords", fragment.getArguments().getString("lati") + "--" + fragment.getArguments().getString("longi"));
-			//TODO Not showing on the map for some fucking reason
-		}
-		else {
-			//Do nothing 'cos no list-markers to add
+			Log.d("Markerin coords", fragment.getArguments().getString("lati")
+					+ "--" + fragment.getArguments().getString("longi"));
+			// TODO Not showing on the map for some fucking reason
+		} else {
+			// Do nothing 'cos no list-markers to add
 		}
 		setupFragmentMenuThingy();
 	}
@@ -329,12 +283,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		
 		TileRendererLayer tileRendererLayer = new TileRendererLayer(tileCache,
 				mapViewPosition, true, AndroidGraphicFactory.INSTANCE) {
-			// room for code.
-			// this had unfunctional onTap listeners
-			//
-			// I think the onTap listeners should be implemented on the
-			// markers
-			// - Joni
+
 			@Override
 			public boolean onTap(LatLong geoPoint, Point viewPosition,
 					Point tapPoint) {
@@ -356,31 +305,9 @@ public class TravistMapViewAdapter implements AsyncFinished {
 				tempLatLong = tapLatLong;
 				activity.openContextMenu(mapView);
 				return true;
-<<<<<<< HEAD
-
-=======
-=======
-			/*
-			 * @Override public boolean onTap(LatLong tapLatLong, Point layerXY,
-			 * Point tapXY) { // TODO Auto-generated method stub if (check) {
-			 * mapView.getLayerManager().getLayers().remove(tempMarker);
-			 * DanielMarker marker = addMarker(tempMarker.getLatLong(),
-			 * tempMarker.getPlace());
-			 * mapView.getLayerManager().getLayers().add(marker);
-			 * tableLayout.setVisibility(View.INVISIBLE); check = false; }
-			 * 
-			 * return super.onTap(tapLatLong, layerXY, tapXY); }
-			 */
-			@Override 
-			public boolean onTap(LatLong geoPoint, Point viewPosition,
-					Point tapPoint) {
-				return false;
-				
->>>>>>> refactor_pnp
->>>>>>> 3c41644321c2ddd978143f97fb50f105b93c7217
 			}
-
-		};
+		}
+		
 
 		tileRendererLayer.setMapFile(mapFile);
 		tileRendererLayer.setTextScale(1.5f);
@@ -396,69 +323,69 @@ public class TravistMapViewAdapter implements AsyncFinished {
 
 		mapView.getLayerManager().getLayers().add(tileRendererLayer);
 	}
-	
-	// TileRendererLayer onTap controller. It'll change behaviour according to changes
+
+	// TileRendererLayer onTap controller. It'll change behaviour according to
+	// changes
 	public void setLayerMode(int state) {
 		logD("set layer mode: " + state, this);
 		layerOnTapController.changeState(state);
 	}
-	
+
 	public void changeViewToSelectOrigin() {
 		// some text view for testing
 		logD("change view: select origin", this);
 		Toast.makeText(context, "select origin point", Toast.LENGTH_LONG);
 	}
-	
 
 	private DanielMarker addMarker(final LatLong latLong, final Place place) {
 		logD("Adding marker");
-		  
+
 		Drawable markerIcon;
-//		 try {
-//			URL url = new URL(place.getIconUrl());
-//			android.graphics.Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-//			markerIcon = new BitmapDrawable(getResources(), bmp);
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			 markerIcon = getResources().getDrawable(R.drawable.flag_green);
-//			e.printStackTrace();
-//		}
-		 
+		// try {
+		// URL url = new URL(place.getIconUrl());
+		// android.graphics.Bitmap bmp =
+		// BitmapFactory.decodeStream(url.openConnection().getInputStream());
+		// markerIcon = new BitmapDrawable(getResources(), bmp);
+		// } catch (IOException e) {
+		// // TODO Auto-generated catch block
+		// markerIcon = getResources().getDrawable(R.drawable.flag_green);
+		// e.printStackTrace();
+		// }
+
 		if (bubbleView == null) {
 			makeBubbleView();
 		}
-		
-		if(place.getIconUrl().contains("entertainment") || place.getIconUrl().contains("art"))
-		{
-				markerIcon = fragment.getResources().getDrawable(R.drawable.gimp_art);
-				Log.i("raaam","I am entertainment");
-		}
-		else if(place.getIconUrl().contains("food") || place.getIconUrl().contains("drink"))
-		{
-				markerIcon = fragment.getResources().getDrawable(R.drawable.gimp_food);
 
+		if (place.getIconUrl().contains("entertainment")
+				|| place.getIconUrl().contains("art")) {
+			markerIcon = fragment.getResources().getDrawable(
+					R.drawable.gimp_art);
+			Log.i("raaam", "I am entertainment");
+		} else if (place.getIconUrl().contains("food")
+				|| place.getIconUrl().contains("drink")) {
+			markerIcon = fragment.getResources().getDrawable(
+					R.drawable.gimp_food);
+
+		} else if (place.getIconUrl().contains("medical")) {
+			markerIcon = fragment.getResources()
+					.getDrawable(R.drawable.medical);
+		} else if (place.getIconUrl().contains("nightlife")) {
+			markerIcon = fragment.getResources().getDrawable(
+					R.drawable.gimp_nightlife);
+		} else if (place.getIconUrl().contains("shop")
+				|| place.getIconUrl().contains("service")) {
+			markerIcon = fragment.getResources().getDrawable(
+					R.drawable.gimp_shopping);
+		} else if (place.getCategoryName().contains("transport")
+				|| place.getIconUrl().contains("travel")) {
+			markerIcon = fragment.getResources().getDrawable(
+					R.drawable.gimp_travel);
+		} else {
+			markerIcon = fragment.getResources().getDrawable(
+					R.drawable.alpha_transparent);
 		}
-		else if(place.getIconUrl().contains("medical"))
-		{
-				markerIcon = fragment.getResources().getDrawable(R.drawable.medical);
-		}
-		else if(place.getIconUrl().contains("nightlife"))
-		{
-				markerIcon = fragment.getResources().getDrawable(R.drawable.gimp_nightlife);
-		}
-		else if(place.getIconUrl().contains("shop") || place.getIconUrl().contains("service"))
-		{
-				markerIcon = fragment.getResources().getDrawable(R.drawable.gimp_shopping);
-		}
-		else if(place.getCategoryName().contains("transport") || place.getIconUrl().contains("travel"))
-		{
-				markerIcon = fragment.getResources().getDrawable(R.drawable.gimp_travel);
-		}
-		else{
-			markerIcon = fragment.getResources().getDrawable(R.drawable.alpha_transparent);
-	 	 }
-		 
-		//hello
+
+		// hello
 		Bitmap bm = AndroidGraphicFactory.convertToBitmap(markerIcon);
 
 		return new DanielMarker(latLong, bm, 0, -bm.getHeight(), place) {
@@ -470,20 +397,22 @@ public class TravistMapViewAdapter implements AsyncFinished {
 						check = true;
 
 						Layers layers = mapView.getLayerManager().getLayers();
-						Log.d("LOG", "Here's tapPoint and viewPosition: " + viewPosition + ", " + tapPoint);
-						 
+						Log.d("LOG", "Here's tapPoint and viewPosition: "
+								+ viewPosition + ", " + tapPoint);
+
 						setTextToBubbleView(place);
-						Bitmap bubble = Utils.viewToBitmap(fragment.getActivity(), bubbleView);
+						Bitmap bubble = Utils.viewToBitmap(
+								fragment.getActivity(), bubbleView);
 						bubble.incrementRefCount();
-						
-						DanielMarker bm = new DanielMarker(latLong, bubble,
-												0, -bubble.getHeight() / 2, place);
-						
+
+						DanielMarker bm = new DanielMarker(latLong, bubble, 0,
+								-bubble.getHeight() / 2, place);
+
 						layers.add(bm);
 						tempMarker = bm;
-						
+
 						setSavingButtonsVisible(true);
-						
+
 						return true;
 					}
 				}
@@ -513,7 +442,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 			 */
 		};
 	}
-	
+
 	private void setSavingButtonsVisible(Boolean visible) {
 		// TODO set buttons visible
 	}
@@ -579,11 +508,12 @@ public class TravistMapViewAdapter implements AsyncFinished {
 					tempLatLong.latitude, tempLatLong.longitude);
 		}
 	}
+
 	public void routeFrom(LatLong latLong) {
 		logD("route from..", this);
 		from = latLong;
 	}
-	
+
 	public void routeTo(LatLong latLong) {
 		logD("route to..", this);
 		if (from != null) {
@@ -591,7 +521,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 					latLong.latitude, latLong.longitude);
 		}
 	}
-	
+
 	public void enableGps() {
 		logD("gps pressed..", this);
 		if (!myLocationOverlay.isMyLocationEnabled()) {
@@ -675,7 +605,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	protected void destroyTileCaches() {
 		this.tileCache.destroy();
 	}
-	
+
 	public Fragment getFragment() {
 		return this.fragment;
 	}
