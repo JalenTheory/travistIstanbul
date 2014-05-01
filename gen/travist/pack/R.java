@@ -112,7 +112,10 @@ public final class R {
         public static final int browse_icon=0x7f0a0052;
         public static final int button1=0x7f0a0000;
         public static final int button2=0x7f0a0001;
+<<<<<<< HEAD
         public static final int categoriesButton=0x7f0a0058;
+=======
+>>>>>>> refactor_pnp
         public static final int categories_list=0x7f0a0005;
         public static final int categorynametextView=0x7f0a000d;
         public static final int content_frame=0x7f0a000a;
@@ -162,23 +165,37 @@ public final class R {
         public static final int emergency_police_number=0x7f0a0030;
         public static final int emergency_police_text=0x7f0a002f;
         public static final int emergency_service_text=0x7f0a0026;
+<<<<<<< HEAD
         public static final int enable_gps=0x7f0a008e;
+=======
+        public static final int enable_gps=0x7f0a008f;
+>>>>>>> refactor_pnp
         public static final int exchange_icon=0x7f0a003b;
         public static final int exchange_rates=0x7f0a003a;
         public static final int exchange_rates_currency_name=0x7f0a0041;
         public static final int exchange_rates_currency_rate=0x7f0a0042;
         public static final int exchange_rates_currency_sign=0x7f0a0040;
         public static final int exchange_rates_list=0x7f0a003f;
+<<<<<<< HEAD
         public static final int expandableListView=0x7f0a007d;
+=======
+        public static final int expandableListView=0x7f0a007e;
+>>>>>>> refactor_pnp
         public static final int header=0x7f0a0004;
         public static final int imageView1=0x7f0a0043;
         public static final int imageViewCategoryIcon=0x7f0a000c;
         public static final int insert=0x7f0a0045;
         public static final int item_detail=0x7f0a0056;
         public static final int left_drawer=0x7f0a000b;
+<<<<<<< HEAD
         public static final int listHeader=0x7f0a0089;
         public static final int listItem=0x7f0a008b;
         public static final int logoff=0x7f0a0053;
+=======
+        public static final int listHeader=0x7f0a008a;
+        public static final int listItem=0x7f0a008c;
+        public static final int logoff=0x7f0a0056;
+>>>>>>> refactor_pnp
         public static final int main_achievements=0x7f0a0054;
         public static final int main_browse=0x7f0a0051;
         public static final int main_checkins=0x7f0a0024;
@@ -188,6 +205,7 @@ public final class R {
         public static final int main_saved=0x7f0a004d;
         public static final int main_todo=0x7f0a004b;
         public static final int main_view_layout=0x7f0a0044;
+<<<<<<< HEAD
         public static final int mapButton=0x7f0a008a;
         public static final int mapView=0x7f0a0057;
         public static final int map_fragment_container=0x7f0a005c;
@@ -249,6 +267,69 @@ public final class R {
         public static final int todo_match_nationality=0x7f0a007f;
         public static final int todo_matchmake=0x7f0a0081;
         public static final int todo_show_map=0x7f0a0080;
+=======
+        public static final int mapButton=0x7f0a008b;
+        public static final int mapView=0x7f0a0059;
+        public static final int map_fragment_container=0x7f0a005d;
+        public static final int map_icon=0x7f0a0089;
+        public static final int mapview=0x7f0a0003;
+        public static final int matchmake_radio_no=0x7f0a0065;
+        public static final int matchmake_radio_yes=0x7f0a0064;
+        public static final int query=0x7f0a0046;
+        public static final int register_GSM=0x7f0a0063;
+        public static final int register_cancel=0x7f0a0067;
+        public static final int register_country=0x7f0a0060;
+        public static final int register_email=0x7f0a0061;
+        public static final int register_name=0x7f0a005f;
+        public static final int register_password=0x7f0a0062;
+        public static final int register_register=0x7f0a0066;
+        public static final int register_username=0x7f0a005e;
+        public static final int route_button=0x7f0a006c;
+        public static final int route_button2=0x7f0a006d;
+        public static final int route_button3=0x7f0a006e;
+        public static final int route_menu_from=0x7f0a008d;
+        public static final int route_menu_to=0x7f0a008e;
+        public static final int route_nav=0x7f0a0068;
+        public static final int routes_mapview_fragment=0x7f0a006a;
+        public static final int row_item_background=0x7f0a0006;
+        public static final int row_item_category=0x7f0a0008;
+        public static final int row_item_category_icon=0x7f0a0007;
+        public static final int saveButton=0x7f0a0087;
+        public static final int saved=0x7f0a006f;
+        public static final int savedTitle=0x7f0a0076;
+        public static final int saved_icon=0x7f0a004f;
+        public static final int saved_item_address=0x7f0a0074;
+        public static final int saved_list=0x7f0a0072;
+        public static final int saved_listaddress=0x7f0a0075;
+        public static final int saved_listname=0x7f0a0073;
+        public static final int savedlistItem=0x7f0a0078;
+        public static final int savedlistview=0x7f0a0077;
+        public static final int savelistButton=0x7f0a005c;
+        public static final int splash_banner=0x7f0a0079;
+        public static final int splash_loading_text=0x7f0a007a;
+        public static final int tableMarker=0x7f0a005a;
+        public static final int test_route_mapview=0x7f0a0069;
+        public static final int textView1=0x7f0a0057;
+        public static final int text_address=0x7f0a0071;
+        public static final int text_currency=0x7f0a003d;
+        public static final int text_in_euros=0x7f0a003e;
+        public static final int text_place=0x7f0a0070;
+        public static final int the_mapview=0x7f0a006b;
+        public static final int title=0x7f0a007d;
+        public static final int todo=0x7f0a007b;
+        public static final int todoButton=0x7f0a005b;
+        public static final int todo_icon=0x7f0a004d;
+        public static final int todo_item_address=0x7f0a0085;
+        public static final int todo_item_match_icon=0x7f0a0083;
+        public static final int todo_list=0x7f0a007c;
+        public static final int todo_list_address=0x7f0a0086;
+        public static final int todo_listname=0x7f0a0084;
+        public static final int todo_map=0x7f0a0088;
+        public static final int todo_match_name=0x7f0a007f;
+        public static final int todo_match_nationality=0x7f0a0080;
+        public static final int todo_matchmake=0x7f0a0082;
+        public static final int todo_show_map=0x7f0a0081;
+>>>>>>> refactor_pnp
         public static final int tv=0x7f0a0002;
         public static final int update=0x7f0a0048;
         public static final int welcome_username=0x7f0a004a;
