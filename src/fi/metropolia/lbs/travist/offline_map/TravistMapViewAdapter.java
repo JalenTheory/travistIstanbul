@@ -494,6 +494,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		addMarker(tempLatLong, tempPlace);
 		//layers.add(addMarker(tempLatLong, tempPlace));
 	}
+	
 	public void addToTodolist() {
 		//add to todo to app db and server
 		ContentValues poi2 = new ContentValues();
