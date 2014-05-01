@@ -30,6 +30,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import fi.metropolia.lbs.travist.foursquare_api.AsyncFinished;
@@ -55,7 +56,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 
 	private MapView mapView = null;
 	private Context context = null;
-	private Fragment fragment = null;
+	private TravistMapViewAdapterFragment fragment = null;
 	private Activity activity = null;
 	private TileCache tileCache;
 	private MapViewPosition mapViewPosition;
@@ -69,6 +70,9 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	DownloadJSON dlJSON = new DownloadJSON(TravistMapViewAdapter.this);
 	private LayerOnTapController layerOnTapController;
 	private TextView bubbleView;
+	private Criteria lastCriteria;
+	private LatLong lastLayerTapLatLong;
+	private View rootView;
 
 	// TODO methods to work as a mediator for integration
 
@@ -98,12 +102,16 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	}
 
 	@SuppressLint("NewApi")
-	public void attachTo(Fragment newFragment) {
+	public void attachTo(TravistMapViewAdapterFragment newFragment) {
 		fragment = newFragment;
 
 		// TODO can these be reduced to just :Context?
 		activity = fragment.getActivity();
 		context = activity;
+	}
+	
+	public void set(View view) {
+		rootView = view;
 	}
 
 	@SuppressLint("NewApi")
@@ -255,6 +263,8 @@ public class TravistMapViewAdapter implements AsyncFinished {
 	 * @param criteria
 	 */
 	public void loadPlaces(Criteria criteria) {
+		lastCriteria = criteria;
+		
 		if (isOnline()) {
 			FourSquareQuery fq = new FourSquareQuery();
 			String url = fq.createQuery(criteria);
@@ -289,7 +299,8 @@ public class TravistMapViewAdapter implements AsyncFinished {
 					Point tapPoint) {
 				
 				logD("onTap clicked on TileRendererLayer");
-				setLayerMode(layerOnTapController.SELECT_ROUTE);
+				///etLayerMode(layerOnTapController.SELECT_ROUTE);
+				lastLayerTapLatLong = geoPoint;
 				layerOnTapController.execute();		
 				
 				return true;
@@ -323,7 +334,18 @@ public class TravistMapViewAdapter implements AsyncFinished {
 
 		mapView.getLayerManager().getLayers().add(tileRendererLayer);
 	}
-
+	
+	public void hideButtons() {
+		fragment.hideButtons();
+	}
+	public void showButtons() {
+		fragment.showButtons();
+	}
+	
+	public LatLong getLastLayerTapPos() {
+		return lastLayerTapLatLong;
+	}
+	
 	// TileRendererLayer onTap controller. It'll change behaviour according to
 	// changes
 	public void setLayerMode(int state) {
@@ -389,6 +411,9 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		Bitmap bm = AndroidGraphicFactory.convertToBitmap(markerIcon);
 
 		return new DanielMarker(latLong, bm, 0, -bm.getHeight(), place) {
+			private LatLong tempPoiLatLong;
+			private Place tempPlace;
+
 			@Override
 			public boolean onTap(LatLong geoPoint, Point viewPosition,
 					Point tapPoint) {
@@ -410,6 +435,9 @@ public class TravistMapViewAdapter implements AsyncFinished {
 
 						layers.add(bm);
 						tempMarker = bm;
+						tempPoiLatLong = geoPoint;
+						tempLatLong = tempPoiLatLong;
+						tempPlace = place;					
 
 						setSavingButtonsVisible(true);
 
@@ -519,6 +547,12 @@ public class TravistMapViewAdapter implements AsyncFinished {
 		if (from != null) {
 			Route.getInstance().calcPath(from.latitude, from.longitude,
 					latLong.latitude, latLong.longitude);
+		}
+	}
+	
+	public void restoreMarkers() {
+		if (bubbleView != null) {
+			loadPlaces(lastCriteria);
 		}
 	}
 

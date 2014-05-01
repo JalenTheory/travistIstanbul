@@ -10,7 +10,12 @@ public class SelectRouteState implements MapState {
 
 	@Override
 	public void execute() {
-		TravistMapViewAdapter.getInstance().changeViewToSelectOrigin();
+		TravistMapViewAdapter tmva = TravistMapViewAdapter.getInstance();
+		tmva.changeViewToSelectOrigin();
+		tmva.routeFrom(tmva.getLastLayerTapPos());
+		tmva.routeTo();
+		
+		tmva.hideButtons();
 		
 		mStateContext.changeState(mStateContext.NORMAL);
 		// routeFromHere

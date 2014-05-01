@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import fi.metropolia.lbs.travist.offline_map.routes.Route;
 
@@ -23,6 +24,18 @@ public class TravistMapViewAdapterFragment extends Fragment{
 	
 	private TravistMapViewAdapter mTravistMapViewAdapter;
 	private Route route;
+	private View rootView;
+	private Button tdlb;
+	private Button slb;
+	
+	public void hideButtons() {
+		tdlb.setVisibility(View.INVISIBLE);
+		slb.setVisibility(View.INVISIBLE);
+	}
+	public void showButtons() {
+		tdlb.setVisibility(View.VISIBLE);
+		slb.setVisibility(View.VISIBLE);
+	}
 	
 	@SuppressLint("NewApi")
 	@Override
@@ -38,16 +51,21 @@ public class TravistMapViewAdapterFragment extends Fragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.map_frag, container, false);
+		rootView = inflater.inflate(R.layout.map_frag, container, false);
 		MapView mapView = (MapView) rootView.findViewById(R.id.mapView);
 		
+		Button tdlb = (Button) rootView.findViewById(R.id.todolist_button);
+		Button slb = (Button) rootView.findViewById(R.id.savelist_button);	
+				
 		if (mTravistMapViewAdapter.getMapView() == null) {
 			mTravistMapViewAdapter.set(mapView);
 			mTravistMapViewAdapter.initMapView();
+			mTravistMapViewAdapter.set(rootView);
 		} else {
 			mTravistMapViewAdapter.set(mapView);
 			mTravistMapViewAdapter.reInitMapView();
 			mTravistMapViewAdapter.loadMap();
+			mTravistMapViewAdapter.set(rootView);
 		}
 		// get first instance. For performance, let's show mapView first before
 		// initializing route

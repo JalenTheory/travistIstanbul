@@ -72,7 +72,7 @@ public class Route {
 	public void calcPath(final double fromLat, final double fromLon,
 			final double toLat, final double toLon) {
 
-		 Toast.makeText(TravistMapViewAdapter.getInstance().getContext(), "Calculating...", Toast.LENGTH_SHORT).show();
+		 Toast.makeText(TravistMapViewAdapter.getInstance().getContext(), "Calculating route...", Toast.LENGTH_SHORT).show();
 		new AsyncTask<Void, Void, GHResponse>() {
 			float time;
 
@@ -103,7 +103,9 @@ public class Route {
 					
 					
 					
-					Toast.makeText(TravistMapViewAdapter.getInstance().getContext(), "Route is found. Route is"+resp.getDistance() / 10f+" km from your current location", Toast.LENGTH_SHORT).show();
+					Toast.makeText(TravistMapViewAdapter.getInstance().getContext(), "Route is "
+							+ String.format("%.2f", (resp.getDistance() / 1000f)) 
+							+" km", Toast.LENGTH_SHORT).show();
 
 					addToLayers(createPolyline(resp));
 					

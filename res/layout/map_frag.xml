@@ -14,8 +14,8 @@
         android:id="@+id/categoriesButton"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:text="categories" 
-        android:visibility="gone"/>
+        android:text="categories"
+        android:visibility="gone" />
 
     <TableLayout
         android:id="@+id/tableMarker"
@@ -30,8 +30,8 @@
             android:padding="5dip" >
 
             <Button
-                android:id="@+id/todoButton"
-                android:layout_width="10dp"
+                android:id="@+id/todolist_button"
+                android:layout_width="8dp"
                 android:layout_height="30dp"
                 android:layout_column="1"
                 android:layout_marginRight="5dp"
@@ -41,14 +41,32 @@
                 android:textSize="10dp" />
 
             <Button
-                android:id="@+id/savelistButton"
-                android:layout_width="10dp"
+                android:id="@+id/savelist_button"
+                android:layout_width="8dp"
                 android:layout_height="30dp"
                 android:layout_column="1"
-                android:textColor="#ffffff"
+                android:background="@drawable/custom_button"
                 android:text="+ save in list"
-                android:textSize="10dp" 
-                android:background="@drawable/custom_button"/>
+                android:textColor="#ffffff"
+                android:textSize="10dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dip" >
+
+            <Button
+                android:id="@+id/route_button"
+                android:layout_width="8dp"
+                android:layout_height="30dp"
+                android:layout_column="1"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/custom_button"
+                android:text="route to here"
+                android:textColor="#ffffff"
+                android:textSize="10dp" />
         </TableRow>
     </TableLayout>
+
 </RelativeLayout>
