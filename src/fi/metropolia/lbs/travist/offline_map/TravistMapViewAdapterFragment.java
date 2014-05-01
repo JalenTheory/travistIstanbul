@@ -53,10 +53,7 @@ public class TravistMapViewAdapterFragment extends Fragment{
 			Bundle savedInstanceState) {
 		rootView = inflater.inflate(R.layout.map_frag, container, false);
 		MapView mapView = (MapView) rootView.findViewById(R.id.mapView);
-		
-		Button tdlb = (Button) rootView.findViewById(R.id.todolist_button);
-		Button slb = (Button) rootView.findViewById(R.id.savelist_button);	
-				
+			
 		if (mTravistMapViewAdapter.getMapView() == null) {
 			mTravistMapViewAdapter.set(mapView);
 			mTravistMapViewAdapter.initMapView();
