@@ -56,9 +56,10 @@ import fi.metropolia.lbs.travist.todo.UpSaved;
  * 
  */
 public class TravistMapViewAdapter implements AsyncFinished {
-
+	ArrayList<Place> places;
 	private static TravistMapViewAdapter uniqueInstance = null;
-
+	int lastPoiLayer;
+	int lastBubbleLayer;
 	private MapView mapView = null;
 	private Context context = null;
 	private TravistMapViewAdapterFragment fragment = null;
@@ -481,6 +482,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 				-bubble.getHeight() / 2, place);
 
 		layers.add(bm);
+		lastBubbleLayer = layers.indexOf(bm);
 		tempMarker = bm;
 		tempGeoPoint = geoPoint;
 		tempLatLong = latLong;
@@ -488,7 +490,10 @@ public class TravistMapViewAdapter implements AsyncFinished {
 
 		setSavingButtonsVisible(true);
 	}
-	
+	public void closeLastBubble() {
+		if (lastBubbleLayer > 0)
+			mapView.getLayerManager().getLayers().remove(lastBubbleLayer);		
+	}
 	public void removeLastMarkerLayer() {
 		Layers layers = mapView.getLayerManager().getLayers();
 		if (layers.indexOf(tempMarker) > 0 && tempMarker != null)
@@ -656,6 +661,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 
 	@Override
 	public void downloadFinish(ArrayList<Place> places) {
+		this.places = places;
 		deletePoisFromMap();
 		Layers layers = mapView.getLayerManager().getLayers();
 		Log.d("LOG", "places: " + places.size());
@@ -672,12 +678,18 @@ public class TravistMapViewAdapter implements AsyncFinished {
 			layers.add(marker1);
 
 			danielMarkers.add(marker1);
+			lastPoiLayer = layers.indexOf(marker1);
 		}
 	}
 
 	public void deletePoisFromMap() {
 		Layers layers = mapView.getLayerManager().getLayers();
-		removeLastMarkerLayer();
+		
+		if (lastPoiLayer > 0) {
+			layers.remove(lastPoiLayer);
+		}
+		/*
+		//removeLastMarkerLayer();
 		Log.d("LOG", "deletePlacez size: " + danielMarkers.size());
 		if (danielMarkers.size() > 15) {
 			for (int i = 0; i < danielMarkers.size(); i++) {
@@ -685,6 +697,7 @@ public class TravistMapViewAdapter implements AsyncFinished {
 			}
 			danielMarkers.clear();
 		}
+		*/
 	}
 
 	// MapsForge examples
